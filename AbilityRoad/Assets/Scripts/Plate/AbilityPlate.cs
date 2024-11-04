@@ -4,17 +4,11 @@ using UnityEngine;
 
 public class AbilityPlate : IPlate
 {
-
     [SerializeField] IPlate _nextPlate;
-
-    public override void Arrive(Pawn target)
-    {
-        Debug.Log("´É·Â È¹µæ");
-        target.GetOwner().EndTurn();
-    }
 
     public override void Leave(CallbackMethod<IPlate> callback)
     {
+        _nowPawn = null;
         callback?.Invoke(_nextPlate);
     }
     public override void NextPlate(IPlate from, CallbackMethod<IPlate> callback)

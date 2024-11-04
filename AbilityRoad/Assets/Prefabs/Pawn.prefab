@@ -49,8 +49,9 @@ MonoBehaviour:
   _owner: {fileID: 0}
   _model: {fileID: 2382411669543825602}
   _nowPlate: {fileID: 0}
-  amount: 12
+  _beforePlate: {fileID: 0}
   _up: {x: 0, y: 0.2, z: 0}
+  _moveTime: 0.5
 --- !u!136 &3698092696231186331
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -101,7 +102,7 @@ Transform:
   m_GameObject: {fileID: 7882004526210249821}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

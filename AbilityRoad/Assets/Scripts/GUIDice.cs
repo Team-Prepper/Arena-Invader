@@ -1,6 +1,7 @@
 using EHTool.UIKit;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,7 +10,7 @@ public class GUIDice : GUIPopUp
     static int random = 1;
 
     [SerializeField] Vector2Int _range;
-
+    [SerializeField] Button _btn;
     [SerializeField] Text _num;
 
     CallbackMethod<int> _callback;
@@ -20,6 +21,7 @@ public class GUIDice : GUIPopUp
     {
         base.Open();
         _num.text = string.Format("{0}", random);
+        _btn.enabled = true;
         _isRolling = false;
     }
 
@@ -32,6 +34,7 @@ public class GUIDice : GUIPopUp
         if (_isRolling) return;
 
         StartCoroutine(Dice());
+        _btn.enabled = false;
         _isRolling = true;
     }
 

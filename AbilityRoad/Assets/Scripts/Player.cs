@@ -13,7 +13,10 @@ public class Player : MonoBehaviour {
     IList<Vector3> _emptyPlace;
 
     int _level;
-    int _housePawnCnt;
+
+    [SerializeField] int _attack;
+    [SerializeField] int _defense;
+    [SerializeField] int _health;
 
     public void SetInitial(int idx)
     {
@@ -27,9 +30,23 @@ public class Player : MonoBehaviour {
             _pawns[i].transform.position = _pawnPosition[i].position;
         }
 
-        _housePawnCnt = _pawns.Length;
         _emptyPlace = new List<Vector3>();
 
+    }
+
+    internal void AddHeal(int healAmount)
+    {
+        _health += healAmount;
+    }
+
+    internal void AddAttack(int attackAmount)
+    {
+        _attack += attackAmount;
+    }
+
+    internal void AddDefence(int defenceAmount)
+    {
+        _defense += defenceAmount;
     }
 
     public void LeavePawn(Pawn pawn) {

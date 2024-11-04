@@ -11,4 +11,6 @@ public interface IPlayground
     public void TurnStart();
     public void TurnEnd();
 
+    public void Battle(Player attacker, CallbackMethod callback);
+
 }

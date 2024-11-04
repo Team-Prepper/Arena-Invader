@@ -1,13 +1,9 @@
 using EHTool.UIKit;
 
 public class OneMoreChance : IOverlapEvent {
-    public void Event(Pawn defaultPawn, Pawn newPawn)
+    public void Event(IPlate plate, Pawn newPawn)
     {
-        if (defaultPawn.GetOwner() == newPawn.GetOwner()) {
-            defaultPawn.PiggyBack(newPawn);
-            defaultPawn.GetOwner().EndTurn();
-            return;
-        }
+        Pawn defaultPawn = plate.GetPawn();
 
         UIManager.Instance.OpenGUI<GUIDice>("Dice").SetCallback((amount) =>
         {

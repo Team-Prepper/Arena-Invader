@@ -6,8 +6,9 @@ public class Pawn : MonoBehaviour {
 
     [SerializeField] Player _owner;
     [SerializeField] Transform _model;
+    [SerializeField] IPawnMove _move;
 
-    Pawn _piggyBacked;
+    Pawn _piggyBacking;
     bool _isPiggyBacked;
 
     [SerializeField] IPlate _nowPlate;
@@ -43,15 +44,19 @@ public class Pawn : MonoBehaviour {
             _owner.LeavePawn(this);
             _nowPlate = GameManager.Instance.Playground.Map.GetStartPlate();
 
-            StartCoroutine(_MoveTo(_nowPlate.transform.position, _moveTime, 0f, () => {
-                _nowPlate.Leave(MoveTo);
-            }));
+            _move.MoveTo(_nowPlate.transform.position, _moveTime, 0f, () => {
+                _nowPlate.Leave(this, MoveTo);
+            });
 
             return;
         }
 
-        _nowPlate.Leave(MoveTo);
+        _nowPlate.Leave(this, MoveTo);
 
+    }
+
+    public void MoveTo(Vector3 pos) {
+        _move.MoveTo(pos, _moveTime, 0, null);
     }
 
     public void MoveTo(IPlate plate)
@@ -64,28 +69,28 @@ public class Pawn : MonoBehaviour {
 
         _movePoint--;
 
-        StartCoroutine(_MoveTo(plate.transform.position, _moveTime, 0.1f, () => {
+        _move.MoveTo(plate.transform.position, _moveTime, 0.1f, () => {
             _beforePlate = _nowPlate;
             _nowPlate = plate;
 
             if (_movePoint < 1)
             {
-                _nowPlate.Arrive(this);
+                _nowPlate.Arrive(this, GetCount(), () => { GetOwner().EndTurn(); });
                 return;
             }
 
             plate.NextPlate(_beforePlate, MoveTo);
 
-        }));
+        });
     }
 
     void Arrive()
     {
 
-        if (_piggyBacked)
+        if (_piggyBacking)
         {
-            _piggyBacked.transform.SetParent(null);
-            _piggyBacked.Arrive();
+            _piggyBacking.transform.SetParent(null);
+            _piggyBacking.Arrive();
         }
 
         _nowPlate = null;
@@ -94,33 +99,40 @@ public class Pawn : MonoBehaviour {
 
     }
 
-    IEnumerator _MoveTo(Vector3 goalPos, float moveTime, float stopTime, CallbackMethod callback)
+    public void BackHome()
     {
-        float spendTime = 0;
-        Vector3 originPos = transform.position;
-        while (spendTime < moveTime) {
-            yield return null;
-            spendTime += Time.deltaTime;
-            transform.position = Vector3.Lerp(originPos, goalPos, spendTime / moveTime);
+        if (_piggyBacking)
+        {
+            _piggyBacking.transform.SetParent(null);
+            _piggyBacking.BackHome();
         }
-
-        yield return new WaitForSeconds(stopTime);
-
-        transform.position = goalPos;
-        callback?.Invoke();
+        _nowPlate = null;
+        GetOwner().BackHomePawn(this);
     }
 
-    public void PiggyBack(Pawn target) {
+    private int GetCount()
+    {
+        if (_piggyBacking == null) return 1;
+        return _piggyBacking.GetCount() + 1;
+    }
+
+    public void PiggyBack(Pawn target)
+    {
+        if (_piggyBacking)
+        {
+            _piggyBacking.PiggyBack(target);
+            return;
+        }
         target.PiggyBacked(this);
-        _piggyBacked = target;
+        _piggyBacking = target;
     }
 
     protected void PiggyBacked(Pawn owner) {
-        transform.position += _up;
         _nowPlate = null;
         _isPiggyBacked = true;
         gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
         transform.SetParent(owner._model.transform);
+        transform.position = owner.transform.position + _up;
     }
 
     public void EnterTurn()

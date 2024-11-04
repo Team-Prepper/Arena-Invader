@@ -24,7 +24,7 @@ public class BranchPlate : IPlate
             _fromTo.Add(_infor[i]._from, _infor[i]._to);
         }
     }
-    public override void Leave(CallbackMethod<IPlate> callback)
+    public override void Leave(Pawn Target, CallbackMethod<IPlate> callback)
     {
         _nowPawn = null;
         callback?.Invoke(_nextPlate);

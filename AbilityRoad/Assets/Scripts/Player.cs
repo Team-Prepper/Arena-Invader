@@ -18,6 +18,8 @@ public class Player : MonoBehaviour {
     [SerializeField] int _defense;
     [SerializeField] int _health;
 
+    int _chance = 0;
+
     public void SetInitial(int idx)
     {
         _level = 0;
@@ -57,23 +59,48 @@ public class Player : MonoBehaviour {
     {
         _level++;
 
-        pawn.transform.position = _emptyPlace[0];
+        pawn.MoveTo(_emptyPlace[0]);
         _emptyPlace.RemoveAt(0);
 
         EndTurn();
     }
 
+    public void BackHomePawn(Pawn pawn)
+    {
+        pawn.MoveTo(_emptyPlace[0]);
+        _emptyPlace.RemoveAt(0);
+
+    }
+
     public void StartTurn()
     {
+        _chance = 1;
+        RollDice();
+    }
+
+    public void EndTurn() {
+        if (_chance == 0)
+        {
+            GameManager.Instance.Playground.TurnEnd();
+            return;
+        }
+        RollDice();
+    }
+
+    public void AddChance() {
+        _chance++;
+    }
+
+    void RollDice()
+    {
+        _chance--;
+
         UIManager.Instance.OpenGUI<GUIDice>("Dice").SetCallback((value) => {
             UIManager.Instance.OpenGUI<GUISelectMovePawn>("SelectMovePawn").SetPlayer(this, value);
         });
 
     }
 
-    public void EndTurn() {
-        GameManager.Instance.Playground.TurnEnd();
-    }
     public void OnPawnChoose()
     {
         for (int i = 0; i < _pawns.Length; i++)

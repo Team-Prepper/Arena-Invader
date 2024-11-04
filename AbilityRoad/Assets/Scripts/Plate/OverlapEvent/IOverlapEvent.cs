@@ -1,3 +1,3 @@
 ﻿public interface IOverlapEvent {
-    void Event(Pawn defaultPawn, Pawn newPawn);
+    void Event(IPlate plate, Pawn newPawn);
 }

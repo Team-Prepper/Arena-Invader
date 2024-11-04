@@ -38,4 +38,8 @@ public class Playground : IPlayground {
         TurnStart();
     }
 
+    public void Battle(Player attacker, CallbackMethod callback) { 
+        
+    }
+
 }

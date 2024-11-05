@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3698092696231186331}
   - component: {fileID: 5621369175506155979}
   - component: {fileID: 9038997950466094188}
+  - component: {fileID: 5612870003875584293}
   m_Layer: 0
   m_Name: Pawn_Super
   m_TagString: Pawn
@@ -72,11 +73,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _owner: {fileID: 0}
   _model: {fileID: 2382411669543825602}
-  _move: {fileID: 9038997950466094188}
+  _moveOnMap: {fileID: 9038997950466094188}
+  _moveTo: {fileID: 5612870003875584293}
   _nowPlate: {fileID: 0}
   _beforePlate: {fileID: 0}
   _up: {x: 0, y: 0.2, z: 0}
-  _moveTime: 0.5
   _attackCoefficient: 2
   _defenseCoefficient: 2
   _healCoefficient: 2
@@ -94,6 +95,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8469992c320b8b14c9950d2b0fe9a9e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _startStall: 0
+  _moveStall: 0.1
+  _moveTime: 0.2
+--- !u!114 &5612870003875584293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 936136003452631792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab0eb44bd614f834b9741b354bb81a78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stall: 0.3
+  _delay: 0.3
 --- !u!1 &3995697882601145122
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,9 +3,57 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CoroutinePawnMove : IPawnMove {
-    public override void MoveTo(Vector3 goal, float moveTime, float stopTime, CallbackMethod callback)
+
+    [SerializeField] float _startStall;
+    [SerializeField] float _moveStall;
+    [SerializeField] float _moveTime = 0.5f;
+
+    CallbackMethod _arriveCallback;
+    CallbackMethod<IPlate> _moveEndCallback;
+
+    IPlate _beforePlate;
+    IPlate _nowPlate;
+    int _movePoint;
+
+    public override void MoveTo(IPlate startPos, Pawn target, int amount, CallbackMethod arrive, CallbackMethod<IPlate> moveEnd)
     {
-        StartCoroutine(_MoveTo(goal, moveTime, stopTime, callback));
+        _movePoint = amount;
+
+        _arriveCallback = arrive;
+        _moveEndCallback = moveEnd;
+
+        startPos.Leave(target, MoveTo);
+    }
+
+    public override void DisposeTo(Vector3 pos)
+    {
+        StartCoroutine(_MoveTo(pos, _moveTime, 0, null));
+    }
+
+    public void MoveTo(IPlate plate)
+    {
+
+        if (plate == null)
+        {
+            _arriveCallback?.Invoke();
+            return;
+        }
+
+        _movePoint--;
+
+        StartCoroutine(_MoveTo(plate.transform.position, _moveTime, _moveStall, () => {
+            _beforePlate = _nowPlate;
+            _nowPlate = plate;
+
+            if (_movePoint < 1)
+            {
+                _moveEndCallback?.Invoke(plate);
+                return;
+            }
+
+            plate.NextPlate(_beforePlate, MoveTo);
+
+        }));
     }
 
     IEnumerator _MoveTo(Vector3 goalPos, float moveTime, float stopTime, CallbackMethod callback)

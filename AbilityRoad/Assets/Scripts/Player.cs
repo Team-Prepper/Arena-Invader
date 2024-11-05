@@ -59,7 +59,7 @@ public class Player : MonoBehaviour {
     {
         _level += levelUpAmount;
 
-        pawn.MoveTo(_emptyPlace[0]);
+        pawn.Dispose(_emptyPlace[0]);
         _emptyPlace.RemoveAt(0);
 
         if (isPiggyBacked) return;
@@ -69,7 +69,7 @@ public class Player : MonoBehaviour {
 
     public void BackHomePawn(Pawn pawn)
     {
-        pawn.MoveTo(_emptyPlace[0]);
+        pawn.Dispose(_emptyPlace[0]);
         _emptyPlace.RemoveAt(0);
 
     }

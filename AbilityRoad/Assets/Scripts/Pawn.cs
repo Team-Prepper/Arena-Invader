@@ -6,7 +6,8 @@ public class Pawn : MonoBehaviour {
 
     [SerializeField] Player _owner;
     [SerializeField] Transform _model;
-    [SerializeField] IPawnMove _move;
+    [SerializeField] IPawnMove _moveOnMap;
+    [SerializeField] IMoveTo _moveTo;
 
     Pawn _piggyBacking;
     bool _isPiggyBacked;
@@ -16,7 +17,6 @@ public class Pawn : MonoBehaviour {
 
     [SerializeField] Vector3 _up = Vector3.up;
 
-    [SerializeField] float _moveTime = 0.5f;
     int _movePoint = 0;
 
     [SerializeField] int _attackCoefficient = 1;
@@ -45,49 +45,31 @@ public class Pawn : MonoBehaviour {
     {
         _movePoint = amount + _moveCoefficient;
 
-        if (_nowPlate == null)
-        {
-            _owner.LeavePawn(this);
-            _nowPlate = GameManager.Instance.Playground.Map.GetStartPlate();
-
-            _move.MoveTo(_nowPlate.transform.position, _moveTime, 0f, () => {
-                _nowPlate.Leave(this, MoveTo);
-            });
-
-            return;
-        }
-
-        _nowPlate.Leave(this, MoveTo);
-
-    }
-
-    public void MoveTo(Vector3 pos) {
-        _move.MoveTo(pos, _moveTime, 0, null);
-    }
-
-    public void MoveTo(IPlate plate)
-    {
-        if (plate == null)
-        {
-            Arrive();
-            return;
-        }
-
-        _movePoint--;
-
-        _move.MoveTo(plate.transform.position, _moveTime, 0.1f, () => {
-            _beforePlate = _nowPlate;
-            _nowPlate = plate;
-
-            if (_movePoint < 1)
-            {
+        void PawnMove() {
+            _moveOnMap.MoveTo(_nowPlate, this, _movePoint, Arrive, (value) => {
+                _nowPlate = value;
                 _nowPlate.Arrive(this, () => { GetOwner().EndTurn(); });
-                return;
-            }
+            });
+        }
 
-            plate.NextPlate(_beforePlate, MoveTo);
+        if (_nowPlate != null)
+        {
+            PawnMove();
+            return;
+        }
 
+        _owner.LeavePawn(this);
+        _nowPlate = GameManager.Instance.Playground.Map.GetStartPlate();
+
+        _moveTo.MoveTo(_nowPlate.transform.position, () =>
+        {
+            PawnMove();
         });
+
+    }
+
+    public void Dispose(Vector3 pos) {
+        _moveTo.MoveTo(pos, null);
     }
 
     void Arrive()

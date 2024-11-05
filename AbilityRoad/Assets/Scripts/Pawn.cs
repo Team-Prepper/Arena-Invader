@@ -19,7 +19,13 @@ public class Pawn : MonoBehaviour {
     [SerializeField] float _moveTime = 0.5f;
     int _movePoint = 0;
 
-    internal void SetOwner(Player player)
+    [SerializeField] int _attackCoefficient = 1;
+    [SerializeField] int _defenseCoefficient = 1;
+    [SerializeField] int _healCoefficient = 1;
+    [SerializeField] int _moveCoefficient = 0;
+    [SerializeField] int _levelCoefficient = 1;
+
+    public void SetOwner(Player player)
     {
         gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
         _owner = player;
@@ -37,7 +43,7 @@ public class Pawn : MonoBehaviour {
 
     public void Move(int amount)
     {
-        _movePoint = amount;
+        _movePoint = amount + _moveCoefficient;
 
         if (_nowPlate == null)
         {
@@ -75,7 +81,7 @@ public class Pawn : MonoBehaviour {
 
             if (_movePoint < 1)
             {
-                _nowPlate.Arrive(this, GetCount(), () => { GetOwner().EndTurn(); });
+                _nowPlate.Arrive(this, () => { GetOwner().EndTurn(); });
                 return;
             }
 
@@ -91,10 +97,11 @@ public class Pawn : MonoBehaviour {
         {
             _piggyBacking.transform.SetParent(null);
             _piggyBacking.Arrive();
+            _piggyBacking = null;
         }
 
         _nowPlate = null;
-        _owner.LevelUp(this);
+        _owner.LevelUp(this, _levelCoefficient, _isPiggyBacked);
         _isPiggyBacked = false;
 
     }
@@ -105,15 +112,11 @@ public class Pawn : MonoBehaviour {
         {
             _piggyBacking.transform.SetParent(null);
             _piggyBacking.BackHome();
+            _piggyBacking = null;
         }
         _nowPlate = null;
         GetOwner().BackHomePawn(this);
-    }
-
-    private int GetCount()
-    {
-        if (_piggyBacking == null) return 1;
-        return _piggyBacking.GetCount() + 1;
+        _isPiggyBacked = false;
     }
 
     public void PiggyBack(Pawn target)
@@ -162,7 +165,21 @@ public class Pawn : MonoBehaviour {
         _model.position -= _up;
     }
 
-    public bool IsOnMap() {
-        return true;
+    public void AddAttack(int attackAmount)
+    {
+        if (_piggyBacking != null) _piggyBacking.AddAttack(attackAmount);
+        GetOwner().AddAttack(attackAmount * _attackCoefficient);
+    }
+
+    public void AddDefence(int defenceAmount)
+    {
+        if (_piggyBacking != null) _piggyBacking.AddDefence(defenceAmount);
+        GetOwner().AddDefence(defenceAmount * _defenseCoefficient);
+    }
+
+    public void AddHeal(int healAmount)
+    {
+        if (_piggyBacking != null) _piggyBacking.AddHeal(healAmount);
+        GetOwner().AddHeal(healAmount * _healCoefficient);
     }
 }

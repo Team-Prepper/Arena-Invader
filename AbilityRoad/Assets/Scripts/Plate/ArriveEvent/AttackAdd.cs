@@ -5,9 +5,9 @@ public class AttackAdd : IArriveEvent {
 
     [SerializeField] int _attackAmount = 0;
 
-    public override void AddAbility(Pawn target, int amount, CallbackMethod callback)
+    public override void AddAbility(Pawn target, CallbackMethod callback)
     {
-        target.GetOwner().AddAttack(_attackAmount * amount);
+        target.AddAttack(_attackAmount);
         callback?.Invoke();
     }
 }

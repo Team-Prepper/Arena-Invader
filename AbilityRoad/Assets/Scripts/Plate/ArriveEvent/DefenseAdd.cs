@@ -5,9 +5,9 @@ public class DefenceAdd : IArriveEvent {
 
     [SerializeField] int _defenceAmount = 0;
 
-    public override void AddAbility(Pawn target, int amount, CallbackMethod callback)
+    public override void AddAbility(Pawn target, CallbackMethod callback)
     {
-        target.GetOwner().AddDefence(_defenceAmount * amount);
+        target.AddDefence(_defenceAmount);
         callback?.Invoke();
     }
 }

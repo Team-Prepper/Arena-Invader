@@ -15,7 +15,7 @@ public abstract class IPlate : MonoBehaviour {
     abstract public void Leave(Pawn Target, CallbackMethod<IPlate> callback);
     abstract public void NextPlate(IPlate from, CallbackMethod<IPlate> callback);
 
-    public void Arrive(Pawn pawn, int amount = 1, CallbackMethod callback = null)
+    public void Arrive(Pawn pawn, CallbackMethod callback = null)
     {
         void EventCallback()
         {
@@ -38,7 +38,7 @@ public abstract class IPlate : MonoBehaviour {
             return;
         }
 
-        _event.AddAbility(pawn, amount, EventCallback);
+        _event.AddAbility(pawn, EventCallback);
     }
 
     public void SetPawn(Pawn pawn) {

@@ -2,4 +2,5 @@
 <List>
   <Element name="Dice"                path="Prefabs/GUI/PopUp/GUI_Dice" />
   <Element name="SelectMovePawn"      path="Prefabs/GUI/PopUp/GUI_SelectMovePawn" />
+  <Element name="Battle"              path="Prefabs/GUI/PopUp/GUI_Battle" />
 </List>

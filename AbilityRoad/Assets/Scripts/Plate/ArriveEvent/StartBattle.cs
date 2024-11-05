@@ -1,10 +1,11 @@
+using EHTool.UIKit;
 using System;
 using UnityEngine;
 
 public class StartBattle : IArriveEvent {
 
-    public override void AddAbility(Pawn target, int amount, CallbackMethod callback)
+    public override void AddAbility(Pawn target, CallbackMethod callback)
     {
-        GameManager.Instance.Playground.Battle(target.GetOwner(), callback);
+        UIManager.Instance.OpenGUI<GUIBattle>("Battle").StartBattle(target.GetOwner(), callback);
     }
 }

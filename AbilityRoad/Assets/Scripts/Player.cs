@@ -55,12 +55,14 @@ public class Player : MonoBehaviour {
         _emptyPlace.Add(pawn.transform.position);
     }
 
-    public void LevelUp(Pawn pawn)
+    public void LevelUp(Pawn pawn, int levelUpAmount, bool isPiggyBacked)
     {
-        _level++;
+        _level += levelUpAmount;
 
         pawn.MoveTo(_emptyPlace[0]);
         _emptyPlace.RemoveAt(0);
+
+        if (isPiggyBacked) return;
 
         EndTurn();
     }

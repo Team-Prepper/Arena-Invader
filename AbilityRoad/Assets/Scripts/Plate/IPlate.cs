@@ -12,6 +12,11 @@ public abstract class IPlate : MonoBehaviour {
 
     protected Pawn _nowPawn;
 
+    private void Start()
+    {
+        _event = GetComponent<IArriveEvent>();
+    }
+
     abstract public void Leave(Pawn Target, CallbackMethod<IPlate> callback);
     abstract public void NextPlate(IPlate from, CallbackMethod<IPlate> callback);
 

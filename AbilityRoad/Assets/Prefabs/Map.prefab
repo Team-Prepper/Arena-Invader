@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4617020874861959260}
   - component: {fileID: 904595684916041242}
   - component: {fileID: 414084158817975474}
+  - component: {fileID: 4321622584441664708}
   m_Layer: 0
   m_Name: Plate (3)
   m_TagString: Untagged
@@ -62,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 5311104922f04d94cac355492c6c7c6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -98,6 +99,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _event: {fileID: 0}
   _nextPlate: {fileID: 4453501953603519183}
+--- !u!114 &4321622584441664708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 370446958436906245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e0ba9b3af7f7fc4eadcbf26b6c1e431, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healAmount: 10
 --- !u!1 &1276442494018259196
 GameObject:
   m_ObjectHideFlags: 0
@@ -221,6 +235,7 @@ GameObject:
   - component: {fileID: 5328027309919299800}
   - component: {fileID: 6722446169268100351}
   - component: {fileID: 5400788839487918715}
+  - component: {fileID: 355885980753716193}
   m_Layer: 0
   m_Name: Plate (4)
   m_TagString: Untagged
@@ -271,7 +286,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 5311104922f04d94cac355492c6c7c6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -307,6 +322,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _event: {fileID: 0}
   _nextPlate: {fileID: 8471099410706177470}
+--- !u!114 &355885980753716193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1341242882055920873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e0ba9b3af7f7fc4eadcbf26b6c1e431, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healAmount: 10
 --- !u!1 &1407460051530045454
 GameObject:
   m_ObjectHideFlags: 0
@@ -465,6 +493,7 @@ GameObject:
   - component: {fileID: 5154318124501405185}
   - component: {fileID: 3846622274360477852}
   - component: {fileID: 8154443809992989906}
+  - component: {fileID: 8694865835135658103}
   m_Layer: 0
   m_Name: Plate (2)
   m_TagString: Untagged
@@ -515,7 +544,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 5311104922f04d94cac355492c6c7c6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -551,6 +580,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _event: {fileID: 0}
   _nextPlate: {fileID: 703675186375053917}
+--- !u!114 &8694865835135658103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1486014911230278309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e0ba9b3af7f7fc4eadcbf26b6c1e431, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healAmount: 10
 --- !u!1 &1510679240225787201
 GameObject:
   m_ObjectHideFlags: 0
@@ -563,6 +605,7 @@ GameObject:
   - component: {fileID: 7733799216781048903}
   - component: {fileID: 5307073970600494173}
   - component: {fileID: 770505102428170459}
+  - component: {fileID: 714229129011211704}
   m_Layer: 0
   m_Name: Plate (3)
   m_TagString: Untagged
@@ -613,7 +656,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 5311104922f04d94cac355492c6c7c6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -649,6 +692,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _event: {fileID: 0}
   _nextPlate: {fileID: 5400788839487918715}
+--- !u!114 &714229129011211704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1510679240225787201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e0ba9b3af7f7fc4eadcbf26b6c1e431, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healAmount: 10
 --- !u!1 &1957090326420162432
 GameObject:
   m_ObjectHideFlags: 0
@@ -762,6 +818,7 @@ GameObject:
   - component: {fileID: 7946694327248993032}
   - component: {fileID: 7814142196396847646}
   - component: {fileID: 2042473838446787162}
+  - component: {fileID: 6044031574907111783}
   m_Layer: 0
   m_Name: Plate (2)
   m_TagString: Untagged
@@ -812,7 +869,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 5311104922f04d94cac355492c6c7c6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -848,6 +905,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _event: {fileID: 0}
   _nextPlate: {fileID: 703675186375053917}
+--- !u!114 &6044031574907111783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2557727928502044429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e0ba9b3af7f7fc4eadcbf26b6c1e431, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healAmount: 10
 --- !u!1 &2871072411304849645
 GameObject:
   m_ObjectHideFlags: 0
@@ -860,6 +930,7 @@ GameObject:
   - component: {fileID: 5580650894174014896}
   - component: {fileID: 1897308449777230007}
   - component: {fileID: 7695523028414803101}
+  - component: {fileID: 4066423589789376545}
   m_Layer: 0
   m_Name: Plate (1)
   m_TagString: Untagged
@@ -910,7 +981,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 5311104922f04d94cac355492c6c7c6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -946,6 +1017,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _event: {fileID: 0}
   _nextPlate: {fileID: 7794578701202279211}
+--- !u!114 &4066423589789376545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2871072411304849645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e0ba9b3af7f7fc4eadcbf26b6c1e431, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healAmount: 10
 --- !u!1 &2919857658494376323
 GameObject:
   m_ObjectHideFlags: 0
@@ -958,6 +1042,7 @@ GameObject:
   - component: {fileID: 3378598960942443332}
   - component: {fileID: 4558294416593145024}
   - component: {fileID: 780776222825470464}
+  - component: {fileID: 960599539374840190}
   m_Layer: 0
   m_Name: Plate (3)
   m_TagString: Untagged
@@ -1008,7 +1093,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 5311104922f04d94cac355492c6c7c6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1044,6 +1129,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _event: {fileID: 0}
   _nextPlate: {fileID: 7370036899790998589}
+--- !u!114 &960599539374840190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2919857658494376323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e0ba9b3af7f7fc4eadcbf26b6c1e431, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healAmount: 10
 --- !u!1 &3062046953260716983
 GameObject:
   m_ObjectHideFlags: 0
@@ -1327,6 +1425,7 @@ GameObject:
   - component: {fileID: 543262987319063968}
   - component: {fileID: 2822063325254700509}
   - component: {fileID: 7422563892429000592}
+  - component: {fileID: 4523850492505805674}
   m_Layer: 0
   m_Name: Plate (1)
   m_TagString: Untagged
@@ -1377,7 +1476,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 5311104922f04d94cac355492c6c7c6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1413,6 +1512,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _event: {fileID: 0}
   _nextPlate: {fileID: 7384469541733791754}
+--- !u!114 &4523850492505805674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4110463224070343151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e0ba9b3af7f7fc4eadcbf26b6c1e431, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healAmount: 10
 --- !u!1 &4155772314832673128
 GameObject:
   m_ObjectHideFlags: 0
@@ -1425,6 +1537,7 @@ GameObject:
   - component: {fileID: 3850855625047370070}
   - component: {fileID: 2481889255338231575}
   - component: {fileID: 63120516936217394}
+  - component: {fileID: 7658889039988787872}
   m_Layer: 0
   m_Name: Plate (3)
   m_TagString: Untagged
@@ -1475,7 +1588,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 5311104922f04d94cac355492c6c7c6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1511,6 +1624,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _event: {fileID: 0}
   _nextPlate: {fileID: 8957110375764707455}
+--- !u!114 &7658889039988787872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4155772314832673128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e0ba9b3af7f7fc4eadcbf26b6c1e431, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healAmount: 10
 --- !u!1 &4482650832078977989
 GameObject:
   m_ObjectHideFlags: 0
@@ -1523,6 +1649,7 @@ GameObject:
   - component: {fileID: 6358081425486682767}
   - component: {fileID: 7695762935551580584}
   - component: {fileID: 1242210032744979175}
+  - component: {fileID: 7065951943034491156}
   m_Layer: 0
   m_Name: Plate (1)
   m_TagString: Untagged
@@ -1573,7 +1700,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 5311104922f04d94cac355492c6c7c6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1609,6 +1736,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _event: {fileID: 0}
   _nextPlate: {fileID: 9039541366124403629}
+--- !u!114 &7065951943034491156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4482650832078977989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e0ba9b3af7f7fc4eadcbf26b6c1e431, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healAmount: 10
 --- !u!1 &4494404905904650951
 GameObject:
   m_ObjectHideFlags: 0
@@ -1656,6 +1796,7 @@ GameObject:
   - component: {fileID: 8974659554448426599}
   - component: {fileID: 8493974502190674579}
   - component: {fileID: 9039541366124403629}
+  - component: {fileID: 7668271397036966595}
   m_Layer: 0
   m_Name: Plate (2)
   m_TagString: Untagged
@@ -1706,7 +1847,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 5311104922f04d94cac355492c6c7c6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1742,6 +1883,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _event: {fileID: 0}
   _nextPlate: {fileID: 780776222825470464}
+--- !u!114 &7668271397036966595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4894807083588876462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e0ba9b3af7f7fc4eadcbf26b6c1e431, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healAmount: 10
 --- !u!1 &4938655161851875164
 GameObject:
   m_ObjectHideFlags: 0
@@ -1754,6 +1908,7 @@ GameObject:
   - component: {fileID: 8723130458220173053}
   - component: {fileID: 7169627067083718395}
   - component: {fileID: 5064894359752689119}
+  - component: {fileID: 3033716218445765303}
   m_Layer: 0
   m_Name: Plate (4)
   m_TagString: Untagged
@@ -1804,7 +1959,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 5311104922f04d94cac355492c6c7c6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1840,6 +1995,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _event: {fileID: 0}
   _nextPlate: {fileID: 3898929998794558059}
+--- !u!114 &3033716218445765303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4938655161851875164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e0ba9b3af7f7fc4eadcbf26b6c1e431, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healAmount: 10
 --- !u!1 &5279106414486935783
 GameObject:
   m_ObjectHideFlags: 0
@@ -1852,6 +2020,7 @@ GameObject:
   - component: {fileID: 7010665770636489329}
   - component: {fileID: 1485168656530523914}
   - component: {fileID: 1563520122417781615}
+  - component: {fileID: 1193383498261606112}
   m_Layer: 0
   m_Name: Plate (3)
   m_TagString: Untagged
@@ -1902,7 +2071,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 5311104922f04d94cac355492c6c7c6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1938,6 +2107,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _event: {fileID: 0}
   _nextPlate: {fileID: 3685603294204943634}
+--- !u!114 &1193383498261606112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5279106414486935783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e0ba9b3af7f7fc4eadcbf26b6c1e431, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healAmount: 10
 --- !u!1 &5379305033532750646
 GameObject:
   m_ObjectHideFlags: 0
@@ -2048,6 +2230,7 @@ GameObject:
   - component: {fileID: 1149743781170089754}
   - component: {fileID: 1637957645182963617}
   - component: {fileID: 7794578701202279211}
+  - component: {fileID: 8014078370815545824}
   m_Layer: 0
   m_Name: Plate (2)
   m_TagString: Untagged
@@ -2098,7 +2281,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 5311104922f04d94cac355492c6c7c6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2134,6 +2317,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _event: {fileID: 0}
   _nextPlate: {fileID: 1563520122417781615}
+--- !u!114 &8014078370815545824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5412638496160428180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e0ba9b3af7f7fc4eadcbf26b6c1e431, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healAmount: 10
 --- !u!1 &5644921040821624276
 GameObject:
   m_ObjectHideFlags: 0
@@ -2203,6 +2399,7 @@ GameObject:
   - component: {fileID: 6365402216348971360}
   - component: {fileID: 7336688639914633433}
   - component: {fileID: 4242500513055111280}
+  - component: {fileID: 317350529311878072}
   m_Layer: 0
   m_Name: Plate (3)
   m_TagString: Untagged
@@ -2253,7 +2450,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 5311104922f04d94cac355492c6c7c6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2289,6 +2486,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _event: {fileID: 0}
   _nextPlate: {fileID: 5064894359752689119}
+--- !u!114 &317350529311878072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5894198595178470569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e0ba9b3af7f7fc4eadcbf26b6c1e431, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healAmount: 10
 --- !u!1 &6838156368832011993
 GameObject:
   m_ObjectHideFlags: 0
@@ -2301,6 +2511,7 @@ GameObject:
   - component: {fileID: 1279981571483178178}
   - component: {fileID: 5228842141336502735}
   - component: {fileID: 6748433707095115825}
+  - component: {fileID: 3972170969904910686}
   m_Layer: 0
   m_Name: Plate (2)
   m_TagString: Untagged
@@ -2351,7 +2562,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 5311104922f04d94cac355492c6c7c6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2387,6 +2598,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _event: {fileID: 0}
   _nextPlate: {fileID: 414084158817975474}
+--- !u!114 &3972170969904910686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6838156368832011993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e0ba9b3af7f7fc4eadcbf26b6c1e431, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healAmount: 10
 --- !u!1 &7320708240150490697
 GameObject:
   m_ObjectHideFlags: 0
@@ -2399,6 +2623,7 @@ GameObject:
   - component: {fileID: 8633192246173100429}
   - component: {fileID: 3447410014639922907}
   - component: {fileID: 2912363781045804652}
+  - component: {fileID: 7207612370648407680}
   m_Layer: 0
   m_Name: Plate (1)
   m_TagString: Untagged
@@ -2449,7 +2674,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 5311104922f04d94cac355492c6c7c6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2485,6 +2710,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _event: {fileID: 0}
   _nextPlate: {fileID: 2042473838446787162}
+--- !u!114 &7207612370648407680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7320708240150490697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e0ba9b3af7f7fc4eadcbf26b6c1e431, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healAmount: 10
 --- !u!1 &7395028081014255707
 GameObject:
   m_ObjectHideFlags: 0
@@ -2497,6 +2735,7 @@ GameObject:
   - component: {fileID: 7441529300047011235}
   - component: {fileID: 5475740746533645189}
   - component: {fileID: 3796751408341802490}
+  - component: {fileID: 3848927567830533826}
   m_Layer: 0
   m_Name: Plate (1)
   m_TagString: Untagged
@@ -2547,7 +2786,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 5311104922f04d94cac355492c6c7c6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2583,6 +2822,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _event: {fileID: 0}
   _nextPlate: {fileID: 8154443809992989906}
+--- !u!114 &3848927567830533826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7395028081014255707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e0ba9b3af7f7fc4eadcbf26b6c1e431, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healAmount: 10
 --- !u!1 &7454519811152467984
 GameObject:
   m_ObjectHideFlags: 0
@@ -2741,6 +2993,7 @@ GameObject:
   - component: {fileID: 8605926066434271468}
   - component: {fileID: 380674250882262508}
   - component: {fileID: 7384469541733791754}
+  - component: {fileID: 443347966567061492}
   m_Layer: 0
   m_Name: Plate (2)
   m_TagString: Untagged
@@ -2791,7 +3044,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 5311104922f04d94cac355492c6c7c6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2827,6 +3080,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _event: {fileID: 0}
   _nextPlate: {fileID: 63120516936217394}
+--- !u!114 &443347966567061492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7819541809463669884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e0ba9b3af7f7fc4eadcbf26b6c1e431, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healAmount: 10
 --- !u!1 &7900362486046087331
 GameObject:
   m_ObjectHideFlags: 0
@@ -2839,6 +3105,7 @@ GameObject:
   - component: {fileID: 7221824340656263837}
   - component: {fileID: 8555572842514479630}
   - component: {fileID: 7006062033787999215}
+  - component: {fileID: 6060128584067115172}
   m_Layer: 0
   m_Name: Plate (1)
   m_TagString: Untagged
@@ -2889,7 +3156,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 5311104922f04d94cac355492c6c7c6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2925,6 +3192,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _event: {fileID: 0}
   _nextPlate: {fileID: 6748433707095115825}
+--- !u!114 &6060128584067115172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7900362486046087331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e0ba9b3af7f7fc4eadcbf26b6c1e431, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healAmount: 10
 --- !u!1 &8132868295846036560
 GameObject:
   m_ObjectHideFlags: 0

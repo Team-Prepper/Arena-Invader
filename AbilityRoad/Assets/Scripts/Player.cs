@@ -12,12 +12,11 @@ public class Player : MonoBehaviour {
 
     IList<Vector3> _emptyPlace;
 
-    int _level;
-
-    [SerializeField] int _attack;
-    [SerializeField] int _defense;
+    [SerializeField] IGUIUnitHealth _healthUI;
+    [SerializeField] Status _status;
     [SerializeField] int _health;
 
+    int _level;
     int _chance = 0;
 
     public void SetInitial(int idx)
@@ -34,21 +33,34 @@ public class Player : MonoBehaviour {
 
         _emptyPlace = new List<Vector3>();
 
+        _healthUI.SetHealth(_health);
+
     }
 
     internal void AddHeal(int healAmount)
     {
         _health += healAmount;
+        _healthUI.SetHealth(_health);
+    }
+
+    public void RedueHealth(int amount)
+    {
+        _health -= amount;
+        _healthUI.SetHealth(_health);
+
+        if (_health >= 0) return;
+
+        // 죽었을 때 이벤트 처리
     }
 
     internal void AddAttack(int attackAmount)
     {
-        _attack += attackAmount;
+        _status.AddAttackValue(attackAmount);
     }
 
     internal void AddDefence(int defenceAmount)
     {
-        _defense += defenceAmount;
+        _status.AddDefenceValue(defenceAmount);
     }
 
     public void LeavePawn(Pawn pawn) {

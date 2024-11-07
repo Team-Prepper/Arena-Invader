@@ -13,7 +13,6 @@ public class Pawn : MonoBehaviour {
     bool _isPiggyBacked;
 
     [SerializeField] IPlate _nowPlate;
-    [SerializeField] IPlate _beforePlate;
 
     [SerializeField] Vector3 _up = Vector3.up;
 
@@ -83,8 +82,8 @@ public class Pawn : MonoBehaviour {
         }
 
         _nowPlate = null;
-        _owner.LevelUp(this, _levelCoefficient, _isPiggyBacked);
         _isPiggyBacked = false;
+        GetOwner().LevelUp(this, _levelCoefficient, _isPiggyBacked);
 
     }
 
@@ -96,9 +95,10 @@ public class Pawn : MonoBehaviour {
             _piggyBacking.BackHome();
             _piggyBacking = null;
         }
+
         _nowPlate = null;
-        GetOwner().BackHomePawn(this);
         _isPiggyBacked = false;
+        GetOwner().BackHomePawn(this);
     }
 
     public void PiggyBack(Pawn target)
@@ -108,14 +108,15 @@ public class Pawn : MonoBehaviour {
             _piggyBacking.PiggyBack(target);
             return;
         }
-        target.PiggyBacked(this);
         _piggyBacking = target;
+        target.PiggyBacked(this);
     }
 
-    protected void PiggyBacked(Pawn owner) {
+    protected void PiggyBacked(Pawn owner)
+    {
+        gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
         _nowPlate = null;
         _isPiggyBacked = true;
-        gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
         transform.SetParent(owner._model.transform);
         transform.position = owner.transform.position + _up;
     }

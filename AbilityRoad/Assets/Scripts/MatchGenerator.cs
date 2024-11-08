@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class MatchGenerator : MonoBehaviour
 {
-    [SerializeField] Character[] _playerPrefab;
+    [SerializeField] BasePlayer[] _playerPrefab;
+    [SerializeField] string[] _playerNames;
     [SerializeField] Map _mapPrefab;
     [SerializeField] Transform[] _playerPosition;
 
@@ -19,8 +20,8 @@ public class MatchGenerator : MonoBehaviour
     {
         GameManager.Instance.Playground.Map = Instantiate(_mapPrefab);
         for (int i = 0; i < _playerPosition.Length; i++) {
-            Character player = Instantiate(_playerPrefab[i]);
-            player.SetInitial(i);
+            BasePlayer player = Instantiate(_playerPrefab[i]);
+            player.SetInitial(i, _playerNames[i]);
             player.transform.position = _playerPosition[i].position;
         }
         GameManager.Instance.Playground.TurnStart();

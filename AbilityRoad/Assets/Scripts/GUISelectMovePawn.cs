@@ -7,11 +7,11 @@ public class GUISelectMovePawn : GUIPopUp {
     [SerializeField] Text _amountTxt;
     [SerializeField] GameObject _pawnPredict;
 
-    Player _target;
+    BasePlayer _target;
     Pawn _selectedPawn;
     int _amount;
 
-    public void SetPlayer(Player target, int amount)
+    public void SetPlayer(BasePlayer target, int amount)
     {
         _target = target;
         _amount = amount;

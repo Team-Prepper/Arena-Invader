@@ -1,25 +1,21 @@
-using EHTool.UIKit;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Character : MonoBehaviour {
-
+public class BasePlayer : Character
+{
     [SerializeField] protected Pawn[] _pawns;
     [SerializeField] Transform[] _pawnPosition;
     [SerializeField] Color[] _pawnColor;
 
     IList<Vector3> _emptyPlace;
 
-    [SerializeField] IGUIUnitHealth _healthUI;
-    [SerializeField] Status _status;
-    [SerializeField] int _health;
-
-    int _level;
     protected int _chance = 0;
 
-    public void SetInitial(int idx)
+    public void SetInitial(int idx, string name)
     {
         _level = 0;
+        _name = name;
 
         GameManager.Instance.Playground.AddPlayer(this);
         for (int i = 0; i < _pawns.Length; i++)
@@ -35,39 +31,6 @@ public class Character : MonoBehaviour {
         _healthUI.SetHealth(_health);
 
     }
-
-    internal void AddHeal(int healAmount)
-    {
-        _health += healAmount;
-        _healthUI.SetHealth(_health);
-    }
-
-    public void ReduceHealth(int amount)
-    {
-        _health -= amount;
-        _healthUI.SetHealth(_health);
-
-        if (_health >= 0) return;
-
-        // ????? ?? ???? ???
-    }
-
-    internal void AddAttack(int attackAmount)
-    {
-        _status.AddAttackValue(attackAmount);
-    }
-
-    internal void AddDefence(int defenceAmount)
-    {
-        _status.AddDefenceValue(defenceAmount);
-    }
-
-    public int GetAttackValue() => _status.GetAttackValue(_level);
-
-    public int GetDefenseValue() => _status.GetDefenseValue(_level);
-
-    public int GetHealth() => _health;
-    
 
     public void LeavePawn(Pawn pawn)
     {

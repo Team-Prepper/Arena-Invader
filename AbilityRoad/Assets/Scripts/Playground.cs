@@ -3,19 +3,19 @@ using UnityEngine;
 
 public class Playground : IPlayground {
 
-    public IList<Character> Players { get; private set; }
+    public IList<BasePlayer> Players { get; private set; }
     public Map Map { get; set; }
     public int Turn { get; private set; }
 
     int _turnIdx;
 
     public Playground() { 
-        Players = new List<Character>();
+        Players = new List<BasePlayer>();
         _turnIdx = 0;
         Turn = 0;
     }
 
-    public void AddPlayer(Character player)
+    public void AddPlayer(BasePlayer player)
     {
         if (Players.Contains(player)) return;
         Players.Add(player);

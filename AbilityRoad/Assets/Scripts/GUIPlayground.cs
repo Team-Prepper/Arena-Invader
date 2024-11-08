@@ -9,9 +9,9 @@ public class GUIPlayground : GUIFullScreen
 
     [SerializeField] GUIPlayerUnit _playerInfor;
 
-    IList<Character> _players;
+    IList<BasePlayer> _players;
 
-    [SerializeField] Button[] _buttons;
+    [SerializeField] GUIPlayerButtonUnit[] _buttons;
 
     public override void Open()
     {
@@ -21,14 +21,17 @@ public class GUIPlayground : GUIFullScreen
         for (int i = 0; i < _buttons.Length; i++) {
             if (i < _players.Count) {
                 _buttons[i].gameObject.SetActive(true);
+                _buttons[i].SetPlayer(_players[i]);
                 continue;
             }
             _buttons[i].gameObject.SetActive(false);
 
         }
+
+        PressButton(0);
     }
 
-    void PressButton(int idx) {
+    public void PressButton(int idx) {
 
         if (idx >= _buttons.Length) return;
 

@@ -9,8 +9,6 @@ public class GUIBattle : GUIPopUp {
 
     public void StartBattle(Character attacker, CallbackMethod callback) {
 
-        /**/
-
         SetTarget(attacker, (target) => {
 
             StartCoroutine(WaitASeconds(() => {

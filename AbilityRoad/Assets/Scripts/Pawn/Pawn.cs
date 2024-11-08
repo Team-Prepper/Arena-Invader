@@ -44,7 +44,7 @@ public class Pawn : MonoBehaviour {
 
         IPlate plate = _nowPlate;
 
-        if (plate != null)
+        if (plate == null)
         {
             plate = GameManager.Instance.Playground.Map.GetStartPlate();
         }

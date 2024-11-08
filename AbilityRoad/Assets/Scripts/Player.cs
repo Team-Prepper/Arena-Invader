@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
-    [SerializeField] Pawn[] _pawns;
+    [SerializeField] protected  Pawn[] _pawns;
     [SerializeField] Transform[] _pawnPosition;
     [SerializeField] Color[] _pawnColor;
 
@@ -17,7 +17,7 @@ public class Player : MonoBehaviour {
     [SerializeField] int _health;
 
     int _level;
-    int _chance = 0;
+    protected int _chance = 0;
 
     public void SetInitial(int idx)
     {
@@ -50,7 +50,7 @@ public class Player : MonoBehaviour {
 
         if (_health >= 0) return;
 
-        // Á×¾úÀ» ¶§ ÀÌº¥Æ® Ã³¸®
+        // ï¿½×¾ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ìºï¿½Æ® Ã³ï¿½ï¿½
     }
 
     internal void AddAttack(int attackAmount)

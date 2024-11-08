@@ -3,6 +3,11 @@ using System;
 using UnityEngine;
 
 public class StartBattle : IArriveEvent {
+    
+    public override int GetValue()
+    {
+        return 0;
+    }
 
     public override void AddAbility(Pawn target, CallbackMethod callback)
     {

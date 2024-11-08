@@ -29,7 +29,7 @@ public class CoroutinePawnMove : IPawnMove {
     {
         IPlate retval = startPos;
         for (int i = 0; i < amount; i++) {
-            startPos.NextPlate(retval, (plate) => {
+            retval.NextPlate(retval, (plate) => {
                 retval = plate;
             });
         }

@@ -22,10 +22,10 @@ public class Character : MonoBehaviour {
         _level = 0;
 
         GameManager.Instance.Playground.AddPlayer(this);
-
         for (int i = 0; i < _pawns.Length; i++)
         {
             _pawns[i].SetOwner(this);
+
             _pawns[i].SetColor(_pawnColor[idx]);
             _pawns[i].transform.position = _pawnPosition[i].position;
         }
@@ -42,7 +42,7 @@ public class Character : MonoBehaviour {
         _healthUI.SetHealth(_health);
     }
 
-    public void RedueHealth(int amount)
+    public void ReduceHealth(int amount)
     {
         _health -= amount;
         _healthUI.SetHealth(_health);
@@ -61,6 +61,13 @@ public class Character : MonoBehaviour {
     {
         _status.AddDefenceValue(defenceAmount);
     }
+
+    public int GetAttackValue() => _status.GetAttackValue(_level);
+
+    public int GetDefenseValue() => _status.GetDefenseValue(_level);
+
+    public int GetHealth() => _health;
+    
 
     public void LeavePawn(Pawn pawn)
     {

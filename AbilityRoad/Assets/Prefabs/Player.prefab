@@ -125,7 +125,7 @@ MonoBehaviour:
   - {r: 0, g: 0, b: 1, a: 0}
   _healthUI: {fileID: 2507955097302347887}
   _status: {fileID: 535571696156488042}
-  _health: 0
+  _health: 100
 --- !u!114 &535571696156488042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,7 +141,9 @@ MonoBehaviour:
   _addedValue:
     _attack: 0
     _defence: 0
-  _levelStatus: []
+  _levelStatus:
+  - _attack: 10
+    _defence: 20
 --- !u!1 &4958900561680636048
 GameObject:
   m_ObjectHideFlags: 0

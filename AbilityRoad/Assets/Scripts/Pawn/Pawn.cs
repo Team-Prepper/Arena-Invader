@@ -40,6 +40,19 @@ public class Pawn : MonoBehaviour {
 
     }
 
+    public IPlate MovePredict(int amount) {
+
+        IPlate plate = _nowPlate;
+
+        if (plate != null)
+        {
+            plate = GameManager.Instance.Playground.Map.GetStartPlate();
+        }
+
+        return _moveOnMap.Predict(plate, this, amount);
+
+    }
+
     public void Move(int amount)
     {
         _movePoint = amount + _moveCoefficient;

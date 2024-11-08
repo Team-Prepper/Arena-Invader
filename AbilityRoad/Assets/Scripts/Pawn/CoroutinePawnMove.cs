@@ -25,6 +25,17 @@ public class CoroutinePawnMove : IPawnMove {
         startPos.Leave(target, MoveTo);
     }
 
+    public override IPlate Predict(IPlate startPos, Pawn target, int amount)
+    {
+        IPlate retval = startPos;
+        for (int i = 0; i < amount; i++) {
+            startPos.NextPlate(retval, (plate) => {
+                retval = plate;
+            });
+        }
+        return retval;
+    }
+
     public override void DisposeTo(Vector3 pos)
     {
         StartCoroutine(_MoveTo(pos, _moveTime, 0, null));

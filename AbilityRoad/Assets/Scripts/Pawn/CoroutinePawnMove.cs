@@ -30,7 +30,10 @@ public class CoroutinePawnMove : IPawnMove {
         IPlate retval = startPos;
         IPlate beforePlate = null;
 
-        for (int i = 0; i < amount; i++) {
+        for (int i = 0; i < amount; i++)
+        {
+
+            if (retval == null) return null;
             
             retval.NextPlate(beforePlate, (plate) => {
                 beforePlate = retval;

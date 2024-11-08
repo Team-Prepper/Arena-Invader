@@ -55,8 +55,12 @@ public class GUISelectMovePawn : GUIPopUp {
             if (newPawn != null)
             {
                 newPawn.OnFocus();
-                _pawnPredict.transform.position = newPawn.MovePredict(_amount).transform.position;
-                _pawnPredict.SetActive(true);
+                IPlate nextPlate = newPawn.MovePredict(_amount);
+                if (nextPlate != null)
+                {
+                    _pawnPredict.transform.position = nextPlate.transform.position;
+                    _pawnPredict.SetActive(true);
+                }
             }
         }
 

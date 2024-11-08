@@ -25,7 +25,8 @@ public class AIPlayer : BasePlayer
         foreach (var pawn in _pawns)
         {
             if(pawn.IsPiggyBacked()) continue;
-            int currentPawnValue = pawn.MovePredict(value).GetValue();
+            IPlate plate = pawn.MovePredict(value);
+            int currentPawnValue = plate == null ? 10 : plate.GetValue();
             if (currentPawnValue >= mostValuablePawnValue)
             {
                 mostValuablePawn = pawn;

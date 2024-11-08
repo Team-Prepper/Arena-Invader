@@ -6,13 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="4a77bd12-6663-4a58-93b6-42bb74de1419" name="변경" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.AbilityRoad/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AbilityRoad/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Player_AI.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Player_AI.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GUIBattle.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GUIBattle.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/IPlayground.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/IPlayground.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Pawn/Pawn.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Pawn/Pawn.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Plate/ArriveEvent/HealAdd.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Plate/ArriveEvent/HealAdd.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Plate/IPlate.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Plate/IPlate.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Playground.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Playground.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Character/AIPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Character/AIPlayer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GUISelectMovePawn.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GUISelectMovePawn.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MatchGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MatchGenerator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Pawn/CoroutinePawnMove.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Pawn/CoroutinePawnMove.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,6 +96,7 @@
       <workItem from="1731055235595" duration="8000" />
       <workItem from="1731055256028" duration="1362000" />
       <workItem from="1731062931679" duration="4384000" />
+      <workItem from="1731068079370" duration="708000" />
     </task>
     <servers />
   </component>

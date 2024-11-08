@@ -10,7 +10,7 @@ public class MatchGenerator : MonoBehaviour
     [SerializeField] Transform[] _playerPosition;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         Generate();
     }

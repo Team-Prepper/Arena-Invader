@@ -105,7 +105,7 @@ public class Player : MonoBehaviour {
         _chance++;
     }
 
-    void RollDice()
+    protected virtual void RollDice()
     {
         _chance--;
 

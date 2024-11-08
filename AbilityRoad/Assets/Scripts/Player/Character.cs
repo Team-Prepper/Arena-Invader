@@ -1,12 +1,10 @@
 using EHTool.UIKit;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour {
+public class Character : MonoBehaviour {
 
-    [SerializeField] protected  Pawn[] _pawns;
+    [SerializeField] protected Pawn[] _pawns;
     [SerializeField] Transform[] _pawnPosition;
     [SerializeField] Color[] _pawnColor;
 
@@ -25,7 +23,8 @@ public class Player : MonoBehaviour {
 
         GameManager.Instance.Playground.AddPlayer(this);
 
-        for (int i = 0; i < _pawns.Length; i++) {
+        for (int i = 0; i < _pawns.Length; i++)
+        {
             _pawns[i].SetOwner(this);
             _pawns[i].SetColor(_pawnColor[idx]);
             _pawns[i].transform.position = _pawnPosition[i].position;
@@ -50,7 +49,7 @@ public class Player : MonoBehaviour {
 
         if (_health >= 0) return;
 
-        // �׾��� �� �̺�Ʈ ó��
+        // ????? ?? ???? ???
     }
 
     internal void AddAttack(int attackAmount)
@@ -63,7 +62,8 @@ public class Player : MonoBehaviour {
         _status.AddDefenceValue(defenceAmount);
     }
 
-    public void LeavePawn(Pawn pawn) {
+    public void LeavePawn(Pawn pawn)
+    {
         _emptyPlace.Add(pawn.transform.position);
     }
 
@@ -92,7 +92,8 @@ public class Player : MonoBehaviour {
         RollDice();
     }
 
-    public void EndTurn() {
+    public void EndTurn()
+    {
         if (_chance == 0)
         {
             GameManager.Instance.Playground.TurnEnd();
@@ -101,17 +102,13 @@ public class Player : MonoBehaviour {
         RollDice();
     }
 
-    public void AddChance() {
+    public void AddChance()
+    {
         _chance++;
     }
 
     protected virtual void RollDice()
     {
-        _chance--;
-
-        UIManager.Instance.OpenGUI<GUIDice>("Dice").SetCallback((value) => {
-            UIManager.Instance.OpenGUI<GUISelectMovePawn>("SelectMovePawn").SetPlayer(this, value);
-        });
 
     }
 

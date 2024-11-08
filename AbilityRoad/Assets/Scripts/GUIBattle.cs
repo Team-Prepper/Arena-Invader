@@ -7,7 +7,7 @@ public class GUIBattle : GUIPopUp {
 
     [SerializeField] Text _message;
 
-    public void StartBattle(Player attacker, CallbackMethod callback) {
+    public void StartBattle(Character attacker, CallbackMethod callback) {
 
         foreach (var player in GameManager.Instance.Playground.Players) {
             foreach (var victim in GameManager.Instance.Playground.Players) {

@@ -31,6 +31,10 @@ public class BranchPlate : IPlate
     }
 
     public override void NextPlate(IPlate from, CallbackMethod<IPlate> callback) {
+        if (from == null) {
+            callback?.Invoke(_nextPlate);
+            return;
+        }
         callback?.Invoke(_fromTo[from]);
     }
 }

@@ -28,8 +28,12 @@ public class CoroutinePawnMove : IPawnMove {
     public override IPlate Predict(IPlate startPos, Pawn target, int amount)
     {
         IPlate retval = startPos;
+        IPlate beforePlate = null;
+
         for (int i = 0; i < amount; i++) {
-            retval.NextPlate(retval, (plate) => {
+            
+            retval.NextPlate(beforePlate, (plate) => {
+                beforePlate = retval;
                 retval = plate;
             });
         }

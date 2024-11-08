@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Pawn : MonoBehaviour {
 
-    [SerializeField] Player _owner;
+    [SerializeField] Character _owner;
     [SerializeField] Transform _model;
     [SerializeField] IPawnMove _moveOnMap;
     [SerializeField] IMoveTo _moveTo;
@@ -24,13 +24,13 @@ public class Pawn : MonoBehaviour {
     [SerializeField] int _moveCoefficient = 0;
     [SerializeField] int _levelCoefficient = 1;
 
-    public void SetOwner(Player player)
+    public void SetOwner(Character player)
     {
         gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
         _owner = player;
     }
 
-    public Player GetOwner()
+    public Character GetOwner()
     {
         return _owner;
     }

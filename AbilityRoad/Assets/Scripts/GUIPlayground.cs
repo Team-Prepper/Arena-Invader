@@ -9,7 +9,7 @@ public class GUIPlayground : GUIFullScreen
 
     [SerializeField] GUIPlayerUnit _playerInfor;
 
-    IList<Player> _players;
+    IList<Character> _players;
 
     [SerializeField] Button[] _buttons;
 

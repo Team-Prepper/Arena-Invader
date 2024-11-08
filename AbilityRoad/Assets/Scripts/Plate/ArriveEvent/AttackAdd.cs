@@ -5,7 +5,7 @@ public class AttackAdd : IArriveEvent {
 
     [SerializeField] int _attackAmount = 0;
     
-    public override int GetValue()
+    public override int GetValue(Character attacker, Character defender)
     {
         return _attackAmount;
     }

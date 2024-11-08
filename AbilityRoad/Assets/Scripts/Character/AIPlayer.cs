@@ -26,7 +26,7 @@ public class AIPlayer : BasePlayer
         {
             if(pawn.IsPiggyBacked()) continue;
             IPlate plate = pawn.MovePredict(value);
-            int currentPawnValue = plate == null ? 10 : plate.GetValue();
+            int currentPawnValue = plate == null ? 10 : plate.GetValue(this, SetTarget());
             if (currentPawnValue >= mostValuablePawnValue)
             {
                 mostValuablePawn = pawn;
@@ -35,6 +35,23 @@ public class AIPlayer : BasePlayer
         }
 
         return mostValuablePawn;
+    }
+
+    private Character SetTarget()
+    {
+        Character target = null;
+        int minHealth = 1000;
+        foreach (var player in GameManager.Instance.Playground.Players)
+        {
+            if (player == this) continue;
+            int currentHealth = player.GetHealth();
+            if (minHealth < currentHealth)
+            {
+                minHealth = currentHealth;
+                target = player;
+            }
+        }
+        return target;
     }
 
     

@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class StartBattle : IArriveEvent {
     
-    public override int GetValue()
+    public override int GetValue(Character attacker, Character defender)
     {
-        return 0;
+        int combatValue = GameManager.Instance.Playground.CalcDamage(attacker, defender);
+        return combatValue;
     }
 
     public override void AddAbility(Pawn target, CallbackMethod callback)

@@ -141,7 +141,9 @@ MonoBehaviour:
   _addedValue:
     _attack: 0
     _defence: 0
-  _levelStatus: []
+  _levelStatus:
+  - _attack: 0
+    _defence: 0
 --- !u!1 &4958900561680636048
 GameObject:
   m_ObjectHideFlags: 0

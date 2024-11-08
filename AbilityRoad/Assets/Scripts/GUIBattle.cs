@@ -13,10 +13,10 @@ public class GUIBattle : GUIPopUp {
 
             StartCoroutine(WaitASeconds(() => {
 
-                target.ReduceHealth(CalcDamage(attacker, target));
+                target.ReduceHealth(GameManager.Instance.Playground.CalcDamage(attacker, target));
 
                 StartCoroutine(WaitASeconds(() => {
-                    attacker.ReduceHealth(CalcDamage(target, attacker));
+                    attacker.ReduceHealth(GameManager.Instance.Playground.CalcDamage(target, attacker));
 
                     StartCoroutine(WaitASeconds(() => {
                         callback?.Invoke();
@@ -31,11 +31,7 @@ public class GUIBattle : GUIPopUp {
         
     }
 
-    int CalcDamage(Character attacker, Character target)
-    {
-        return Mathf.Max(1, attacker.GetAttackValue() - target.GetDefenseValue());
-
-    }
+    
 
     public void SetTarget(Character attacker, CallbackMethod<Character> callback) {
 

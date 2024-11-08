@@ -37,5 +37,10 @@ public class Playground : IPlayground {
 
         TurnStart();
     }
+    
+    public int CalcDamage(Character attacker, Character target)
+    {
+        return Mathf.Max(1, attacker.GetAttackValue() - target.GetDefenseValue());
+    }
 
 }

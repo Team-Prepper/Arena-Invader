@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Pawn : MonoBehaviour {
 
@@ -8,6 +9,10 @@ public class Pawn : MonoBehaviour {
     [SerializeField] Transform _model;
     [SerializeField] IPawnMove _moveOnMap;
     [SerializeField] IMoveTo _moveTo;
+    
+    private int _attackValue = 0;
+    private int _defenceValue = 0;
+    private int _healthValue = 0;
 
     Pawn _piggyBacking;
     bool _isPiggyBacked = false;
@@ -20,7 +25,7 @@ public class Pawn : MonoBehaviour {
 
     [SerializeField] int _attackCoefficient = 1;
     [SerializeField] int _defenseCoefficient = 1;
-    [SerializeField] int _healCoefficient = 1;
+    [SerializeField] int _healthCoefficient = 1;
     [SerializeField] int _moveCoefficient = 0;
     [SerializeField] int _levelCoefficient = 1;
 
@@ -37,7 +42,6 @@ public class Pawn : MonoBehaviour {
 
     public void SetColor(Color color) {
         _model.GetComponent<Renderer>().material.color = color;
-
     }
 
     public IPlate MovePredict(int amount) {
@@ -96,6 +100,9 @@ public class Pawn : MonoBehaviour {
 
         _nowPlate = null;
         _isPiggyBacked = false;
+        GetOwner().AddAttack(_attackValue);
+        GetOwner().AddDefence(_defenceValue);
+        GetOwner().AddHeal(_healthValue);
         GetOwner().LevelUp(this, _levelCoefficient, _isPiggyBacked);
 
     }
@@ -109,9 +116,18 @@ public class Pawn : MonoBehaviour {
             _piggyBacking = null;
         }
 
+        ResetImproveState();
+        
         _nowPlate = null;
         _isPiggyBacked = false;
         GetOwner().BackHomePawn(this);
+    }
+
+    private void ResetImproveState()
+    {
+        _healthValue = 0;
+        _attackValue = 0;
+        _defenceValue = 0;
     }
 
     public void PiggyBack(Pawn target)
@@ -164,19 +180,19 @@ public class Pawn : MonoBehaviour {
     public void AddAttack(int attackAmount)
     {
         if (_piggyBacking != null) _piggyBacking.AddAttack(attackAmount);
-        GetOwner().AddAttack(attackAmount * _attackCoefficient);
+        _attackValue += attackAmount * _attackCoefficient;
     }
 
     public void AddDefence(int defenceAmount)
     {
         if (_piggyBacking != null) _piggyBacking.AddDefence(defenceAmount);
-        GetOwner().AddDefence(defenceAmount * _defenseCoefficient);
+        _defenceValue += defenceAmount * _defenseCoefficient;
     }
 
-    public void AddHeal(int healAmount)
+    public void AddHealth(int healAmount)
     {
-        if (_piggyBacking != null) _piggyBacking.AddHeal(healAmount);
-        GetOwner().AddHeal(healAmount * _healCoefficient);
+        if (_piggyBacking != null) _piggyBacking.AddHealth(healAmount);
+        _healthValue += healAmount * _healthCoefficient;
     }
     
     public bool IsPiggyBacked()

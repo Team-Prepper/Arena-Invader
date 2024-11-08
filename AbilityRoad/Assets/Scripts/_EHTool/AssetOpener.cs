@@ -6,9 +6,9 @@ namespace EHTool {
 
         public static T Import<T>(string path) where T : Object
         {
-            T source = Resources.Load(path) as T;
-            return Instantiate(source);
+            return ImportGameObject(path).GetComponent<T>();
         }
+
         public static GameObject ImportGameObject(string path)
         {
             GameObject source = Resources.Load(path) as GameObject;

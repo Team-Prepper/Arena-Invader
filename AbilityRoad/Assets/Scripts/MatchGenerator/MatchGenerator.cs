@@ -1,12 +1,13 @@
+using EHTool;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MatchGenerator : MonoBehaviour
 {
-    [SerializeField] BasePlayer[] _playerPrefab;
-    [SerializeField] string[] _playerNames;
-    [SerializeField] Map _mapPrefab;
+    [SerializeField] MatchInfor _matchInfor;
+
+
     [SerializeField] Transform[] _playerPosition;
 
     // Start is called before the first frame update
@@ -18,10 +19,11 @@ public class MatchGenerator : MonoBehaviour
 
     void Generate()
     {
-        GameManager.Instance.Playground.Map = Instantiate(_mapPrefab);
-        for (int i = 0; i < _playerPosition.Length; i++) {
-            BasePlayer player = Instantiate(_playerPrefab[i]);
-            player.SetInitial(i, _playerNames[i]);
+        GameManager.Instance.Playground.Map = AssetOpener.Import<Map>(_matchInfor.MapName);
+
+        for (int i = 0; i < _matchInfor.PlayerInfors.Length; i++) {
+            BasePlayer player = AssetOpener.Import<BasePlayer>(_matchInfor.PlayerInfors[i].CharacterName);
+            player.SetInitial(i, _matchInfor.PlayerInfors[i].Name);
             player.transform.position = _playerPosition[i].position;
         }
         GameManager.Instance.Playground.TurnStart();

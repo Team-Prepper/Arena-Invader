@@ -72,7 +72,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4886042393337310813}
   - component: {fileID: 5252274257531954034}
-  - component: {fileID: 535571696156488042}
+  - component: {fileID: 1855259384941681325}
   m_Layer: 0
   m_Name: Player_AI
   m_TagString: Untagged
@@ -112,6 +112,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db817fd3ddfde492aaf15409fa5251a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _name: 
+  _healthUI: {fileID: 2507955097302347887}
+  _status: {fileID: 1855259384941681325}
+  _health: 0
+  _coin: 0
   _pawns:
   - {fileID: 1853524339805271838}
   - {fileID: 4508048742146448043}
@@ -123,10 +128,7 @@ MonoBehaviour:
   _pawnColor:
   - {r: 1, g: 0, b: 0, a: 0}
   - {r: 0, g: 0, b: 1, a: 0}
-  _healthUI: {fileID: 2507955097302347887}
-  _status: {fileID: 535571696156488042}
-  _health: 0
---- !u!114 &535571696156488042
+--- !u!114 &1855259384941681325
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -142,8 +144,8 @@ MonoBehaviour:
     _attack: 0
     _defence: 0
   _levelStatus:
-  - _attack: 0
-    _defence: 0
+  - _attack: 100
+    _defence: 100
 --- !u!1 &4958900561680636048
 GameObject:
   m_ObjectHideFlags: 0

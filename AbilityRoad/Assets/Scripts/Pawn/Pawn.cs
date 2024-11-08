@@ -10,7 +10,7 @@ public class Pawn : MonoBehaviour {
     [SerializeField] IMoveTo _moveTo;
 
     Pawn _piggyBacking;
-    bool _isPiggyBacked;
+    bool _isPiggyBacked = false;
 
     [SerializeField] IPlate _nowPlate;
 
@@ -177,5 +177,10 @@ public class Pawn : MonoBehaviour {
     {
         if (_piggyBacking != null) _piggyBacking.AddHeal(healAmount);
         GetOwner().AddHeal(healAmount * _healCoefficient);
+    }
+    
+    public bool IsPiggyBacked()
+    {
+        return _isPiggyBacked;
     }
 }

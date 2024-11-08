@@ -1,8 +1,12 @@
 using EHTool.UIKit;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GUIBattle : GUIPopUp {
+
+    [SerializeField] Text _message;
+
     public void StartBattle(Player attacker, CallbackMethod callback) {
 
         foreach (var player in GameManager.Instance.Playground.Players) {

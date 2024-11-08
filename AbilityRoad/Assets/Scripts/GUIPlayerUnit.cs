@@ -1,9 +1,14 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GUIPlayerUnit : MonoBehaviour {
 
-    public void SetPlayer(Player target) { 
-        
+    [SerializeField] Text _health;
+    [SerializeField] Text _attack;
+    [SerializeField] Text _defence;
+
+    public void SetPlayer(Player target) {
+
     }
 
 }

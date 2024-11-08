@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class GUISelectMovePawn : GUIPopUp {
 
     [SerializeField] Text _amountTxt;
+    [SerializeField] GameObject _pawnPredict;
 
     Player _target;
     Pawn _selectedPawn;
@@ -17,6 +18,7 @@ public class GUISelectMovePawn : GUIPopUp {
         _target.OnPawnChoose();
 
         _amountTxt.text = amount.ToString();
+        _pawnPredict.SetActive(false);
     }
 
     private void Update()
@@ -49,6 +51,8 @@ public class GUISelectMovePawn : GUIPopUp {
             _selectedPawn?.OffFocus();
             newPawn?.OnFocus();
             _selectedPawn = newPawn;
+            _pawnPredict.transform.position = newPawn.MovePredict(_amount).transform.position;
+            _pawnPredict.SetActive(true);
         }
 
         if (Input.GetMouseButtonUp(0))
@@ -64,7 +68,10 @@ public class GUISelectMovePawn : GUIPopUp {
 
     void CleanUp()
     {
-        _selectedPawn?.OffFocus();
+        if (_selectedPawn == null) return;
+
+        _selectedPawn.OffFocus();
         _selectedPawn = null;
+        _pawnPredict.SetActive(false);
     }
 }

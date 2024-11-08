@@ -985,6 +985,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1422065456}
   - component: {fileID: 1422065457}
+  - component: {fileID: 1422065458}
   m_Layer: 5
   m_Name: box_Player
   m_TagString: Untagged
@@ -1021,6 +1022,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1422065455}
   m_CullTransparentMesh: 1
+--- !u!114 &1422065458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1422065455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b0c5feb43ac39e458c3da1f824835cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _health: {fileID: 0}
+  _attack: {fileID: 0}
+  _defence: {fileID: 0}
 --- !u!1 &1515113014
 GameObject:
   m_ObjectHideFlags: 0
@@ -1578,6 +1594,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   priority: 0
+  _playerInfor: {fileID: 1422065458}
+  _buttons:
+  - {fileID: 1782085316}
+  - {fileID: 1675244530}
+  - {fileID: 2140497445}
+  - {fileID: 185035106}
 --- !u!1 &2140497443
 GameObject:
   m_ObjectHideFlags: 0
@@ -1705,6 +1727,6 @@ SceneRoots:
   m_Roots:
   - {fileID: 519420032}
   - {fileID: 1933858186}
-  - {fileID: 1246482348}
   - {fileID: 257258765}
+  - {fileID: 1246482348}
   - {fileID: 1553072642}

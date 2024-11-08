@@ -56,7 +56,8 @@ public abstract class IPlate : MonoBehaviour {
 
     public int GetValue()
     {
-        int plateValue = _event.GetValue();
+        
+        int plateValue = _event ? _event.GetValue() : 0;
         plateValue += _nowPawn == null ? 0 : 10 /* _nowPawn.GetValue();*/;
         return plateValue;
     }

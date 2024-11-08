@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AIPlayer : Player
+public class AIPlayer : Character    
 {
     protected override void RollDice()
     {
@@ -11,25 +11,30 @@ public class AIPlayer : Player
 
         GUIDice guiDice = UIManager.Instance.OpenGUI<GUIDice>("Dice");
         guiDice.SetCallback((value) => {
-            UIManager.Instance.OpenGUI<GUISelectMovePawn>("SelectMovePawn").SetPlayer(this, value);
+            Policy(value).Move(value);
         });
         
         guiDice.Roll();
     }
 
-    private void Policy()
+    private Pawn Policy(int value)
     {
         Pawn mostValuablePawn = null;
         int mostValuablePawnValue = 0;
 
         foreach (var pawn in _pawns)
         {
-            /*Something to do*/
+            if(pawn.IsPiggyBacked()) continue;
+            int currentPawnValue = pawn.MovePredict(value).GetValue();
+            if (currentPawnValue > mostValuablePawnValue)
+            {
+                mostValuablePawn = pawn;
+                mostValuablePawnValue = currentPawnValue;
+            }
         }
+
+        return mostValuablePawn;
     }
 
-    private int ValueFunc(IPlate plate)
-    {
-        return plate.GetValue();
-    }
+    
 }

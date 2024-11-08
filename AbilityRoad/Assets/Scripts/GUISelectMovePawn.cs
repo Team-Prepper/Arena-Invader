@@ -39,7 +39,9 @@ public class GUISelectMovePawn : GUIPopUp {
         }
 
         Pawn newPawn = hit.transform.GetComponent<Pawn>();
-
+        
+        if (newPawn == null) return;
+        
         if (newPawn.GetOwner() != _target)
         {
             CleanUp();

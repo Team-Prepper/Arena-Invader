@@ -11,5 +11,6 @@ public interface IPlayground
     public void AddPlayer(Character player);
     public void TurnStart();
     public void TurnEnd();
+    public int CalcDamage(Character attacker, Character target);
 
 }

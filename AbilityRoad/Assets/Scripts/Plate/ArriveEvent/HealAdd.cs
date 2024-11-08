@@ -12,7 +12,7 @@ public class HealAdd : IArriveEvent {
 
     public override void AddAbility(Pawn target, CallbackMethod callback)
     {
-        target.AddHeal(_healAmount);
+        target.AddHealth(_healAmount);
         callback?.Invoke();
     }
 }

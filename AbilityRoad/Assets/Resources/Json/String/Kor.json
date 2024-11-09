@@ -18,7 +18,12 @@
     "label_Sound" : "음량",
     "label_PlayerCnt" : "플레이어 수",
     "label_Map" : "맵 선택",
+    "msg_XTurn" : "{0}의 차례",
     "label_SelectDice": "주사위 선택",
     "msg_XAttack" : "{0}이(가) 공격을 합니다!!",
-    "msg_XTurn" : "{0}의 차례"
+    "Item_MoreDicePoint" : "더 갈거야",
+    "Item_Minus" : "너는 가지 마마",
+    "Item_OneMoreDice" : "나만 한번 더",
+    "Item_Rober" : "니껀 내꺼",
+    "Item_Empty" : "빔"
 }

@@ -20,5 +20,10 @@
     "label_Map" : "Select Map",
     "label_SelectDice": "Select Dice",
     "msg_XAttack" : "{0} Attack!!!",
-    "msg_XTurn" : "{0}s Turn"
+    "msg_XTurn" : "{0}s Turn",
+    "Item_MoreDicePoint" : "More Move",
+    "Item_Minus" : "You Can't Go",
+    "Item_OneMoreDice" : "I Can Go More",
+    "Item_Rober" : "Your Is Mine",
+    "Item_Empty" : "Empty"
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <List>
-  <Element name="Player"                path="Player" />
-  <Element name="Player_AI"                path="Player_AI" />
+  <Element name="Player"                path="Data/Player" />
+  <Element name="Player_AI"             path="Data/Player_AI" />
 </List>

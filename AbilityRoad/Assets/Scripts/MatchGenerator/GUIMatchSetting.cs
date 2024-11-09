@@ -2,7 +2,6 @@ using EHTool.UIKit;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using UnityEditor.Tilemaps;
 using UnityEngine;
 
 public class GUIMatchSetting : GUIFullScreen
@@ -19,10 +18,11 @@ public class GUIMatchSetting : GUIFullScreen
 
     public void GenerateMatch()
     {
-        /*
-        string json = JsonUtility.ToJson(_infor, true);
-        File.WriteAllText(_path, json);*/
+        for (int i = 0; i < _infor.PlayerInfors.Length; i++) {
+            _infor.PlayerInfors[i].Name = _details[i].GetName();
+        }
 
+        UIManager.Instance.OpenGUI<GUIPlayground>("Playground").GenerateMatch(_infor);
     }
 
     public void SetPlayerCnt(int cnt) {
@@ -34,9 +34,11 @@ public class GUIMatchSetting : GUIFullScreen
         for (int i = 0; i < cnt; i++)
         {
             if (i >= def.Length) {
+                _infor.PlayerInfors[i] = new MatchInfor.PlayerInfor();
                 continue;
             }
             _infor.PlayerInfors[i] = def[i];
+            _infor.PlayerInfors[i].Name = _details[i].GetName();
         }
 
         SetDetails();
@@ -44,10 +46,19 @@ public class GUIMatchSetting : GUIFullScreen
 
     void SetDetails() {
         for (int i = 0; i < _details.Length; i++) {
-            _details[i].gameObject.SetActive(i < _infor.PlayerInfors.Length);
+            if (i >= _infor.PlayerInfors.Length)
+            {
+                _details[i].gameObject.SetActive(false);
+                continue;
+            }
+            _details[i].gameObject.SetActive(true);
+            _details[i].SetDefaultValue(i, _infor.PlayerInfors[i].CharacterCode, _infor.PlayerInfors[i].Name);
         }
     }
 
+    public void SetDice(string diceCode) {
+        _infor.MatchDice = diceCode;
+    }
     public void SetPlayerName(int idx, string name) {
         if (idx >= _infor.PlayerInfors.Length) return;
         _infor.PlayerInfors[idx].Name = name;

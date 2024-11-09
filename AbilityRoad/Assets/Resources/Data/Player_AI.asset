@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75fbfe5ba3e0041488a802c709fede20, type: 3}
+  m_Name: Player_AI
+  m_EditorClassIdentifier: 
+  CharacterIcon: {fileID: 21300000, guid: 5afe087a909e071448c7a484a7b20ba0, type: 3}
+  CharacterAttack: {fileID: 21300000, guid: a3469fcbe3874c54aa0a06e874ef73dc, type: 3}
+  CharacterDamage: {fileID: 21300000, guid: 77619d16998e4d24789a8a8b6553fc4e, type: 3}
+  CharacterStand: {fileID: 21300000, guid: 33e8a2d2e4192a741baf94e050138da2, type: 3}
+  Prefab: {fileID: 5252274257531954034, guid: 39c75749433c044dfa957e9e33468e5e, type: 3}

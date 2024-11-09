@@ -16,11 +16,11 @@ public class CharacterManager : Singleton<CharacterManager> {
         }
     }
 
-    IDictionary<string, CharacterData> _dic;
+    IDictionary<string, CharacterMetaData> _dic;
 
     protected override void OnCreate()
     {
-        _dic = new Dictionary<string, CharacterData>();
+        _dic = new Dictionary<string, CharacterMetaData>();
         XmlDocument xmlDoc = AssetOpener.ReadXML("CharacterInfor");
 
         XmlNodeList nodes = xmlDoc.SelectNodes("List/Element");
@@ -30,14 +30,30 @@ public class CharacterManager : Singleton<CharacterManager> {
             CharacterData charData = new CharacterData();
             charData.Read(nodes[i]);
 
-            _dic.Add(charData.name, charData);
+            _dic.Add(charData.name, AssetOpener.Import<CharacterMetaData>(charData.path));
         }
     }
 
+    public Sprite GetPlayerAttackerSpr(string code) {
+        return _dic[code].CharacterAttack;
+    }
+
+    public Sprite GetPlayerDamageSpr(string code)
+    {
+        return _dic[code].CharacterDamage;
+    }
+
+    public Sprite GetPlayerStandSpr(string code)
+    {
+        return _dic[code].CharacterStand;
+    }
+
+    public Sprite GetPlayerSpr(string code) {
+        return _dic[code].CharacterIcon;
+    }
+
     public BasePlayer SpawnPlayer(string code) {
-        Debug.Log(code);
-        return AssetOpener.Import<BasePlayer>(_dic[code].path);
+        return (BasePlayer)Object.Instantiate(_dic[code].Prefab);
     }
     
-
 }

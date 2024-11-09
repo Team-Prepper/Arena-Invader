@@ -5,6 +5,7 @@ using UnityEngine.Serialization;
 
 public class Pawn : MonoBehaviour {
 
+    [SerializeField] SpriteRenderer _sprite;
     [SerializeField] BasePlayer _owner;
     [SerializeField] Transform _model;
     [SerializeField] IPawnMove _moveOnMap;
@@ -42,7 +43,7 @@ public class Pawn : MonoBehaviour {
     }
 
     public void SetColor(Color color) {
-        _model.GetComponent<Renderer>().material.color = color;
+        _sprite.color = color;
     }
 
     public IPlate MovePredict(int amount) {
@@ -179,7 +180,7 @@ public class Pawn : MonoBehaviour {
     }
 
     public void AddMoney(int amount) {
-        GetOwner().AddMoney(amount);
+        GetOwner().AddMoney(amount * _moneyCoefficient);
     }
 
     public void AddAttack(int attackAmount)
@@ -203,5 +204,10 @@ public class Pawn : MonoBehaviour {
     public bool IsPiggyBacked()
     {
         return _isPiggyBacked;
+    }
+    
+    public bool isPiggied()
+    {
+        return _piggyBacking != null;
     }
 }

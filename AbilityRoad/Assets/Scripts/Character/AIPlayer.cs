@@ -5,13 +5,26 @@ using UnityEngine;
 
 public class AIPlayer : BasePlayer
 {
-    protected override void RollDice()
+    
+    public override void StartTurn()
+    {
+        base.StartTurn();
+        if(items.Count > 0)
+        {
+            IItem item = items[Random.Range(0, items.Count)];
+            item.UseItem(this);
+        }
+        RollDice();
+    }
+    public override void RollDice()
     {
         _chance--;
 
-        GUIDice guiDice = UIManager.Instance.OpenGUI<GUIDice>("Dice");
+        GUIDice guiDice = GameManager.Instance.Playground.GetMatchDice();
         guiDice.SetCallback((value) => {
-            Policy(value).Move(value);
+            Policy(value + extraDicePoint).Move(value + extraDicePoint);
+            extraDicePoint = 0;
+            guiDice.Close();
         });
         
         guiDice.Roll();
@@ -26,7 +39,8 @@ public class AIPlayer : BasePlayer
         {
             if(pawn.IsPiggyBacked()) continue;
             IPlate plate = pawn.MovePredict(value);
-            int currentPawnValue = plate == null ? 10 : plate.GetValue(this, SetTarget());
+            int currentPawnValue = plate == null ? 100 : plate.GetValue(this, SetTarget());
+            if(pawn.isPiggied()) currentPawnValue *= 2;
             if (currentPawnValue >= mostValuablePawnValue)
             {
                 mostValuablePawn = pawn;
@@ -53,6 +67,33 @@ public class AIPlayer : BasePlayer
         }
         return target;
     }
+    
+    public override void EnterShop(CallbackMethod callback)
+    {
+        GUIShop shop = UIManager.Instance.OpenGUI<GUIShop>("Shop");
+        shop.EnterShop(this, callback);
+        IItem selected = SelectBuyItem(shop.GetSaleItems());
+        shop.SelectItem(selected);
+        BuyItem(selected);
+        shop.Close();
+    }
 
+    private IItem SelectBuyItem(List<IItem> items)
+    {
+        IItem mostValuableItem = null;
+        int mostValuableItemValue = -1;
+
+        foreach (var item in items)
+        {
+            int currentItemValue = item.ItemValue;
+            if (currentItemValue >= mostValuableItemValue && item.Price <= money)
+            {
+                mostValuableItem = item;
+                mostValuableItemValue = currentItemValue;
+            }
+        }
+
+        return mostValuableItem;
+    }
     
 }

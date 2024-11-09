@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using Newtonsoft.Json;
 
 namespace EHTool.LangKit {
 
@@ -56,7 +57,7 @@ namespace EHTool.LangKit {
 
             json ??= "{\"value\":[]}";
 
-            Dictionary<string, string> dic = JsonUtility.FromJson<Dictionary<string, string>>(json);
+            Dictionary<string, string> dic = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
 
             foreach (string str in dic.Keys) {
                 _dic[str] = dic[str];

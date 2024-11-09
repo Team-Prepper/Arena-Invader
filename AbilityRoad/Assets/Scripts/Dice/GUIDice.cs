@@ -1,17 +1,11 @@
 using EHTool.UIKit;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GUIDice : GUIPopUp
 {
-    static int random = 1;
-
-    [SerializeField] Vector2Int _range;
     [SerializeField] Button _btn;
-    [SerializeField] Text _num;
+    [SerializeField] IDice _dice;
 
     CallbackMethod<int> _callback;
 
@@ -20,9 +14,7 @@ public class GUIDice : GUIPopUp
     public override void Open()
     {
         base.Open();
-        _num.text = string.Format("{0}", random);
-        _btn.enabled = true;
-        _isRolling = false;
+        _dice.Initial();
     }
 
     public void SetCallback(CallbackMethod<int> callback)
@@ -33,25 +25,13 @@ public class GUIDice : GUIPopUp
     public void Roll() {
         if (_isRolling) return;
 
-        StartCoroutine(Dice());
         _btn.enabled = false;
         _isRolling = true;
-    }
 
-    IEnumerator Dice() {
-
-        for (int i = 0; i < 3; i++) {
-            yield return new WaitForSeconds(.2f);
-            _num.text = string.Format("{0}", Random.Range(_range.x, _range.y));
-        }
-        random = Random.Range(_range.x, _range.y);
-
-        _num.text = string.Format("{0}", random);
-
-        yield return new WaitForSeconds(.2f);
-
-        _callback?.Invoke(random);
-        Close();
+        _dice.Roll((amount) => {
+            _callback?.Invoke(amount);
+            Close();
+        });
     }
 
 }

@@ -5,7 +5,7 @@ public class OneMoreChance : IOverlapEvent {
     {
         Pawn defaultPawn = plate.GetPawn();
 
-        UIManager.Instance.OpenGUI<GUIDice>("Dice").SetCallback((amount) =>
+        GameManager.Instance.Playground.GetMatchDice().SetCallback((amount) =>
         {
             newPawn.Move(amount);
         });

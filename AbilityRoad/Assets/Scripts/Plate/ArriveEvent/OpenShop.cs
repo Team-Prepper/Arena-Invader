@@ -14,7 +14,7 @@ public class OpenShop : IArriveEvent
 
     public override void AddAbility(Pawn target, CallbackMethod callback)
     {
-        UIManager.Instance.OpenGUI<GUIShop>("Shop").EnterShop(target.GetOwner(), callback); // add to xml "shop"
+        target.GetOwner().EnterShop(callback);
     }
 }
 

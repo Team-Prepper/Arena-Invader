@@ -1,3 +1,4 @@
+using EHTool.UIKit;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +11,8 @@ public class Playground : IPlayground {
 
     IList<int> _deathPlayerIdx;
     int _turnIdx;
+
+    string _matchDiceCode = "DartDice";
 
     public Playground()
     {
@@ -46,7 +49,12 @@ public class Playground : IPlayground {
 
     public void TurnStart()
     {
-        Players[_turnIdx].StartTurn();
+        GUITurnStart turnStartCall = UIManager.Instance.OpenGUI<GUITurnStart>("TurnStart");
+
+        turnStartCall.SetWaitForCallback(() => {
+            Players[_turnIdx].StartTurn();
+            turnStartCall.Close();
+        });
     }
 
     public void TurnEnd()
@@ -71,6 +79,15 @@ public class Playground : IPlayground {
     public int CalcDamage(Character attacker, Character target)
     {
         return Mathf.Max(1, attacker.GetAttackValue() - target.GetDefenseValue());
+    }
+    public void SetMatchDice(string code)
+    {
+        _matchDiceCode = code;
+    }
+
+    public GUIDice GetMatchDice()
+    {
+        return UIManager.Instance.OpenGUI<GUIDice>(_matchDiceCode);
     }
 
 }

@@ -5,14 +5,27 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayablePlayer : BasePlayer {
+    
+    public override void StartTurn()
+    {
+        base.StartTurn();
+        UIManager.Instance.OpenGUI<GUIPlayerAction>("PlayerAction").PlayerTurnStart(this);
+    }
 
-    protected override void RollDice()
+    public override void RollDice()
     {
         _chance--;
 
-        UIManager.Instance.OpenGUI<GUIDice>("Dice").SetCallback((value) => {
-            UIManager.Instance.OpenGUI<GUISelectMovePawn>("SelectMovePawn").SetPlayer(this, value);
+        GameManager.Instance.Playground.GetMatchDice().SetCallback((value) => {
+            UIManager.Instance.OpenGUI<GUISelectMovePawn>("SelectMovePawn").SetPlayer(this, value + extraDicePoint);
+            extraDicePoint = 0;
         });
-
+        
     }
+    
+    public override void EnterShop(CallbackMethod callback)
+    {
+        UIManager.Instance.OpenGUI<GUIShop>("Shop").EnterShop(this, callback); 
+    }
+    
 }

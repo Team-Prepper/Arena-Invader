@@ -1,8 +1,9 @@
+using EHTool.UIKit;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GUIPlayerUnit : MonoBehaviour, IObserver<Character> {
+public class GUIPlayerUnit : GUIPopUp, IObserver<Character> {
 
     [SerializeField] Text _name;
     [SerializeField] string _nameFormat = "{0}";
@@ -30,7 +31,7 @@ public class GUIPlayerUnit : MonoBehaviour, IObserver<Character> {
     {
         _name.text = string.Format(_nameFormat, value.GetName());
         _health.text = string.Format(_healthFormat, value.GetHealth());
-        _coin.text = string.Format(_coinFormat, value.GetCoin());
+        _coin.text = string.Format(_coinFormat, value.Money);
         _attack.text = string.Format(_attackFormat, value.GetAttackValue());
         _defense.text = string.Format(_defenseFormat, value.GetDefenseValue());
     }

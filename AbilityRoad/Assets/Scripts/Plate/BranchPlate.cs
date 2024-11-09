@@ -17,8 +17,9 @@ public class BranchPlate : IPlate
 
     IDictionary<IPlate, IPlate> _fromTo;
 
-    private void Start()
+    protected override void Initial()
     {
+        base.Initial();
         _fromTo = new Dictionary<IPlate, IPlate>();
         for (int i = 0; i < _infor.Length; i++) {
             _fromTo.Add(_infor[i]._from, _infor[i]._to);
@@ -36,5 +37,10 @@ public class BranchPlate : IPlate
             return;
         }
         callback?.Invoke(_fromTo[from]);
+    }
+
+    public override int GetValue(Character attacker, Character defender)
+    {
+        return base.GetValue(attacker, defender) + 5;
     }
 }

@@ -16,7 +16,7 @@ public class MatchGenerator : MonoBehaviour
 
     public void Generate()
     {
-        GameManager.Instance.Playground.Map = AssetOpener.Import<Map>(_matchInfor.MapName);
+        GameManager.Instance.Playground.Map = AssetOpener.ImportComponent<Map>(_matchInfor.MapName);
 
         for (int i = 0; i < _matchInfor.PlayerInfors.Length; i++) {
             BasePlayer player =

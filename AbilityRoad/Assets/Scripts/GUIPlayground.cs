@@ -18,10 +18,21 @@ public class GUIPlayground : GUIFullScreen
     public override void Open()
     {
         base.Open();
-        GenerateWorld();
+        if (_generator) {
+            Generate();
+        }
+        // 
     }
 
-    void GenerateWorld()
+    public void GenerateMatch(MatchInfor infor)
+    {
+        _generator = GameObject.FindWithTag("MatchGenerator").GetComponent<MatchGenerator>();
+        GameManager.Instance.Playground.SetMatchDice(infor.MatchDice);
+        _generator.SetMatchInfor(infor);
+        Generate();
+    }
+
+    void Generate()
     {
         _generator.Generate();
 
@@ -52,8 +63,6 @@ public class GUIPlayground : GUIFullScreen
     public void PressButton(int idx) {
 
         if (idx >= _buttons.Length) return;
-
-        _playerInfor.SetPlayer(_players[idx]);
 
     }
 

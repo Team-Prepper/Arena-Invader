@@ -66,6 +66,7 @@ public class GUISetting : GUIPopUp {
         for (int i = 0; i < _langOpt.Length; i++)
         {
             optionData.Add(new Dropdown.OptionData(LangManager.Instance.GetStringByKey(_langOpt[i].name), null));
+            Debug.Log(_langOpt[i].name);
         }
         _langDropdown.AddOptions(optionData);
 

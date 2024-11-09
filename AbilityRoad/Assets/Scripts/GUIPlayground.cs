@@ -53,8 +53,6 @@ public class GUIPlayground : GUIFullScreen
 
         if (idx >= _buttons.Length) return;
 
-        _playerInfor.SetPlayer(_players[idx]);
-
     }
 
 }

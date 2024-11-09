@@ -4,17 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4a77bd12-6663-4a58-93b6-42bb74de1419" name="변경" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.AbilityRoad/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AbilityRoad/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/XML/GUIInfor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/XML/GUIInfor.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
-    </list>
+    <list default="true" id="4a77bd12-6663-4a58-93b6-42bb74de1419" name="변경" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Cam/CameraController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GUIOpenInventory.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GUIPlayerAction.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GUIShop.cs" root0="FORCE_HIGHLIGHTING" />
@@ -108,7 +105,7 @@
       <workItem from="1731068079370" duration="708000" />
       <workItem from="1731124605255" duration="1937000" />
       <workItem from="1731130278092" duration="2109000" />
-      <workItem from="1731135288230" duration="5552000" />
+      <workItem from="1731135288230" duration="6162000" />
     </task>
     <servers />
   </component>

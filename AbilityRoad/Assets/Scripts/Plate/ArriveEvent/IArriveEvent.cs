@@ -1,7 +1,9 @@
 using UnityEngine;
 
 public abstract class IArriveEvent : MonoBehaviour {
-    abstract public void AddAbility(Pawn target, CallbackMethod callback);
 
-    abstract public int GetValue(Character attacker, Character defender);
+    public abstract int GetPriority();
+
+    public abstract void AddAbility(Pawn target, CallbackMethod callback);
+    public abstract int GetValue(Character attacker, Character defender);
 }

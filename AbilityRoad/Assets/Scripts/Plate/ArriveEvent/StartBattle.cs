@@ -5,7 +5,8 @@ using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
 public class StartBattle : IArriveEvent {
-    
+
+    public override int GetPriority() => 2;
     public override int GetValue(Character attacker, Character defender)
     {
         Character _object = GameManager.Instance.Playground.Map.GetObject();

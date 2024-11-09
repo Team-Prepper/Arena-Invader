@@ -26,6 +26,7 @@ public class Pawn : MonoBehaviour {
     [SerializeField] int _attackCoefficient = 1;
     [SerializeField] int _defenseCoefficient = 1;
     [SerializeField] int _healthCoefficient = 1;
+    [SerializeField] int _moneyCoefficient = 1;
     [SerializeField] int _moveCoefficient = 0;
     [SerializeField] int _levelCoefficient = 1;
 
@@ -175,6 +176,10 @@ public class Pawn : MonoBehaviour {
     public void OffFocus()
     {
         _model.position -= _up;
+    }
+
+    public void AddMoney(int amount) {
+        GetOwner().AddMoney(amount);
     }
 
     public void AddAttack(int attackAmount)

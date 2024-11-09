@@ -233,7 +233,7 @@ GameObject:
   - component: {fileID: 5328027309919299800}
   - component: {fileID: 6722446169268100351}
   - component: {fileID: 5400788839487918715}
-  - component: {fileID: 2090913315466304643}
+  - component: {fileID: 4341326846480533688}
   m_Layer: 0
   m_Name: Plate (4)
   m_TagString: Untagged
@@ -263,7 +263,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1341242882055920873}
-  m_Mesh: {fileID: -7251876043696717944, guid: d52e4d570489ee3469fb5104558e0098, type: 3}
+  m_Mesh: {fileID: -1995953043680164629, guid: d52e4d570489ee3469fb5104558e0098, type: 3}
 --- !u!23 &6722446169268100351
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -319,7 +319,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _nextPlate: {fileID: 8471099410706177470}
---- !u!114 &2090913315466304643
+--- !u!114 &4341326846480533688
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -328,10 +328,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1341242882055920873}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc5d054996db36b46a1d803adb2b709a, type: 3}
+  m_Script: {fileID: 11500000, guid: a5151b5af5e71a04188081d9e9223678, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attackAmount: 3
 --- !u!1 &1407460051530045454
 GameObject:
   m_ObjectHideFlags: 0
@@ -2450,7 +2449,7 @@ MonoBehaviour:
   _startPlate: {fileID: 5040216781645386397}
   _raidInfors:
   - StartTurn: 2
-    SpawnCode: ObjectCharacter/Dragon
+    SpawnCode: ObjectCharacter/Baron
 --- !u!1 &5894198595178470569
 GameObject:
   m_ObjectHideFlags: 0
@@ -3309,7 +3308,7 @@ GameObject:
   - component: {fileID: 3180476167559631766}
   - component: {fileID: 1519182341498504942}
   - component: {fileID: 4453501953603519183}
-  - component: {fileID: 2687653426783330235}
+  - component: {fileID: 3427064281812130551}
   m_Layer: 0
   m_Name: Plate (4)
   m_TagString: Untagged
@@ -3339,7 +3338,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8719109264477984875}
-  m_Mesh: {fileID: -1995953043680164629, guid: d52e4d570489ee3469fb5104558e0098, type: 3}
+  m_Mesh: {fileID: -7251876043696717944, guid: d52e4d570489ee3469fb5104558e0098, type: 3}
 --- !u!23 &1519182341498504942
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3395,7 +3394,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _nextPlate: {fileID: 8471099410706177470}
---- !u!114 &2687653426783330235
+--- !u!114 &3427064281812130551
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3404,9 +3403,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8719109264477984875}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5151b5af5e71a04188081d9e9223678, type: 3}
+  m_Script: {fileID: 11500000, guid: dc5d054996db36b46a1d803adb2b709a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _attackAmount: 0
 --- !u!1 &8767923143531210063
 GameObject:
   m_ObjectHideFlags: 0

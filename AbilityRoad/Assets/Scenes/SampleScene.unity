@@ -174,10 +174,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: DefaultMap
       objectReference: {fileID: 0}
-    - target: {fileID: 5644921040821624276, guid: 1600ccc7fb1bba44dba7698d5febdc69, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -16,6 +15,7 @@ public class DartDice : IDice {
 
     public override void Initial()
     {
+        _plateTr.eulerAngles = Vector3.forward * Random.Range(-180, 180);
 
     }
 

@@ -12,7 +12,7 @@ public class RouletteDice : IDice {
     [SerializeField] int _minValue;
 
     public override void Initial() {
-        
+        _rouletteTr.eulerAngles = Vector3.forward * Random.Range(-180, 180);
     }
 
     public override void Roll(CallbackMethod<int> callback)

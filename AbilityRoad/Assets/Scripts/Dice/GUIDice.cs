@@ -17,6 +17,7 @@ public class GUIDice : GUIPopUp
     public override void Open()
     {
         base.Open();
+        _dice.Initial();
     }
 
     public void SetCallback(CallbackMethod<int> callback)

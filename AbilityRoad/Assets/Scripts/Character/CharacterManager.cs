@@ -36,7 +36,7 @@ public class CharacterManager : Singleton<CharacterManager> {
 
     public BasePlayer SpawnPlayer(string code) {
         Debug.Log(code);
-        return AssetOpener.Import<BasePlayer>(_dic[code].path);
+        return AssetOpener.ImportComponent<BasePlayer>(_dic[code].path);
     }
     
 

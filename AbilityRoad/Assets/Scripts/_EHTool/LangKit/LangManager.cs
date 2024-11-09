@@ -72,11 +72,12 @@ namespace EHTool.LangKit {
                 return retval;
             }
 
+            /*
             if (doAddKey) {
                 _reader.AddKey(key);
                 Debug.Log("New Key!!: " + key);
             }
-
+            */
             return key;
 
         }

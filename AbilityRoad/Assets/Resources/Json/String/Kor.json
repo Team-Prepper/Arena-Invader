@@ -1,1 +1,8 @@
-{}
+{
+    "btn_Start" : "시작",
+    "btn_Setting" : "설정",
+    "btn_Human" : "인간",
+    "label_PlayerCnt" : "플레이어 수",
+    "label_Map" : "맵 선택",
+    "label_SelectDice": "주사위 선택"
+}

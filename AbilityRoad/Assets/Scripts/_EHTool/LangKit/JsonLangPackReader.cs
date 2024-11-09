@@ -59,11 +59,8 @@ namespace EHTool.LangKit {
 
             Dictionary<string, string> dic = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
 
-            Debug.Log(dic.Keys.Count);
-
             foreach (string str in dic.Keys) {
                 _dic[str] = dic[str];
-                Debug.Log(str);
             }
 
         }

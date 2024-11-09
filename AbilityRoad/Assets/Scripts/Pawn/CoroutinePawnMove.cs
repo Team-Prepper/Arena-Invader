@@ -88,6 +88,7 @@ public class CoroutinePawnMove : IPawnMove {
         }
         
         _moveEffect.Play();
+        SFXManager.Instance.PlaySFX("FootStep");
         yield return new WaitForSeconds(stopTime);
         
         transform.position = goalPos;

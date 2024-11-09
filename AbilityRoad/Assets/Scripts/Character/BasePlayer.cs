@@ -50,6 +50,7 @@ public class BasePlayer : Character
 
     public void LevelUp(Pawn pawn, int levelUpAmount, bool isPiggyBacked)
     {
+        SFXManager.Instance.PlaySFX("PowerUp");
         _level += levelUpAmount;
 
         pawn.Dispose(_emptyPlace[0]);

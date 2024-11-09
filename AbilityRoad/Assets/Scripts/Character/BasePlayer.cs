@@ -142,4 +142,10 @@ public class BasePlayer : Character
         UIManager.Instance.OpenGUI<GUIOpenInventory>("Inventory").OpenInventory(this,items);
         callback?.Invoke();
     }
+
+    public void SlainObject()
+    {
+        _status.AddAttackValue(50);
+        _status.AddDefenceValue(50);
+    }
 }

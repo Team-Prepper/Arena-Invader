@@ -28,6 +28,7 @@ public class GUIRaid : GUIPopUp {
             {
                 if (!target.IsAlive())
                 {
+                    attacker.SlainObject();
                     callback?.Invoke();
                     Close();
                     return;

@@ -10,19 +10,17 @@ public class MatchGenerator : MonoBehaviour
 
     [SerializeField] Transform[] _playerPosition;
 
-    // Start is called before the first frame update
-    void Awake()
-    {
-        Generate();
+    public void SetMatchInfor(MatchInfor matchInfor) {
+        _matchInfor = matchInfor;
     }
 
-
-    void Generate()
+    public void Generate()
     {
         GameManager.Instance.Playground.Map = AssetOpener.Import<Map>(_matchInfor.MapName);
 
         for (int i = 0; i < _matchInfor.PlayerInfors.Length; i++) {
-            BasePlayer player = AssetOpener.Import<BasePlayer>(_matchInfor.PlayerInfors[i].CharacterName);
+            BasePlayer player =
+                CharacterManager.Instance.SpawnPlayer(_matchInfor.PlayerInfors[i].CharacterCode);
             player.SetInitial(i, _matchInfor.PlayerInfors[i].Name);
             player.transform.position = _playerPosition[i].position;
         }

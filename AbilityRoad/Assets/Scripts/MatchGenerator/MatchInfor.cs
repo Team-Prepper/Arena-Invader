@@ -7,12 +7,12 @@ public class MatchInfor
 {
     [System.Serializable]
     public class PlayerInfor {
-        public string CharacterName;
-        public string Name;
+        public string CharacterCode = "Player";
+        public string Name = "Player";
         
     }
 
-    public PlayerInfor[] PlayerInfors;
-    public string MapName;
+    public PlayerInfor[] PlayerInfors = new PlayerInfor[2];
+    public string MapName = "Map/DefaultMap";
 
 }

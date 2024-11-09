@@ -13,13 +13,24 @@ public class GUIPlayground : GUIFullScreen
     [SerializeField] Text _turnInfor;
     [SerializeField] string _turnInforFormat = "{0}'s Turn";
 
+    [SerializeField] MatchGenerator _generator;
+
     public override void Open()
     {
         base.Open();
+        GenerateWorld();
+    }
+
+    void GenerateWorld()
+    {
+        _generator.Generate();
+
         _players = GameManager.Instance.Playground.Players;
 
-        for (int i = 0; i < _buttons.Length; i++) {
-            if (i < _players.Count) {
+        for (int i = 0; i < _buttons.Length; i++)
+        {
+            if (i < _players.Count)
+            {
                 _buttons[i].gameObject.SetActive(true);
                 _buttons[i].SetPlayer(_players[i]);
                 continue;
@@ -29,6 +40,7 @@ public class GUIPlayground : GUIFullScreen
         }
 
         PressButton(0);
+
     }
 
     private void Update()

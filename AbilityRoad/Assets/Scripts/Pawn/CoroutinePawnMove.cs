@@ -7,6 +7,8 @@ public class CoroutinePawnMove : IPawnMove {
     [SerializeField] float _startStall;
     [SerializeField] float _moveStall;
     [SerializeField] float _moveTime = 0.5f;
+    
+    [SerializeField] ParticleSystem _moveEffect;
 
     CallbackMethod _arriveCallback;
     CallbackMethod<IPlate> _moveEndCallback;
@@ -84,9 +86,10 @@ public class CoroutinePawnMove : IPawnMove {
             spendTime += Time.deltaTime;
             transform.position = Vector3.Lerp(originPos, goalPos, spendTime / moveTime);
         }
-
+        
+        _moveEffect.Play();
         yield return new WaitForSeconds(stopTime);
-
+        
         transform.position = goalPos;
         callback?.Invoke();
     }

@@ -5,8 +5,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayablePlayer : BasePlayer {
+    
+    public override void StartTurn()
+    {
+        base.StartTurn();
+        UIManager.Instance.OpenGUI<GUIPlayerAction>("PlayerAction").PlayerTurnStart(this);
+    }
 
-    protected override void RollDice()
+    public override void RollDice()
     {
         _chance--;
 
@@ -21,4 +27,5 @@ public class PlayablePlayer : BasePlayer {
     {
         UIManager.Instance.OpenGUI<GUIShop>("Shop").EnterShop(this, callback); 
     }
+    
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using EHTool.UIKit;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -11,7 +12,7 @@ public class BasePlayer : Character
 
     [SerializeField] protected int money = 0;
     IList<Vector3> _emptyPlace;
-    [SerializeField] List<IItem> _items;
+    [SerializeField] protected List<IItem> items;
 
     protected int _chance = 0;
 
@@ -65,10 +66,9 @@ public class BasePlayer : Character
 
     }
 
-    public void StartTurn()
+    public virtual void StartTurn()
     {
         _chance = 1;
-        RollDice();
     }
 
     public void EndTurn()
@@ -86,7 +86,7 @@ public class BasePlayer : Character
         _chance++;
     }
 
-    protected virtual void RollDice() { }
+    public virtual void RollDice() { }
 
     public void OnPawnChoose()
     {
@@ -112,12 +112,31 @@ public class BasePlayer : Character
         if (money < item.Price) return false;
 
         money -= item.Price;
-        _items.Add(item);
+        items.Add(item);
         return true;
+    }
+    
+    public void UseItem(IItem item, CallbackMethod callback = null)
+    {
+        items.Remove(item);
+        item.UseItem(this);
+        RollDice(); // !!!!!!! hard coded!!!!!!!!
+        callback?.Invoke();
+    }
+
+    public void DiscardItem(IItem item)
+    {
+        items.Remove(item);
     }
     
     public void GetExtraDicePoint(int point)
     {
         extraDicePoint += point;
+    }
+
+    public void OpenInventory(CallbackMethod callback)
+    {
+        UIManager.Instance.OpenGUI<GUIOpenInventory>("Inventory").OpenInventory(this,items);
+        callback?.Invoke();
     }
 }

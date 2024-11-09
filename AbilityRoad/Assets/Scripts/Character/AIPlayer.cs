@@ -5,7 +5,18 @@ using UnityEngine;
 
 public class AIPlayer : BasePlayer
 {
-    protected override void RollDice()
+    
+    public override void StartTurn()
+    {
+        base.StartTurn();
+        if(items.Count > 0)
+        {
+            IItem item = items[Random.Range(0, items.Count)];
+            item.UseItem(this);
+        }
+        RollDice();
+    }
+    public override void RollDice()
     {
         _chance--;
 

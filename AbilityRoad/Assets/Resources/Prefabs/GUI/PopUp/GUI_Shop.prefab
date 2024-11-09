@@ -2283,10 +2283,10 @@ MonoBehaviour:
   _buyButton: {fileID: 4344638638780632085}
   _shopButtons:
   - {fileID: 2343574844263557136}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 666017200550638502}
+  - {fileID: 5674658774205303767}
+  - {fileID: 796149766592565941}
+  - {fileID: 2464888659296309538}
   _saleItems:
   - {fileID: 5542986268208651831, guid: 50de93645d69e428a8722b8bee2909c8, type: 3}
 --- !u!1 &7632147774718708230

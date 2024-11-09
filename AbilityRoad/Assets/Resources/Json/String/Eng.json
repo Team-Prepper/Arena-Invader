@@ -10,6 +10,8 @@
     "btn_Shot" : "Throw",
     "btn_Roll" : "Roll",
     "btn_Buy" : "Buy",
+    "btn_Discard" : "Discard",
+    "btn_Use" : "Use",
     "label_Setting" : "Setting",
     "label_Language" : "Language",
     "label_Sound" : "Sound",

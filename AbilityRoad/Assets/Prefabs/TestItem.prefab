@@ -44,3 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11d5e682687b84c4aa949f05d39e2fcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _price: 20
+  _name: TestItem
+  _icon: {fileID: 21300000, guid: 8cca77554c3436d489500f2e7ba7d9a3, type: 3}
+  _description: TESTITEM

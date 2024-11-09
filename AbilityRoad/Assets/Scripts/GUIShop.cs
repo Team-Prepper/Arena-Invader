@@ -7,11 +7,11 @@ using UnityEngine.UI;
 public class GUIShop : GUIPopUp
 {
     [Header("Shop Info")]
-    Image _selectItemIcon;
-    Text _selectItemName;
-    Text _selectItemPrice;
-    Text _selectItemDescription;
-    Button _buyButton;
+    [SerializeField] private Image _selectItemIcon;
+    [SerializeField] private Text _selectItemName;
+    [SerializeField] private Text _selectItemPrice;
+    [SerializeField] private Text _selectItemDescription;
+    [SerializeField] private Button _buyButton;
     
     [Header("Shop Button")]
     [SerializeField] ShopUnit[] _shopButtons;
@@ -35,19 +35,20 @@ public class GUIShop : GUIPopUp
     {
         for (int i = 0; i < _shopButtons.Length; i++)
         {
-            _shopButtons[i].SetSlot(items[i].Price, items[i].Icon, () => SelectItem(i));
+            IItem currentSlotItem = _saleItems[Random.Range(0,items.Count)];
+            _shopButtons[i].SetSlot(currentSlotItem.Price, currentSlotItem.Icon, () => SelectItem(currentSlotItem));
         }
     }
 
-    private void SelectItem(int itemIdx)
+    private void SelectItem(IItem currentItem)
     {
-        _selectItemIcon.sprite = _saleItems[itemIdx].Icon;
-        _selectItemName.text = _saleItems[itemIdx].Name;
-        _selectItemPrice.text = _saleItems[itemIdx].Price.ToString();
-        _selectItemDescription.text = _saleItems[itemIdx].Description;
+        _selectItemIcon.sprite = currentItem.Icon;
+        _selectItemName.text = currentItem.Name;
+        _selectItemPrice.text = currentItem.Price.ToString();
+        _selectItemDescription.text = currentItem.Description;
         
         _buyButton.onClick.RemoveAllListeners();
-        _buyButton.onClick.AddListener(() => _buyer.BuyItem(_saleItems[itemIdx]));
+        _buyButton.onClick.AddListener(() => _buyer.BuyItem(currentItem));
     }
 
     public override void Close()

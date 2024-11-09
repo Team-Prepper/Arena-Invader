@@ -4,11 +4,20 @@ using UnityEngine;
 
 public abstract class IItem : MonoBehaviour
 {
-    public int Price { get; }
-    public string Name { get; }
-    public Sprite Icon { get; }
+    [SerializeField] private int _price;
+
+    public int Price
+    {
+        get => _price;
+        set => _price = value;
+    }
+    [SerializeField] string _name;
+    public string Name => _name; 
+    [SerializeField] Sprite _icon;
+    public Sprite Icon => _icon;
     
-    public string Description { get; }
+    [SerializeField] string _description;
+    public string Description => _description;
     
     public abstract void UseItem();
 }

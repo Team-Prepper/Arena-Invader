@@ -1042,7 +1042,7 @@ GameObject:
   - component: {fileID: 3378598960942443332}
   - component: {fileID: 4558294416593145024}
   - component: {fileID: 780776222825470464}
-  - component: {fileID: 960599539374840190}
+  - component: {fileID: 2266510102067977843}
   m_Layer: 0
   m_Name: Plate (3)
   m_TagString: Untagged
@@ -1129,7 +1129,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _event: {fileID: 0}
   _nextPlate: {fileID: 7370036899790998589}
---- !u!114 &960599539374840190
+--- !u!114 &2266510102067977843
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1138,10 +1138,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2919857658494376323}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e0ba9b3af7f7fc4eadcbf26b6c1e431, type: 3}
+  m_Script: {fileID: 11500000, guid: c868f607afba84f2a9011bc0be4ce524, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _healAmount: 10
 --- !u!1 &3062046953260716983
 GameObject:
   m_ObjectHideFlags: 0
@@ -1649,7 +1648,7 @@ GameObject:
   - component: {fileID: 6358081425486682767}
   - component: {fileID: 7695762935551580584}
   - component: {fileID: 1242210032744979175}
-  - component: {fileID: 7065951943034491156}
+  - component: {fileID: 4951101397021758210}
   m_Layer: 0
   m_Name: Plate (1)
   m_TagString: Untagged
@@ -1734,9 +1733,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91d44002ac0c6f742b9954e4c07d28fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _event: {fileID: 7065951943034491156}
+  _event: {fileID: 0}
   _nextPlate: {fileID: 9039541366124403629}
---- !u!114 &7065951943034491156
+--- !u!114 &4951101397021758210
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1745,10 +1744,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4482650832078977989}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e0ba9b3af7f7fc4eadcbf26b6c1e431, type: 3}
+  m_Script: {fileID: 11500000, guid: c868f607afba84f2a9011bc0be4ce524, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _healAmount: 10
 --- !u!1 &4494404905904650951
 GameObject:
   m_ObjectHideFlags: 0
@@ -1796,7 +1794,7 @@ GameObject:
   - component: {fileID: 8974659554448426599}
   - component: {fileID: 8493974502190674579}
   - component: {fileID: 9039541366124403629}
-  - component: {fileID: 7668271397036966595}
+  - component: {fileID: 8117705292272837394}
   m_Layer: 0
   m_Name: Plate (2)
   m_TagString: Untagged
@@ -1883,7 +1881,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _event: {fileID: 0}
   _nextPlate: {fileID: 780776222825470464}
---- !u!114 &7668271397036966595
+--- !u!114 &8117705292272837394
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1892,10 +1890,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4894807083588876462}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e0ba9b3af7f7fc4eadcbf26b6c1e431, type: 3}
+  m_Script: {fileID: 11500000, guid: c868f607afba84f2a9011bc0be4ce524, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _healAmount: 10
 --- !u!1 &4938655161851875164
 GameObject:
   m_ObjectHideFlags: 0
@@ -2882,7 +2879,7 @@ GameObject:
   - component: {fileID: 7302123423655815895}
   - component: {fileID: 4294503527676922119}
   - component: {fileID: 7370036899790998589}
-  - component: {fileID: 1266451040240607765}
+  - component: {fileID: 1143999927189154587}
   m_Layer: 0
   m_Name: Plate (4)
   m_TagString: Untagged
@@ -2969,7 +2966,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _event: {fileID: 5154761647119667845}
   _nextPlate: {fileID: 2817986810468918950}
---- !u!114 &1266451040240607765
+--- !u!114 &1143999927189154587
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2978,7 +2975,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7635690800121344679}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5151b5af5e71a04188081d9e9223678, type: 3}
+  m_Script: {fileID: 11500000, guid: c868f607afba84f2a9011bc0be4ce524, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7819541809463669884

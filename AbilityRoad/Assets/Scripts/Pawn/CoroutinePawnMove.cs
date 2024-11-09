@@ -48,7 +48,7 @@ public class CoroutinePawnMove : IPawnMove {
         StartCoroutine(_MoveTo(pos, _moveTime, 0, null));
     }
 
-    public void MoveTo(IPlate plate)
+    private void MoveTo(IPlate plate)
     {
 
         if (plate == null)

@@ -24,6 +24,7 @@ public class AIPlayer : BasePlayer
         guiDice.SetCallback((value) => {
             Policy(value + extraDicePoint).Move(value + extraDicePoint);
             extraDicePoint = 0;
+            guiDice.Close();
         });
         
         guiDice.Roll();

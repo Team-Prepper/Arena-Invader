@@ -32,7 +32,11 @@ public class GUIOpenInventory : GUIPopUp
             }
         }
         _rollDiceButton.onClick.RemoveAllListeners();
-        _rollDiceButton.onClick.AddListener(() => _owner.RollDice());
+        _rollDiceButton.onClick.AddListener(() =>
+        {
+            _owner.RollDice();
+            Close();
+        });
     }
     
     public void OpenInventory(BasePlayer user ,List<IItem> inventoryItems)

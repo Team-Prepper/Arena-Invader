@@ -754,6 +754,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: GUIMatchSetting
       objectReference: {fileID: 0}
+    - target: {fileID: 8482267987214370730, guid: 9c7d4829b0648fd4ca0ce2d297098768, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8482267987214370730, guid: 9c7d4829b0648fd4ca0ce2d297098768, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8482267987214370730, guid: 9c7d4829b0648fd4ca0ce2d297098768, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8482267987214370730, guid: 9c7d4829b0648fd4ca0ce2d297098768, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8482267987214370730, guid: 9c7d4829b0648fd4ca0ce2d297098768, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8482267987214370730, guid: 9c7d4829b0648fd4ca0ce2d297098768, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

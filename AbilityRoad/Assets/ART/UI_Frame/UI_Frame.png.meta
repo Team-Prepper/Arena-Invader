@@ -391,10 +391,10 @@ TextureImporter:
       name: UI_Frame_13
       rect:
         serializedVersion: 2
-        x: 4274
+        x: 4277
         y: 3508
-        width: 899
-        height: 95
+        width: 896
+        height: 89
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

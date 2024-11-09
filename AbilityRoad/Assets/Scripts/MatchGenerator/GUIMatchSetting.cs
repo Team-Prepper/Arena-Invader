@@ -39,6 +39,7 @@ public class GUIMatchSetting : GUIFullScreen
                 continue;
             }
             _infor.PlayerInfors[i] = def[i];
+            _infor.PlayerInfors[i].Name = _details[i].GetName();
         }
 
         SetDetails();

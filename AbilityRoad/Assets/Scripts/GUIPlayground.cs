@@ -18,7 +18,10 @@ public class GUIPlayground : GUIFullScreen
     public override void Open()
     {
         base.Open();
-        //Generate();
+        if (_generator) {
+            Generate();
+        }
+        // 
     }
 
     public void GenerateMatch(MatchInfor infor)

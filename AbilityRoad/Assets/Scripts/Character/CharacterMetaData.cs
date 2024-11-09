@@ -4,6 +4,9 @@ using UnityEngine;
 public class CharacterMetaData : ScriptableObject {
     
     public Sprite CharacterIcon;
-    public BasePlayer Prefab;
+    public Sprite CharacterAttack;
+    public Sprite CharacterDamage;
+    public Sprite CharacterStand;
+    public Character Prefab;
 
 }

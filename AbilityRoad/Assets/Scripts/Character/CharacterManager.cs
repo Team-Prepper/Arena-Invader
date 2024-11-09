@@ -34,13 +34,26 @@ public class CharacterManager : Singleton<CharacterManager> {
         }
     }
 
+    public Sprite GetPlayerAttackerSpr(string code) {
+        return _dic[code].CharacterAttack;
+    }
+
+    public Sprite GetPlayerDamageSpr(string code)
+    {
+        return _dic[code].CharacterDamage;
+    }
+
+    public Sprite GetPlayerStandSpr(string code)
+    {
+        return _dic[code].CharacterStand;
+    }
+
     public Sprite GetPlayerSpr(string code) {
         return _dic[code].CharacterIcon;
     }
 
     public BasePlayer SpawnPlayer(string code) {
-        return Object.Instantiate(_dic[code].Prefab);
+        return (BasePlayer)Object.Instantiate(_dic[code].Prefab);
     }
     
-
 }

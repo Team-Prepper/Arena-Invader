@@ -18,6 +18,9 @@ public class GUISelectMovePawn : GUIPopUp {
         _target.OnPawnChoose();
 
         _amountTxt.text = amount.ToString();
+        _pawnPredict.transform.SetParent(null);
+        _pawnPredict.transform.localScale = Vector3.one;
+        _pawnPredict.transform.SetParent(transform);
         _pawnPredict.SetActive(false);
     }
 
@@ -71,7 +74,6 @@ public class GUISelectMovePawn : GUIPopUp {
             _selectedPawn.Move(_amount);
             Close();
         }
-
 
     }
 

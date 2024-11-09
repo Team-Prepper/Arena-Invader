@@ -1,5 +1,6 @@
 using EHTool.UIKit;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +16,8 @@ public class GUIBattle : GUIPopUp {
     [SerializeField] Image _attacker;
     [SerializeField] Image _target;
 
+    [SerializeField] private List<GameObject> _swordAuras = new List<GameObject>();
+
 
     public void StartBattle(Character attacker, CallbackMethod callback)
     {
@@ -28,7 +31,7 @@ public class GUIBattle : GUIPopUp {
             StartCoroutine(WaitASeconds(() =>
             {
 
-                AttackSequence(_attacker, _target, attacker, target, () =>
+                AttackSequence(_attacker, _target, attacker, target,0, () =>
                 {
 
                     if (!target.IsAlive())
@@ -38,7 +41,7 @@ public class GUIBattle : GUIPopUp {
                         return;
                     }
 
-                    AttackSequence(_target, _attacker, target, attacker, () =>
+                    AttackSequence(_target, _attacker, target, attacker, 1,() =>
                     {
                         StartCoroutine(WaitASeconds(() =>
                         {
@@ -55,13 +58,15 @@ public class GUIBattle : GUIPopUp {
 
     }
 
-    void AttackSequence(Image attackerImg, Image targetImg, Character attacker, Character target, CallbackMethod callback)
+    void AttackSequence(Image attackerImg, Image targetImg, Character attacker, Character target, int attackSequence, CallbackMethod callback)
     {
-        _message.text = string.Format("{0}ÀÇ °ø°Ý!!", attacker.GetName());
+        _message.text = string.Format("{0}ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½!!", attacker.GetName());
 
         attackerImg.sprite = CharacterManager.Instance.GetPlayerAttackerSpr(attacker.GetCharacterCode());
         targetImg.sprite = CharacterManager.Instance.GetPlayerDamageSpr(target.GetCharacterCode());
 
+        SwordAuraController.Instance.SetSwordAura(attackSequence);
+        
         int damage = GameManager.Instance.Playground.CalcDamage(attacker, target);
 
         target.ReduceHealth(damage);

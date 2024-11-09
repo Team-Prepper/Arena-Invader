@@ -13,6 +13,7 @@ public class AIPlayer : BasePlayer
         {
             IItem item = items[Random.Range(0, items.Count)];
             item.UseItem(this);
+            items.Remove(item);
         }
         RollDice();
     }

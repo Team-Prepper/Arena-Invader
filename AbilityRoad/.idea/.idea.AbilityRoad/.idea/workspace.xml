@@ -5,8 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4a77bd12-6663-4a58-93b6-42bb74de1419" name="변경" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.AbilityRoad/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AbilityRoad/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Static/Static.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Static/Static.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Character/BasePlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Character/BasePlayer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Pawn/GUIRaid.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Pawn/GUIRaid.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +26,8 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Item/Item_PlusX.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Item/Item_Robbery.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Plate/ArriveEvent/OpenShop.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/PopUpManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/PopUpText.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/acc0d3af41574f228f52ab95cd14ec92176000/b0/ee5c0acc/UnityEvent.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3ea01e77be99618395f448b16bd7cc2bd4248bd9e5d8474964b2d97f39c5d74/System.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
@@ -108,7 +112,7 @@
       <workItem from="1731124605255" duration="1937000" />
       <workItem from="1731130278092" duration="2109000" />
       <workItem from="1731135288230" duration="6162000" />
-      <workItem from="1731187749830" duration="6389000" />
+      <workItem from="1731187749830" duration="7750000" />
     </task>
     <servers />
   </component>

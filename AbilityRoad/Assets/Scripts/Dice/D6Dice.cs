@@ -7,12 +7,12 @@ public class D6Dice : IDice {
 
     private Dictionary<Vector3Int, int> _diceInfor = new Dictionary<Vector3Int, int>
     {
-        { new Vector3Int( 0,  0,  1), 1 },
-        { new Vector3Int( 0,  1,  0), 2 },
-        { new Vector3Int(-1,  0,  0), 3 },
-        { new Vector3Int( 1,  0,  0), 4 },
-        { new Vector3Int( 0, -1,  0), 5 },
-        { new Vector3Int( 0,  0, -1), 6 },
+        { new Vector3Int( 0,  0,  1), 5 },
+        { new Vector3Int( 0,  1,  0), 4 },
+        { new Vector3Int(-1,  0,  0), 1 },
+        { new Vector3Int( 1,  0,  0), 6 },
+        { new Vector3Int( 0, -1,  0), 3 },
+        { new Vector3Int( 0,  0, -1), 2 },
     };
 
     public int Value { get; private set; }
@@ -42,6 +42,12 @@ public class D6Dice : IDice {
         rb.angularVelocity = Vector3.zero;
         rb.velocity = Vector3.zero;
         transform.localPosition = originPos;
+    }
+    
+    [ContextMenu("Execute Function")]
+    private void MyFunction()
+    {
+        RollDice();
     }
     
     public override void Roll(CallbackMethod<int> callback)
@@ -90,7 +96,7 @@ public class D6Dice : IDice {
         if (_diceInfor.TryGetValue(roundedOrientation, out int rollValue))
         {
             Value = rollValue;
-            Debug.Log(Value);
+            Debug.Log("Dice Value : " + Value);
             StartCoroutine(StopRolling());
         }
         else

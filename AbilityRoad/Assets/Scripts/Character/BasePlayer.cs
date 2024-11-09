@@ -119,6 +119,7 @@ public class BasePlayer : Character
     
     public void UseItem(IItem item, CallbackMethod callback = null)
     {
+        Debug.Log("USE ITEM!!");
         items.Remove(item);
         item.UseItem(this);
         RollDice(); // !!!!!!! hard coded!!!!!!!!

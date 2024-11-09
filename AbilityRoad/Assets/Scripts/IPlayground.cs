@@ -15,4 +15,7 @@ public interface IPlayground
     public void TurnEnd();
     public int CalcDamage(Character attacker, Character target);
 
+    public void SetMatchDice(string code);
+    public GUIDice GetMatchDice();
+
 }

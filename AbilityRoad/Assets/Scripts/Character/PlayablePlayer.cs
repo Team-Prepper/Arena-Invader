@@ -16,7 +16,7 @@ public class PlayablePlayer : BasePlayer {
     {
         _chance--;
 
-        UIManager.Instance.OpenGUI<GUIDice>("Dice").SetCallback((value) => {
+        GameManager.Instance.Playground.GetMatchDice().SetCallback((value) => {
             UIManager.Instance.OpenGUI<GUISelectMovePawn>("SelectMovePawn").SetPlayer(this, value + extraDicePoint);
             extraDicePoint = 0;
         });

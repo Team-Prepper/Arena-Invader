@@ -19,6 +19,10 @@ public class GUIMatchSetting : GUIFullScreen
 
     public void GenerateMatch()
     {
+        for (int i = 0; i < _infor.PlayerInfors.Length; i++) {
+            _infor.PlayerInfors[i].Name = _details[i].GetName();
+        }
+
         UIManager.Instance.OpenGUI<GUIPlayground>("Playground").GenerateMatch(_infor);
     }
 
@@ -52,6 +56,9 @@ public class GUIMatchSetting : GUIFullScreen
         }
     }
 
+    public void SetDice(string diceCode) {
+        _infor.MatchDice = diceCode;
+    }
     public void SetPlayerName(int idx, string name) {
         if (idx >= _infor.PlayerInfors.Length) return;
         _infor.PlayerInfors[idx].Name = name;

@@ -20,7 +20,7 @@ public class AIPlayer : BasePlayer
     {
         _chance--;
 
-        GUIDice guiDice = UIManager.Instance.OpenGUI<GUIDice>("Dice");
+        GUIDice guiDice = GameManager.Instance.Playground.GetMatchDice();
         guiDice.SetCallback((value) => {
             Policy(value + extraDicePoint).Move(value + extraDicePoint);
             extraDicePoint = 0;

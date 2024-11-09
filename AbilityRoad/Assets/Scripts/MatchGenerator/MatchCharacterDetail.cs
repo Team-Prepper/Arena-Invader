@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,5 +23,10 @@ public class MatchCharacterDetail : MonoBehaviour
     {
         _icon.sprite = CharacterManager.Instance.GetPlayerSpr(code);
         _mother.SetPlayerCharacter(_idx, code);
+    }
+
+    internal string GetName()
+    {
+        return _nameSet.text;
     }
 }

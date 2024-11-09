@@ -27,6 +27,7 @@ public class GUIPlayground : GUIFullScreen
     public void GenerateMatch(MatchInfor infor)
     {
         _generator = GameObject.FindWithTag("MatchGenerator").GetComponent<MatchGenerator>();
+        GameManager.Instance.Playground.SetMatchDice(infor.MatchDice);
         _generator.SetMatchInfor(infor);
         Generate();
     }

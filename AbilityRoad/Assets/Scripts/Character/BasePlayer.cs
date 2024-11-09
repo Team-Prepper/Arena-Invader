@@ -15,6 +15,8 @@ public class BasePlayer : Character
 
     protected int _chance = 0;
 
+    protected int extraDicePoint = 0;
+
     protected override void DeathEvent()
     {
         base.DeathEvent();
@@ -84,10 +86,7 @@ public class BasePlayer : Character
         _chance++;
     }
 
-    protected virtual void RollDice()
-    {
-
-    }
+    protected virtual void RollDice() { }
 
     public void OnPawnChoose()
     {
@@ -115,5 +114,10 @@ public class BasePlayer : Character
         money -= item.Price;
         _items.Add(item);
         return true;
+    }
+    
+    public void GetExtraDicePoint(int point)
+    {
+        extraDicePoint += point;
     }
 }

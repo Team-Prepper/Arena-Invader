@@ -11,7 +11,8 @@ public class AIPlayer : BasePlayer
 
         GUIDice guiDice = UIManager.Instance.OpenGUI<GUIDice>("Dice");
         guiDice.SetCallback((value) => {
-            Policy(value).Move(value);
+            Policy(value + extraDicePoint).Move(value + extraDicePoint);
+            extraDicePoint = 0;
         });
         
         guiDice.Roll();

@@ -4,13 +4,23 @@ using EHTool.UIKit;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Character : MonoBehaviour, IObservable<Character> {
 
     [SerializeField] protected string _name;
     [SerializeField] protected Status _status;
     [SerializeField] protected int _health;
-    [SerializeField] protected int _coin;
+    [SerializeField] protected int _money;
+
+    public int Money{
+        get => _money;
+        set {
+            _money = value;
+            if(_money < 0) _money = 0;
+            Notify();
+        }
+    }
 
     private readonly ISet<IObserver<Character>> _observers = new HashSet<IObserver<Character>>();
 
@@ -61,13 +71,13 @@ public class Character : MonoBehaviour, IObservable<Character> {
     }
 
     public void AddMoney(int amount) {
-        _coin += amount;
+        _money += amount;
         Notify();
     }
 
     public void ReduceMoney(int amount)
     {
-        _coin = Mathf.Min(_coin - amount, 0);
+        _money = Mathf.Min(_money - amount, 0);
         Notify();
     }
     internal void AddAttack(int attackAmount)
@@ -83,8 +93,6 @@ public class Character : MonoBehaviour, IObservable<Character> {
     }
 
     public string GetName() => _name;
-
-    public int GetCoin() => _coin;
 
     public int GetAttackValue() => _status.GetAttackValue(_level);
 

@@ -51,6 +51,7 @@ namespace EHTool.LangKit {
 
         public void UpdateData()
         {
+            Debug.Log(_nowLang);
             _reader.ReadData(_nowLang);
             _NotifyToObserver();
 

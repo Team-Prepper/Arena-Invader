@@ -219,7 +219,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: ButtonSelect
+          m_StringArgument: MenuSelect
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 3736301660124952858}
@@ -663,7 +663,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: ButtonSelect
+          m_StringArgument: MenuSelect
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 3736301660124952858}
@@ -1193,13 +1193,25 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8482091249091707851}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 3736301660124952858}
+        m_TargetAssemblyTypeName: GUIMatchSetting, Assembly-CSharp
+        m_MethodName: SetDice
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Dice
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3736301660124952858}
+        m_TargetAssemblyTypeName: GUIMatchSetting, Assembly-CSharp
+        m_MethodName: DiceCursorPos
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8482267987214370730}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1214,19 +1226,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: ButtonSelect
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 3736301660124952858}
-        m_TargetAssemblyTypeName: GUIMatchSetting, Assembly-CSharp
-        m_MethodName: DiceCursorPos
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 8482267987214370730}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: MenuSelect
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &2318649560918314704
@@ -1350,13 +1350,25 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8482091249091707851}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 3736301660124952858}
+        m_TargetAssemblyTypeName: GUIMatchSetting, Assembly-CSharp
+        m_MethodName: SetDice
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: RoletteDice
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3736301660124952858}
+        m_TargetAssemblyTypeName: GUIMatchSetting, Assembly-CSharp
+        m_MethodName: DiceCursorPos
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1581353916741472237}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1371,19 +1383,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: ButtonSelect
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 3736301660124952858}
-        m_TargetAssemblyTypeName: GUIMatchSetting, Assembly-CSharp
-        m_MethodName: DiceCursorPos
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1581353916741472237}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: MenuSelect
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &2963216422938785219
@@ -1659,13 +1659,25 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8482091249091707851}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 3736301660124952858}
+        m_TargetAssemblyTypeName: GUIMatchSetting, Assembly-CSharp
+        m_MethodName: SetDice
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: DartDice
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3736301660124952858}
+        m_TargetAssemblyTypeName: GUIMatchSetting, Assembly-CSharp
+        m_MethodName: DiceCursorPos
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 6947302499768447862}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1680,19 +1692,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: ButtonSelect
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 3736301660124952858}
-        m_TargetAssemblyTypeName: GUIMatchSetting, Assembly-CSharp
-        m_MethodName: DiceCursorPos
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 6947302499768447862}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: MenuSelect
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &3675592257994713301
@@ -2461,7 +2461,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: ButtonSelect
+          m_StringArgument: MenuSelect
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 3736301660124952858}
@@ -3028,7 +3028,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: ButtonSelect
+          m_StringArgument: MenuSelect
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 3736301660124952858}
@@ -3222,7 +3222,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: ButtonSelect
+          m_StringArgument: MenuSelect
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 3736301660124952858}

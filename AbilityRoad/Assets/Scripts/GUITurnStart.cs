@@ -9,7 +9,9 @@ public class GUITurnStart : GUIPopUp
     [SerializeField] Text _msg;
     [SerializeField] float _showTime = 1f;
 
-    public void SetWaitForCallback(string msg, CallbackMethod callback) {
+    public void SetWaitForCallback(string msg, CallbackMethod callback)
+    {
+        SFXManager.Instance.PlaySFX("TurnStart");
         _msg.text = msg;
         StartCoroutine(WaitFor(_showTime, callback));
     }

@@ -6385,7 +6385,7 @@ GameObject:
   - component: {fileID: 6782719217052873944}
   - component: {fileID: 4637612725644381183}
   m_Layer: 5
-  m_Name: bnt_Discard
+  m_Name: btn_Discard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

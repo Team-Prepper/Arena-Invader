@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7523406882870056705}
   - component: {fileID: 4328894968792230934}
   - component: {fileID: 7820129144132779946}
+  - component: {fileID: 8036961212413453297}
   m_Layer: 5
   m_Name: Player_Button
   m_TagString: Untagged
@@ -136,6 +137,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 8036961212413453297}
+        m_TargetAssemblyTypeName: MonoSoundPlayer, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: ButtonSelect
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &7820129144132779946
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,6 +168,18 @@ MonoBehaviour:
   _healthFormat: '{0}'
   _coin: {fileID: 6522199729384543828}
   _coinFormat: '{0}'
+--- !u!114 &8036961212413453297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1141667523495033092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0f6e46c72d3d9144a287c55ff5fa94a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2048368666922529722
 GameObject:
   m_ObjectHideFlags: 0

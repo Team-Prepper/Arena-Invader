@@ -37,6 +37,7 @@ public class GUIOpenInventory : GUIPopUp
         _rollDiceButton.onClick.RemoveAllListeners();
         _rollDiceButton.onClick.AddListener(() =>
         {
+            SFXManager.Instance.PlaySFX("ButtonSelect");
             _owner.RollDice();
             Close();
         });
@@ -65,13 +66,17 @@ public class GUIOpenInventory : GUIPopUp
         _useButton.onClick.RemoveAllListeners();
         _useButton.onClick.AddListener(() =>
         {
+            SFXManager.Instance.PlaySFX("ButtonSelect");
             _owner.UseItem(currentItem, callback);
             _inventoryButtons[buttonIndex].DisableSlot();
         });
         
         
         _discardButton.onClick.RemoveAllListeners();
-        _discardButton.onClick.AddListener(() => _owner.DiscardItem(currentItem));
+        _discardButton.onClick.AddListener(() => {
+            SFXManager.Instance.PlaySFX("ButtonSelect");
+            _owner.DiscardItem(currentItem);
+        });
     }
     
     

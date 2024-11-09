@@ -63,7 +63,11 @@ public class GUIShop : GUIPopUp
         }
         
         _buyButton.onClick.RemoveAllListeners();
-        _buyButton.onClick.AddListener(() => PurchaseItem(currentItem, buttonIndex));
+        _buyButton.onClick.AddListener(() =>
+        {
+            SFXManager.Instance.PlaySFX("ButtonSelect");
+            PurchaseItem(currentItem, buttonIndex);
+        });
     }
     
     private void PurchaseItem(IItem item, int buttonIndex)

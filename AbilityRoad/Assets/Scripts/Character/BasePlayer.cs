@@ -10,11 +10,10 @@ public class BasePlayer : Character
     [SerializeField] Transform[] _pawnPosition;
     [SerializeField] Color[] _pawnColor;
 
-    [SerializeField] protected int money = 0;
     IList<Vector3> _emptyPlace;
     [SerializeField] protected List<IItem> items;
 
-    protected int _chance = 0;
+    [SerializeField] protected int _chance = 0;
 
     protected int extraDicePoint = 0;
 
@@ -109,9 +108,9 @@ public class BasePlayer : Character
     public bool BuyItem(IItem item)
     {
         if(item == null) return false;
-        if (money < item.Price) return false;
+        if (Money < item.Price) return false;
 
-        money -= item.Price;
+        Money -= item.Price;
         items.Add(item);
         return true;
     }

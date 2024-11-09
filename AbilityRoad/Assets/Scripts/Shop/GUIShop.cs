@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class GUIShop : GUIPopUp
 {
+    [Header("Default Info")]
+    [SerializeField] private Sprite _defaultIcon;
     [Header("Shop Info")]
     [SerializeField] private Image _selectItemIcon;
     [SerializeField] private Text _selectItemName;
@@ -33,31 +35,51 @@ public class GUIShop : GUIPopUp
     
     private void SetItems(List<IItem> items)
     {
+        _currentSaleItems.Clear();
         for (int i = 0; i < _shopButtons.Length; i++)
         {
-            IItem currentSlotItem = _saleItems[Random.Range(0,items.Count)];
+            IItem currentSlotItem = _saleItems[Random.Range(0, items.Count)];
             _currentSaleItems.Add(currentSlotItem);
-            _shopButtons[i].SetSlot(currentSlotItem.Price, currentSlotItem.Icon, () => SelectItem(currentSlotItem));
+
+            // 현재 인덱스 값을 로컬 변수에 저장
+            int index = i;
+    
+            _shopButtons[i].SetSlot(currentSlotItem.Price, currentSlotItem.Icon, () => SelectItem(currentSlotItem, index));
         }
     }
 
-    public void SelectItem(IItem currentItem)
+    public void SelectItem(IItem currentItem, int buttonIndex = -1)
     {
         if (currentItem == null)
         {
             /*TODO Default IMG*/
         }
         else
-        { 
+        {
             _selectItemIcon.sprite = currentItem.Icon;
             _selectItemName.text = currentItem.Name;
             _selectItemPrice.text = currentItem.Price.ToString();
             _selectItemDescription.text = currentItem.Description;
         }
         
-        
         _buyButton.onClick.RemoveAllListeners();
-        _buyButton.onClick.AddListener(() => _buyer.BuyItem(currentItem));
+        _buyButton.onClick.AddListener(() => PurchaseItem(currentItem, buttonIndex));
+    }
+    
+    private void PurchaseItem(IItem item, int buttonIndex)
+    {
+        if (_buyer.BuyItem(item))
+        {
+            Debug.Log("buttonIndex : " + buttonIndex);
+            if(buttonIndex != -1)
+                _shopButtons[buttonIndex].DisableSlot();
+            
+            _selectItemIcon.sprite = _defaultIcon;
+            _selectItemName.text = "Select None";
+            _selectItemPrice.text = "0";
+            _selectItemDescription.text = "None";
+            _buyButton.onClick.RemoveAllListeners();
+        }
     }
     
     public List<IItem> GetSaleItems()

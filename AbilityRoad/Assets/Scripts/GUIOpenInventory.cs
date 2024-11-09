@@ -24,13 +24,16 @@ public class GUIOpenInventory : GUIPopUp
         {
             if (i < inventoryItems.Count)
             {
-                _inventoryButtons[i].SetSlot(inventoryItems[i].Icon, () => SelectItem(inventoryItems[i]));
+                IItem item = inventoryItems[i];  // 로컬 변수로 캡처
+                int index = i;
+                _inventoryButtons[i].SetSlot(item.Icon, () => SelectItem(item, index));
             }
             else
             {
                 _inventoryButtons[i].SetSlot(null, null);
             }
         }
+
         _rollDiceButton.onClick.RemoveAllListeners();
         _rollDiceButton.onClick.AddListener(() =>
         {
@@ -38,6 +41,7 @@ public class GUIOpenInventory : GUIPopUp
             Close();
         });
     }
+
     
     public void OpenInventory(BasePlayer user ,List<IItem> inventoryItems)
     {
@@ -45,7 +49,7 @@ public class GUIOpenInventory : GUIPopUp
         _owner = user;
     }
     
-    private void SelectItem(IItem currentItem, CallbackMethod callback = null)
+    private void SelectItem(IItem currentItem, int buttonIndex, CallbackMethod callback = null)
     {
         if (currentItem == null)
         {
@@ -59,10 +63,18 @@ public class GUIOpenInventory : GUIPopUp
         }
         
         _useButton.onClick.RemoveAllListeners();
-        _useButton.onClick.AddListener(() => _owner.UseItem(currentItem, callback));
+        _useButton.onClick.AddListener(() =>
+        {
+            _owner.UseItem(currentItem, callback);
+            _inventoryButtons[buttonIndex].DisableSlot();
+        });
         
         
         _discardButton.onClick.RemoveAllListeners();
         _discardButton.onClick.AddListener(() => _owner.DiscardItem(currentItem));
     }
+    
+    
+    
+    
 }

@@ -16,4 +16,9 @@ public class ShopUnit : MonoBehaviour
         _icon.sprite = icon;
         _selectButton.onClick.AddListener(action);
     }
+
+    public void DisableSlot()
+    {
+        _selectButton.interactable = false;
+    }
 }

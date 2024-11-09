@@ -1035,6 +1035,7 @@ GameObject:
   - component: {fileID: 780776222825470464}
   - component: {fileID: 2266510102067977843}
   - component: {fileID: 2088803274728080055}
+  - component: {fileID: 5763245859503413392}
   m_Layer: 0
   m_Name: Plate (3)
   m_TagString: Untagged
@@ -1145,6 +1146,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _healAmount: 3
+--- !u!114 &5763245859503413392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2919857658494376323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99ee3a928e0eaf74781f1833e08e02f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _moneyAmount: 10
 --- !u!1 &3062046953260716983
 GameObject:
   m_ObjectHideFlags: 0
@@ -1650,6 +1664,7 @@ GameObject:
   - component: {fileID: 1242210032744979175}
   - component: {fileID: 4951101397021758210}
   - component: {fileID: 10917720490675703}
+  - component: {fileID: 7986364590640341147}
   m_Layer: 0
   m_Name: Plate (1)
   m_TagString: Untagged
@@ -1760,6 +1775,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attackAmount: 1
+--- !u!114 &7986364590640341147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4482650832078977989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99ee3a928e0eaf74781f1833e08e02f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _moneyAmount: 10
 --- !u!1 &4494404905904650951
 GameObject:
   m_ObjectHideFlags: 0
@@ -1809,6 +1837,7 @@ GameObject:
   - component: {fileID: 9039541366124403629}
   - component: {fileID: 8117705292272837394}
   - component: {fileID: 6211991502016292656}
+  - component: {fileID: 5085367002280683284}
   m_Layer: 0
   m_Name: Plate (2)
   m_TagString: Untagged
@@ -1919,6 +1948,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _defenceAmount: 1
+--- !u!114 &5085367002280683284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4894807083588876462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99ee3a928e0eaf74781f1833e08e02f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _moneyAmount: 10
 --- !u!1 &4938655161851875164
 GameObject:
   m_ObjectHideFlags: 0

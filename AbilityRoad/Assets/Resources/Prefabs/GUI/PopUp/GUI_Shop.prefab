@@ -170,6 +170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   priority: 0
+  _defaultIcon: {fileID: 0}
   _selectItemIcon: {fileID: 0}
   _selectItemName: {fileID: 0}
   _selectItemPrice: {fileID: 0}
@@ -2417,6 +2418,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   priority: 0
+  _defaultIcon: {fileID: 21300106, guid: 7ab74e659e1f0a34d9cfec21c478fc12, type: 3}
   _selectItemIcon: {fileID: 7013976706260556465}
   _selectItemName: {fileID: 3928662971528025477}
   _selectItemPrice: {fileID: 7674765465289594859}
@@ -2429,7 +2431,10 @@ MonoBehaviour:
   - {fileID: 4729604241319184478}
   - {fileID: 4566309038777421854}
   _saleItems:
-  - {fileID: 5542986268208651831, guid: 50de93645d69e428a8722b8bee2909c8, type: 3}
+  - {fileID: 2064619581085393657, guid: 41214357fb62e460f83cd87ab0456409, type: 3}
+  - {fileID: 3936505942606024180, guid: 68b96dd32db7747ab9fe2920e0cdc62c, type: 3}
+  - {fileID: 6390376149249606081, guid: eda03a7b0e7a6422ca1a6e018f60278c, type: 3}
+  - {fileID: 707903820042284497, guid: 9df4ea76cf357439b8ea9c5ef00f2c04, type: 3}
 --- !u!1 &7543485739039709406
 GameObject:
   m_ObjectHideFlags: 0

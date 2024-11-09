@@ -70,13 +70,30 @@ public class AIPlayer : BasePlayer
     
     public override void EnterShop(CallbackMethod callback)
     {
+        StartCoroutine(EnterShopSequence(callback));
+    }
+
+    private IEnumerator EnterShopSequence(CallbackMethod callback)
+    {
         GUIShop shop = UIManager.Instance.OpenGUI<GUIShop>("Shop");
+
+        // 1. shop.EnterShop 호출 후 1초 대기
         shop.EnterShop(this, callback);
+        yield return new WaitForSeconds(1f);
+
+        // 2. shop.SelectItem 호출 후 1초 대기
         IItem selected = SelectBuyItem(shop.GetSaleItems());
         shop.SelectItem(selected);
+        yield return new WaitForSeconds(1f);
+
+        // 3. BuyItem 호출 후 1초 대기
         BuyItem(selected);
+        yield return new WaitForSeconds(1f);
+
+        // 4. shop.Close 호출
         shop.Close();
     }
+
 
     private IItem SelectBuyItem(List<IItem> items)
     {
@@ -86,7 +103,7 @@ public class AIPlayer : BasePlayer
         foreach (var item in items)
         {
             int currentItemValue = item.ItemValue;
-            if (currentItemValue >= mostValuableItemValue && item.Price <= money)
+            if (currentItemValue >= mostValuableItemValue && item.Price <= Money)
             {
                 mostValuableItem = item;
                 mostValuableItemValue = currentItemValue;

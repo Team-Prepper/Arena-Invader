@@ -6,7 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="4a77bd12-6663-4a58-93b6-42bb74de1419" name="변경" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.AbilityRoad/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AbilityRoad/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Character/BasePlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Character/BasePlayer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GUIShop.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GUIShop.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/IItem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/IItem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ShopUnit.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ShopUnit.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

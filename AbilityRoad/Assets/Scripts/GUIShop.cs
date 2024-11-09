@@ -2,11 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using EHTool.UIKit;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GUIShop : GUIPopUp
 {
-    [SerializeField] GameObject _shopPanel;
-    [SerializeField] private GameObject _shopUnitPrefab;
+    [Header("Shop Info")]
+    Image _selectItemIcon;
+    Text _selectItemName;
+    Text _selectItemPrice;
+    Text _selectItemDescription;
+    Button _buyButton;
+    
+    [Header("Shop Button")]
+    [SerializeField] ShopUnit[] _shopButtons;
     [SerializeField] List<IItem> _saleItems;
 
     private CallbackMethod _callback;
@@ -14,26 +22,34 @@ public class GUIShop : GUIPopUp
     private int defaultDisplayCount = 5;
 
     private Transform _container;
+    private BasePlayer _buyer;
     
     public void EnterShop(BasePlayer buyer, CallbackMethod callback)
     {
-        _shopPanel.SetActive(true);
-        ShowItems(buyer, _saleItems);
+        _buyer = buyer;
+        SetItems(_saleItems);
         _callback = callback;
     }
     
-    private void ShowItems(BasePlayer buyer, List<IItem> items)
+    private void SetItems(List<IItem> items)
     {
-        int displayCount = Mathf.Min(defaultDisplayCount, items.Count);
-        for (int i = 0; i < displayCount; i++)
+        for (int i = 0; i < _shopButtons.Length; i++)
         {
-            GameObject itemUnit = Instantiate(_shopUnitPrefab, _container);
-            ShopUnit shopUnit = itemUnit.GetComponent<ShopUnit>();
-            shopUnit.SetItem(items[i]);
-            shopUnit.SetBuyer(buyer);
+            _shopButtons[i].SetSlot(items[i].Price, items[i].Icon, () => SelectItem(i));
         }
     }
-    
+
+    private void SelectItem(int itemIdx)
+    {
+        _selectItemIcon.sprite = _saleItems[itemIdx].Icon;
+        _selectItemName.text = _saleItems[itemIdx].Name;
+        _selectItemPrice.text = _saleItems[itemIdx].Price.ToString();
+        _selectItemDescription.text = _saleItems[itemIdx].Description;
+        
+        _buyButton.onClick.RemoveAllListeners();
+        _buyButton.onClick.AddListener(() => _buyer.BuyItem(_saleItems[itemIdx]));
+    }
+
     public override void Close()
     {
         _callback?.Invoke();

@@ -49,7 +49,12 @@ public class Playground : IPlayground {
 
     public void TurnStart()
     {
-        Players[_turnIdx].StartTurn();
+        GUITurnStart turnStartCall = UIManager.Instance.OpenGUI<GUITurnStart>("TurnStart");
+
+        turnStartCall.SetWaitForCallback(() => {
+            Players[_turnIdx].StartTurn();
+            turnStartCall.Close();
+        });
     }
 
     public void TurnEnd()

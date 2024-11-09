@@ -4,4 +4,5 @@
   <Element name="SelectMovePawn"      path="Prefabs/GUI/PopUp/GUI_SelectMovePawn" />
   <Element name="Battle"              path="Prefabs/GUI/PopUp/GUI_Battle" />
   <Element name="Raid"              path="Prefabs/GUI/PopUp/GUI_Raid" />
+  <Element name="Shop"                path="Prefabs/GUI/PopUp/GUI_Shop" />
 </List>

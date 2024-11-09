@@ -2,7 +2,6 @@ using EHTool.UIKit;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using UnityEditor.Tilemaps;
 using UnityEngine;
 
 public class GUIMatchSetting : GUIFullScreen

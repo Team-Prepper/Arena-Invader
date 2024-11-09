@@ -16,10 +16,10 @@ public class GUIShop : GUIPopUp
     [Header("Shop Button")]
     [SerializeField] ShopUnit[] _shopButtons;
     [SerializeField] List<IItem> _saleItems;
+    
+    private List<IItem> _currentSaleItems = new List<IItem>();
 
     private CallbackMethod _callback;
-    
-    private int defaultDisplayCount = 5;
 
     private Transform _container;
     private BasePlayer _buyer;
@@ -36,20 +36,35 @@ public class GUIShop : GUIPopUp
         for (int i = 0; i < _shopButtons.Length; i++)
         {
             IItem currentSlotItem = _saleItems[Random.Range(0,items.Count)];
+            _currentSaleItems.Add(currentSlotItem);
             _shopButtons[i].SetSlot(currentSlotItem.Price, currentSlotItem.Icon, () => SelectItem(currentSlotItem));
         }
     }
 
-    private void SelectItem(IItem currentItem)
+    public void SelectItem(IItem currentItem)
     {
-        _selectItemIcon.sprite = currentItem.Icon;
-        _selectItemName.text = currentItem.Name;
-        _selectItemPrice.text = currentItem.Price.ToString();
-        _selectItemDescription.text = currentItem.Description;
+        if (currentItem == null)
+        {
+            /*TODO Default IMG*/
+        }
+        else
+        { 
+            _selectItemIcon.sprite = currentItem.Icon;
+            _selectItemName.text = currentItem.Name;
+            _selectItemPrice.text = currentItem.Price.ToString();
+            _selectItemDescription.text = currentItem.Description;
+        }
+        
         
         _buyButton.onClick.RemoveAllListeners();
         _buyButton.onClick.AddListener(() => _buyer.BuyItem(currentItem));
     }
+    
+    public List<IItem> GetSaleItems()
+    {
+        return _currentSaleItems;
+    }
+    
 
     public override void Close()
     {

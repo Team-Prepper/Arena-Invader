@@ -15,4 +15,9 @@ public class PlayablePlayer : BasePlayer {
         });
 
     }
+    
+    public override void EnterShop(CallbackMethod callback)
+    {
+        UIManager.Instance.OpenGUI<GUIShop>("Shop").EnterShop(this, callback); 
+    }
 }

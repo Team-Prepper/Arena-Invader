@@ -53,6 +53,33 @@ public class AIPlayer : BasePlayer
         }
         return target;
     }
+    
+    public override void EnterShop(CallbackMethod callback)
+    {
+        GUIShop shop = UIManager.Instance.OpenGUI<GUIShop>("Shop");
+        shop.EnterShop(this, callback);
+        IItem selected = SelectBuyItem(shop.GetSaleItems());
+        shop.SelectItem(selected);
+        BuyItem(selected);
+        shop.Close();
+    }
 
+    private IItem SelectBuyItem(List<IItem> items)
+    {
+        IItem mostValuableItem = null;
+        int mostValuableItemValue = -1;
+
+        foreach (var item in items)
+        {
+            int currentItemValue = item.ItemValue;
+            if (currentItemValue >= mostValuableItemValue && item.Price <= money)
+            {
+                mostValuableItem = item;
+                mostValuableItemValue = currentItemValue;
+            }
+        }
+
+        return mostValuableItem;
+    }
     
 }

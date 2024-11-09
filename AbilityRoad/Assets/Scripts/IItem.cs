@@ -19,5 +19,9 @@ public abstract class IItem : MonoBehaviour
     [SerializeField] string _description;
     public string Description => _description;
     
+    [SerializeField, Range(0,10)]
+    private int _itemValue;
+    public int ItemValue => _itemValue;
+    
     public abstract void UseItem();
 }

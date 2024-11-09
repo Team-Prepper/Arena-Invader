@@ -446,9 +446,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _matchInfor:
     PlayerInfors:
-    - CharacterName: Player
+    - CharacterCode: Player_AI
       Name: Player1
-    - CharacterName: Player_AI
+    - CharacterCode: Player_AI
       Name: Enemy1
     MapName: Map/DefaultMap
   _playerPosition:

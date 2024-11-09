@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class BasePlayer : Character
 {
@@ -8,7 +9,7 @@ public class BasePlayer : Character
     [SerializeField] Transform[] _pawnPosition;
     [SerializeField] Color[] _pawnColor;
 
-    [SerializeField] private int _gold = 0;
+    [SerializeField] protected int money = 0;
     IList<Vector3> _emptyPlace;
     [SerializeField] List<IItem> _items;
 
@@ -104,11 +105,14 @@ public class BasePlayer : Character
         }
     }
 
+    public virtual void EnterShop(CallbackMethod callback) { }
+
     public bool BuyItem(IItem item)
     {
-        if (_gold < item.Price) return false;
+        if(item == null) return false;
+        if (money < item.Price) return false;
 
-        _gold -= item.Price;
+        money -= item.Price;
         _items.Add(item);
         return true;
     }

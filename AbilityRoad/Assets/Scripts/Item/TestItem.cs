@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TestItem : IItem
 {
-    public override void UseItem()
+    public override void UseItem(BasePlayer player)
     {
         Debug.Log("USE ITEM");
     }

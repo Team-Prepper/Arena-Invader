@@ -11,9 +11,10 @@ public class PlayablePlayer : BasePlayer {
         _chance--;
 
         UIManager.Instance.OpenGUI<GUIDice>("Dice").SetCallback((value) => {
-            UIManager.Instance.OpenGUI<GUISelectMovePawn>("SelectMovePawn").SetPlayer(this, value);
+            UIManager.Instance.OpenGUI<GUISelectMovePawn>("SelectMovePawn").SetPlayer(this, value + extraDicePoint);
+            extraDicePoint = 0;
         });
-
+        
     }
     
     public override void EnterShop(CallbackMethod callback)

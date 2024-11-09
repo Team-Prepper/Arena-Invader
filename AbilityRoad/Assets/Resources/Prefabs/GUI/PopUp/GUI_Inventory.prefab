@@ -24680,10 +24680,10 @@ MonoBehaviour:
   priority: 0
   _inventoryButtons:
   - {fileID: 5899954022363247806}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 7077242910967668442}
+  - {fileID: 7556030651076243988}
+  - {fileID: 6442505889388461968}
+  - {fileID: 8333074625830937496}
   _selectItemIcon: {fileID: 6778574799841040988}
   _selectItemName: {fileID: 8710121689939620860}
   _selectItemDescription: {fileID: 749624643290867216}

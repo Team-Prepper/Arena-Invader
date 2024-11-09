@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GUIRaid : GUIFullScreen {
+public class GUIRaid : GUIPopUp {
 
     public void StartRaid(BasePlayer attacker, ObjectCharacter target, CallbackMethod callback) {
         

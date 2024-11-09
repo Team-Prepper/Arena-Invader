@@ -179,7 +179,7 @@ public class Pawn : MonoBehaviour {
     }
 
     public void AddMoney(int amount) {
-        GetOwner().AddMoney(amount);
+        GetOwner().AddMoney(amount * _moneyCoefficient);
     }
 
     public void AddAttack(int attackAmount)

@@ -60,12 +60,12 @@ public class Character : MonoBehaviour, IObservable<Character> {
         return _health > 0;
     }
 
-    public void AddCoin(int amount) {
+    public void AddMoney(int amount) {
         _coin += amount;
         Notify();
     }
 
-    public void ReduceCoin(int amount)
+    public void ReduceMoney(int amount)
     {
         _coin = Mathf.Min(_coin - amount, 0);
         Notify();

@@ -14,5 +14,6 @@ public class MatchInfor
 
     public PlayerInfor[] PlayerInfors = new PlayerInfor[2];
     public string MapName = "Map/DefaultMap";
+    public string MatchDice = "DartDice";
 
 }

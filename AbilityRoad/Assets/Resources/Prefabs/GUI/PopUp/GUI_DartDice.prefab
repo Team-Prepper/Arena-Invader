@@ -371,8 +371,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3860423782079354903}
-  - component: {fileID: 941184277989646081}
   - component: {fileID: 2280562430409327473}
+  - component: {fileID: 3770638570200280685}
   m_Layer: 5
   m_Name: img_DartPoint
   m_TagString: Untagged
@@ -395,19 +395,11 @@ RectTransform:
   - {fileID: 7618557048166933148}
   m_Father: {fileID: 7939803722918623588}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: 10}
-  m_SizeDelta: {x: 40, y: 65}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 98.7}
+  m_SizeDelta: {x: 65, y: 65}
   m_Pivot: {x: 0.5, y: 0}
---- !u!222 &3770638570200280685
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4186170757135239759}
-  m_CullTransparentMesh: 1
 --- !u!114 &2280562430409327473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -438,6 +430,14 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!222 &3770638570200280685
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4186170757135239759}
+  m_CullTransparentMesh: 1
 --- !u!1 &4690699536781305610
 GameObject:
   m_ObjectHideFlags: 0
@@ -1025,7 +1025,7 @@ GameObject:
   - component: {fileID: 7692923126014474596}
   - component: {fileID: 4153008968882305363}
   m_Layer: 5
-  m_Name: GUI_RouleteDice
+  m_Name: GUI_DartDice
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

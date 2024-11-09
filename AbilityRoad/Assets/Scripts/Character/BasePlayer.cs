@@ -12,6 +12,12 @@ public class BasePlayer : Character
 
     protected int _chance = 0;
 
+    protected override void DeathEvent()
+    {
+        base.DeathEvent();
+        GameManager.Instance.Playground.PlayerDeath(this);
+    }
+
     public void SetInitial(int idx, string name)
     {
         _level = 0;

@@ -115,7 +115,7 @@ MonoBehaviour:
   _name: 
   _healthUI: {fileID: 2507955097302347887}
   _status: {fileID: 1855259384941681325}
-  _health: 0
+  _health: 100
   _coin: 0
   _pawns:
   - {fileID: 1853524339805271838}

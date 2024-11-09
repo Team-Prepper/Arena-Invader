@@ -6,12 +6,12 @@ using UnityEngine.UI;
 
 public class GUIPlayground : GUIFullScreen
 {
-
-    [SerializeField] GUIPlayerUnit _playerInfor;
-
     IList<BasePlayer> _players;
 
     [SerializeField] GUIPlayerButtonUnit[] _buttons;
+    [SerializeField] GUIPlayerUnit _playerInfor;
+    [SerializeField] Text _turnInfor;
+    [SerializeField] string _turnInforFormat = "{0}'s Turn";
 
     public override void Open()
     {
@@ -29,6 +29,12 @@ public class GUIPlayground : GUIFullScreen
         }
 
         PressButton(0);
+    }
+
+    private void Update()
+    {
+        _turnInfor.text =
+            string.Format(_turnInforFormat, GameManager.Instance.Playground.NowPlayer.GetName());
     }
 
     public void PressButton(int idx) {

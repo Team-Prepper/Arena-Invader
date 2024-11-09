@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Status : MonoBehaviour {
+
     [System.Serializable]
     public class StatusElement {
         [SerializeField] internal int _attack;

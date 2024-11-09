@@ -46,19 +46,6 @@ public class Character : MonoBehaviour, IObservable<Character> {
         Notify();
     }
 
-    public void AddCoin(int amount) {
-        _coin += amount;
-        Notify();
-    }
-
-    public int GetCoin() => _coin;
-
-    public void ReduceCoin(int amount)
-    {
-        _coin = Mathf.Min(_coin - amount, 0);
-        Notify();
-    }
-
     public void ReduceHealth(int amount)
     {
         _health -= amount;
@@ -68,6 +55,23 @@ public class Character : MonoBehaviour, IObservable<Character> {
         if (_health >= 0) return;
 
         // ????? ?? ???? ???
+    }
+
+    protected virtual void DeathEvent() {}
+
+    public bool IsAlive() {
+        return _health > 0;
+    }
+
+    public void AddCoin(int amount) {
+        _coin += amount;
+        Notify();
+    }
+
+    public void ReduceCoin(int amount)
+    {
+        _coin = Mathf.Min(_coin - amount, 0);
+        Notify();
     }
     internal void AddAttack(int attackAmount)
     {
@@ -82,6 +86,8 @@ public class Character : MonoBehaviour, IObservable<Character> {
     }
 
     public string GetName() => _name;
+
+    public int GetCoin() => _coin;
 
     public int GetAttackValue() => _status.GetAttackValue(_level);
 

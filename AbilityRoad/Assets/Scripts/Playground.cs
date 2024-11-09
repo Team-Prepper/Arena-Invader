@@ -4,12 +4,15 @@ using UnityEngine;
 public class Playground : IPlayground {
 
     public IList<BasePlayer> Players { get; private set; }
+    public BasePlayer NowPlayer => Players[_turnIdx];
     public Map Map { get; set; }
     public int Turn { get; private set; }
 
+    IList<int> _deathPlayerIdx;
     int _turnIdx;
 
-    public Playground() { 
+    public Playground()
+    {
         Players = new List<BasePlayer>();
         _turnIdx = 0;
         Turn = 0;
@@ -21,6 +24,26 @@ public class Playground : IPlayground {
         Players.Add(player);
     }
 
+    public void PlayerDeath(BasePlayer player)
+    {
+        for (int i = 0; i < Players.Count; i++)
+        {
+            if (Players[i] != player) continue;
+            _deathPlayerIdx.Add(i);
+            break;
+        }
+
+        if (Players.Count - _deathPlayerIdx.Count < 2)
+        {
+            GameEnd();
+        }
+    }
+
+    void GameEnd()
+    {
+
+    }
+
     public void TurnStart()
     {
         Players[_turnIdx].StartTurn();
@@ -28,16 +51,22 @@ public class Playground : IPlayground {
 
     public void TurnEnd()
     {
-        _turnIdx = _turnIdx + 1;
 
-        if (_turnIdx >= Players.Count) {
-            Turn++;
-            _turnIdx = 0;
+        while (true)
+        {
+            _turnIdx = _turnIdx + 1;
+
+            if (_turnIdx >= Players.Count)
+            {
+                Turn++;
+                _turnIdx = 0;
+            }
+            if (Players[_turnIdx].IsAlive()) break;
         }
 
         TurnStart();
     }
-    
+
     public int CalcDamage(Character attacker, Character target)
     {
         return Mathf.Max(1, attacker.GetAttackValue() - target.GetDefenseValue());

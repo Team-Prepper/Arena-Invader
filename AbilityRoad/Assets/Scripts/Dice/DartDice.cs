@@ -11,6 +11,9 @@ public class DartDice : IDice {
     [SerializeField] float _rotateSpeed;
     [SerializeField] float _stopTime;
 
+    [SerializeField] Transform[] _numTr;
+    [SerializeField] int _minValue;
+
     public override void Initial()
     {
 
@@ -18,19 +21,35 @@ public class DartDice : IDice {
 
     private void Update()
     {
-        if (!_beforeHit) return;
+        if (_beforeHit) return;
 
-        transform.Rotate(_rotateSpeed * Time.deltaTime * Vector3.forward);
+        _plateTr.Rotate(_rotateSpeed * Time.deltaTime * Vector3.forward);
     }
 
-    public int GetValue() {
-        return 1;
+    public int GetValue()
+    {
+        float maxValue = float.MinValue;
+        int idx = -1;
+
+        for (int i = 0; i < _numTr.Length; i++)
+        {
+            float value = Vector3.Dot(_numTr[i].up, _dartPoint.up);
+            if (value > maxValue)
+            {
+                maxValue = value;
+                idx = i;
+            }
+        }
+
+        return idx + _minValue;
     }
 
     public override void Roll(CallbackMethod<int> callback)
     {
-        _beforeHit = false;
-        _dartPoint.SetParent(transform);
+        _beforeHit = true;
+        _dartPoint.SetParent(_plateTr);
+
+        StartCoroutine(Stop(callback));
     }
 
     IEnumerator Stop(CallbackMethod<int> callback) {
@@ -43,6 +62,8 @@ public class DartDice : IDice {
             spendTime += Time.deltaTime;
 
         }
+
+        yield return new WaitForSeconds(1f);
 
         callback?.Invoke(GetValue());
     }

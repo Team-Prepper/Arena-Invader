@@ -7,7 +7,6 @@ namespace EHTool {
         public static T Import<T>(string path) where T : Object
         {
             T source = Resources.Load(path) as T;
-            Debug.Log(path);
             return Instantiate(source);
         }
 

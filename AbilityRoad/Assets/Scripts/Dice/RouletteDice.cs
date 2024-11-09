@@ -5,11 +5,11 @@ using UnityEngine;
 public class RouletteDice : IDice {
 
     [SerializeField] Vector2 _speedRange = Vector2.right;
-    [SerializeField] int _minValue;
     [SerializeField] float _maxTime = 1f;
     [SerializeField] Transform _rouletteTr;
 
     [SerializeField] Transform[] _numTr;
+    [SerializeField] int _minValue;
 
     public override void Initial() {
         

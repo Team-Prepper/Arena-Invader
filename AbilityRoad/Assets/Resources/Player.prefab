@@ -113,10 +113,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _name: 
-  _healthUI: {fileID: 2507955097302347887}
   _status: {fileID: 1065116643142892012}
   _health: 100
-  _coin: 0
+  _money: 0
   _pawns:
   - {fileID: 1853524339805271838}
   - {fileID: 4508048742146448043}
@@ -126,8 +125,10 @@ MonoBehaviour:
   - {fileID: 8144859955425625208}
   - {fileID: 8939902260188462707}
   _pawnColor:
-  - {r: 1, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 1, a: 0}
+  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 0, g: 0, b: 1, a: 1}
+  money: 0
+  _items: []
 --- !u!114 &1065116643142892012
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using EHTool.LangKit;
 using EHTool.UIKit;
 using UnityEngine;
 using UnityEngine.UI;
@@ -59,7 +60,7 @@ public class GUIOpenInventory : GUIPopUp
         else
         { 
             _selectItemIcon.sprite = currentItem.Icon;
-            _selectItemName.text = currentItem.Name;
+            _selectItemName.text = LangManager.Instance.GetStringByKey(currentItem.Name);
             _selectItemDescription.text = currentItem.Description;
         }
         

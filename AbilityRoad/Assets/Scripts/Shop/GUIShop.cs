@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using EHTool.LangKit;
 using EHTool.UIKit;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GUIShop : GUIPopUp
 {
+    [SerializeField] private GameObject _inforGO;
+
     [Header("Default Info")]
     [SerializeField] private Sprite _defaultIcon;
     [Header("Shop Info")]
@@ -35,6 +38,7 @@ public class GUIShop : GUIPopUp
     
     private void SetItems(List<IItem> items)
     {
+        _inforGO.SetActive(false);
         _currentSaleItems.Clear();
         for (int i = 0; i < _shopButtons.Length; i++)
         {
@@ -50,6 +54,7 @@ public class GUIShop : GUIPopUp
 
     public void SelectItem(IItem currentItem, int buttonIndex = -1)
     {
+        _inforGO.SetActive(true);
         if (currentItem == null)
         {
             /*TODO Default IMG*/
@@ -57,7 +62,7 @@ public class GUIShop : GUIPopUp
         else
         {
             _selectItemIcon.sprite = currentItem.Icon;
-            _selectItemName.text = currentItem.Name;
+            _selectItemName.text = LangManager.Instance.GetStringByKey(currentItem.Name);
             _selectItemPrice.text = currentItem.Price.ToString();
             _selectItemDescription.text = currentItem.Description;
         }
@@ -79,7 +84,7 @@ public class GUIShop : GUIPopUp
                 _shopButtons[buttonIndex].DisableSlot();
             
             _selectItemIcon.sprite = _defaultIcon;
-            _selectItemName.text = "Select None";
+            _selectItemName.text = LangManager.Instance.GetStringByKey("Item_Empty");;
             _selectItemPrice.text = "0";
             _selectItemDescription.text = "None";
             _buyButton.onClick.RemoveAllListeners();

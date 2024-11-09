@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _price: 20
-  _name: ROBBER
+  _name: Item_Rober
   _icon: {fileID: 21300000, guid: b0144865f8f8fe342bf419370b7f52d6, type: 3}
   _description: STILL
   _itemValue: 8

@@ -5,11 +5,8 @@ using UnityEngine;
 
 public class GUIRaid : GUIFullScreen {
 
-    CallbackMethod _callback;
-
     public void StartRaid(BasePlayer attacker, ObjectCharacter target, CallbackMethod callback) {
-
-
+        
         StartCoroutine(WaitASeconds(() => {
             target.ReduceHealth(GameManager.Instance.Playground.CalcDamage(attacker, target));
             if (!target.IsAlive()) {
@@ -33,8 +30,6 @@ public class GUIRaid : GUIFullScreen {
 
             }));
         }));
-
-        _callback = callback;
     }
 
     IEnumerator WaitASeconds(CallbackMethod callback)

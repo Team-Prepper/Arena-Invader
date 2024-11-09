@@ -42,7 +42,7 @@ public class Map : MonoBehaviour {
     public void StartNewTurn(int turn) {
         if (!_raidDict.ContainsKey(turn)) return;
 
-        _object = AssetOpener.Import<ObjectCharacter>(_raidDict[turn]);
+        _object = AssetOpener.ImportComponent<ObjectCharacter>(_raidDict[turn]);
     }
 
 }

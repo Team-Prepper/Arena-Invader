@@ -1,4 +1,12 @@
 using UnityEngine;
+using System.Collections.Generic;
+
+public class IArriveEventComparer : IComparer<IArriveEvent> {
+    public int Compare(IArriveEvent x, IArriveEvent y)
+    {
+        return x.GetPriority().CompareTo(y.GetPriority());
+    }
+}
 
 public abstract class IArriveEvent : MonoBehaviour {
 

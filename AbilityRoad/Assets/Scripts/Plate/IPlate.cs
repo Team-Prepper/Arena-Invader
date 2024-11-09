@@ -1,9 +1,10 @@
-using Unity.VisualScripting;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public abstract class IPlate : MonoBehaviour {
 
-    [SerializeField] IArriveEvent _event;
+    [SerializeField] MultipleArriveEvent _event;
     
     IOverlapEvent _sameOwnerOverlapEvent = new PiggyBack();
     IOverlapEvent _otherOwnerOverlapEvent = new OneMoreAndBackHome();
@@ -12,17 +13,23 @@ public abstract class IPlate : MonoBehaviour {
 
     protected Pawn _nowPawn;
 
-    private void Start()
+    protected virtual void Initial()
     {
-        _event = GetComponent<IArriveEvent>();
+        _event = new MultipleArriveEvent(GetComponents<IArriveEvent>());
+
     }
 
-    abstract public void Leave(Pawn Target, CallbackMethod<IPlate> callback);
-    abstract public void NextPlate(IPlate from, CallbackMethod<IPlate> callback);
+    private void Start()
+    {
+        Initial();
+    }
+
+    public abstract void Leave(Pawn Target, CallbackMethod<IPlate> callback);
+    public abstract void NextPlate(IPlate from, CallbackMethod<IPlate> callback);
 
     public void Arrive(Pawn pawn, CallbackMethod callback = null)
     {
-        void EventCallback()
+        _event.Event(pawn, () =>
         {
             if (!_nowPawn)
             {
@@ -36,14 +43,7 @@ public abstract class IPlate : MonoBehaviour {
                 return;
             }
             _otherOwnerOverlapEvent?.Event(this, pawn);
-        }
-
-        if (_event == null) {
-            EventCallback();
-            return;
-        }
-
-        _event.AddAbility(pawn, EventCallback);
+        });
     }
 
     public void SetPawn(Pawn pawn) {
@@ -56,8 +56,6 @@ public abstract class IPlate : MonoBehaviour {
 
     public int GetValue(Character attacker, Character defender)
     {
-        int plateValue = _event ? _event.GetValue(attacker, defender) : 0;
-        plateValue += _nowPawn == null ? 0 : 10 /* _nowPawn.GetValue();*/;
-        return plateValue;
+        return _event.GetValue(_nowPawn, attacker, defender);
     }
 }

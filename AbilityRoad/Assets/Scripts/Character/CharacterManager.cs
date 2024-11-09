@@ -1,10 +1,8 @@
 using EHTool;
-using EHTool.UIKit;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class CharacterManager : Singleton<CharacterManager> {
     class CharacterData {
@@ -22,6 +20,7 @@ public class CharacterManager : Singleton<CharacterManager> {
 
     protected override void OnCreate()
     {
+        _dic = new Dictionary<string, CharacterData>();
         XmlDocument xmlDoc = AssetOpener.ReadXML("CharacterInfor");
 
         XmlNodeList nodes = xmlDoc.SelectNodes("List/Element");
@@ -36,6 +35,7 @@ public class CharacterManager : Singleton<CharacterManager> {
     }
 
     public BasePlayer SpawnPlayer(string code) {
+        Debug.Log(code);
         return AssetOpener.Import<BasePlayer>(_dic[code].path);
     }
     

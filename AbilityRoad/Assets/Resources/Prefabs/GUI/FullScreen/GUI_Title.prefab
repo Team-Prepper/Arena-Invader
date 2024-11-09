@@ -67,9 +67,9 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: ab53c3686e8494d42bdeb9087e40b9d8, type: 3}
-    m_FontSize: 300
+    m_FontSize: 52
     m_FontStyle: 0
-    m_BestFit: 1
+    m_BestFit: 0
     m_MinSize: 3
     m_MaxSize: 300
     m_Alignment: 4
@@ -78,7 +78,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Start
+  m_Text: "\uC2DC\uC791"
   _key: btn_Start
 --- !u!1 &874125865901034249
 GameObject:
@@ -359,9 +359,9 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: ab53c3686e8494d42bdeb9087e40b9d8, type: 3}
-    m_FontSize: 300
+    m_FontSize: 52
     m_FontStyle: 0
-    m_BestFit: 1
+    m_BestFit: 0
     m_MinSize: 3
     m_MaxSize: 300
     m_Alignment: 4
@@ -370,7 +370,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Setting
+  m_Text: "\uC124\uC815"
   _key: btn_Setting
 --- !u!1 &7903879484752085446
 GameObject:
@@ -384,6 +384,7 @@ GameObject:
   - component: {fileID: 2132099921176421521}
   - component: {fileID: 216243230401933603}
   - component: {fileID: 3306422831448445005}
+  - component: {fileID: 4662916790041963653}
   m_Layer: 5
   m_Name: btn_GameStart
   m_TagString: Untagged
@@ -505,6 +506,30 @@ MonoBehaviour:
           m_StringArgument: MatchSetting
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 4662916790041963653}
+        m_TargetAssemblyTypeName: MonoSoundPlayer, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: ButtonSelect
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &4662916790041963653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7903879484752085446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0f6e46c72d3d9144a287c55ff5fa94a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8022170161071219601
 GameObject:
   m_ObjectHideFlags: 0
@@ -517,6 +542,7 @@ GameObject:
   - component: {fileID: 4265337741384811791}
   - component: {fileID: 4012289412151887624}
   - component: {fileID: 7812007500983354513}
+  - component: {fileID: 5782281821674139971}
   m_Layer: 5
   m_Name: btn_Setting
   m_TagString: Untagged
@@ -638,3 +664,27 @@ MonoBehaviour:
           m_StringArgument: Setting
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 5782281821674139971}
+        m_TargetAssemblyTypeName: MonoSoundPlayer, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: ButtonSelect
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &5782281821674139971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8022170161071219601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0f6e46c72d3d9144a287c55ff5fa94a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

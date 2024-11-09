@@ -3,12 +3,31 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GUIMatchSetting : GUIFullScreen
 {
     [SerializeField] MatchInfor _infor;
     [SerializeField] string _path;
     [SerializeField] MatchCharacterDetail[] _details;
+
+    [SerializeField] Transform _playerCntCursor;
+    [SerializeField] Transform _mapCursor;
+    [SerializeField] Transform _diceCursor;
+
+    public void PlayerCntCursorPos(Transform target) {
+        _playerCntCursor.position = target.position;
+    }
+    public void MapCursorPos(Transform target)
+    {
+        _mapCursor.position = target.position;
+
+    }
+    public void DiceCursorPos(Transform target)
+    {
+        _diceCursor.position = target.position;
+
+    }
 
     public override void Open()
     {

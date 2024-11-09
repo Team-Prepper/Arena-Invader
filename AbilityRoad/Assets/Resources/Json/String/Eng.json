@@ -3,11 +3,19 @@
     "otp_Eng" : "English",
     "btn_Start" : "Start",
     "btn_Setting" : "Setting",
-    "btn_Human" : "btn_Human",
+    "btn_Human" : "Human",
     "btn_Dice" : "Dice",
     "btn_Roulette" : "Roulette",
     "btn_Dart" : "Dart",
+    "btn_Shot" : "Throw",
+    "btn_Roll" : "Roll",
+    "btn_Buy" : "Buy",
+    "label_Setting" : "Setting",
+    "label_Language" : "Language",
+    "label_Sound" : "Sound",
     "label_PlayerCnt" : "Player Count",
     "label_Map" : "Select Map",
-    "label_SelectDice": "Select Dice"
+    "label_SelectDice": "Select Dice",
+    "msg_XAttack" : "{0} Attack!!!",
+    "msg_XTurn" : "{0}s Turn"
 }

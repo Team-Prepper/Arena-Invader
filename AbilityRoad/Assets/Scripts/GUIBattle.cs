@@ -1,3 +1,4 @@
+using EHTool.LangKit;
 using EHTool.UIKit;
 using System.Collections;
 using System.Collections.Generic;
@@ -60,7 +61,7 @@ public class GUIBattle : GUIPopUp {
 
     void AttackSequence(Image attackerImg, Image targetImg, Character attacker, Character target, int attackSequence, CallbackMethod callback)
     {
-        _message.text = string.Format("{0}�� ����!!", attacker.GetName());
+        _message.text = string.Format(LangManager.Instance.GetStringByKey("msg_XAttack"), attacker.GetName());
 
         attackerImg.sprite = CharacterManager.Instance.GetPlayerAttackerSpr(attacker.GetCharacterCode());
         targetImg.sprite = CharacterManager.Instance.GetPlayerDamageSpr(target.GetCharacterCode());

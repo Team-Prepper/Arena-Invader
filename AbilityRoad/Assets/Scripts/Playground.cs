@@ -1,3 +1,4 @@
+using EHTool.LangKit;
 using EHTool.UIKit;
 using System.Collections.Generic;
 using UnityEngine;
@@ -51,7 +52,7 @@ public class Playground : IPlayground {
     {
         GUITurnStart turnStartCall = UIManager.Instance.OpenGUI<GUITurnStart>("TurnStart");
 
-        turnStartCall.SetWaitForCallback(() => {
+        turnStartCall.SetWaitForCallback(string.Format(LangManager.Instance.GetStringByKey("msg_XTurn"), Players[_turnIdx].GetName()), () => {
             Players[_turnIdx].StartTurn();
             turnStartCall.Close();
         });

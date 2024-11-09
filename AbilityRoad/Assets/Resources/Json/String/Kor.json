@@ -10,6 +10,8 @@
     "btn_Shot" : "던지기",
     "btn_Roll" : "굴리기",
     "btn_Buy" : "구매",
+    "btn_Discard" : "버리기",
+    "btn_Use" : "사용",
     "label_Setting" : "설정",
     "label_Language" : "언어",
     "label_Sound" : "음량",

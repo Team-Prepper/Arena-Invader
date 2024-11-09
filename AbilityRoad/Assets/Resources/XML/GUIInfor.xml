@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <List>
-  <Element name="Dice"                path="Prefabs/GUI/PopUp/GUI_Dice" />
+  <Element name="Dice"                path="Prefabs/GUI/PopUp/GUI_UIDice" />
   <Element name="SelectMovePawn"      path="Prefabs/GUI/PopUp/GUI_SelectMovePawn" />
   <Element name="Battle"              path="Prefabs/GUI/PopUp/GUI_Battle" />
-  <Element name="Raid"              path="Prefabs/GUI/PopUp/GUI_Raid" />
+  <Element name="Raid"                path="Prefabs/GUI/PopUp/GUI_Raid" />
   <Element name="Shop"                path="Prefabs/GUI/PopUp/GUI_Shop" />
 </List>

@@ -5,6 +5,6 @@
   <Element name="Battle"              path="Prefabs/GUI/PopUp/GUI_Battle" />
   <Element name="Raid"                path="Prefabs/GUI/PopUp/GUI_Raid" />
   <Element name="Shop"                path="Prefabs/GUI/PopUp/GUI_Shop" />
-  <Element name="PlayerAction"        path="Prefabs/GUI/PopUp/GUI_Action" />
+  <Element name="PlayerAction"        path="Prefabs/GUI/PopUp/GUI_PlayerAction" />
   <Element name="Inventory"           path="Prefabs/GUI/PopUp/GUI_Inventory" />
 </List>

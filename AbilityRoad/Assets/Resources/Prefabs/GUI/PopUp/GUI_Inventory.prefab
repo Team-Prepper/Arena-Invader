@@ -6386,7 +6386,7 @@ GameObject:
   - component: {fileID: 6782719217052873944}
   - component: {fileID: 4637612725644381183}
   m_Layer: 5
-  m_Name: Button (Legacy)
+  m_Name: bnt_Discard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7254,7 +7254,7 @@ GameObject:
   - component: {fileID: 6302404428295704902}
   - component: {fileID: 3588014221885762765}
   m_Layer: 5
-  m_Name: Button (Legacy) (2)
+  m_Name: btn_Dice
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7341,7 +7341,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_PressedColor: {r: 1, g: 0, b: 0, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -13259,7 +13259,7 @@ GameObject:
   - component: {fileID: 3628277321353899211}
   - component: {fileID: 6372701876804686854}
   m_Layer: 5
-  m_Name: Button (Legacy) (1)
+  m_Name: btn_Use
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13346,7 +13346,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_PressedColor: {r: 1, g: 0, b: 0, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -24681,8 +24681,8 @@ MonoBehaviour:
   _selectItemIcon: {fileID: 6778574799841040988}
   _selectItemName: {fileID: 8710121689939620860}
   _selectItemDescription: {fileID: 749624643290867216}
-  _useButton: {fileID: 4637612725644381183}
-  _discardButton: {fileID: 6372701876804686854}
+  _useButton: {fileID: 6372701876804686854}
+  _discardButton: {fileID: 4637612725644381183}
   _rollDiceButton: {fileID: 3588014221885762765}
 --- !u!1 &5796335868518814369
 GameObject:

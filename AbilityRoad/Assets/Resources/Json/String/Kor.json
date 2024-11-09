@@ -1,7 +1,12 @@
 {
+    "otp_Kor" : "한국어",
+    "otp_Eng" : "영어",
     "btn_Start" : "시작",
     "btn_Setting" : "설정",
     "btn_Human" : "인간",
+    "btn_Dice" : "주사위",
+    "btn_Roulette" : "룰렛",
+    "btn_Dart" : "다트",
     "label_PlayerCnt" : "플레이어 수",
     "label_Map" : "맵 선택",
     "label_SelectDice": "주사위 선택"

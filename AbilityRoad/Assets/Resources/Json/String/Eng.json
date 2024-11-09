@@ -1,1 +1,13 @@
-{}
+{
+    "otp_Kor" : "Korean",
+    "otp_Eng" : "English",
+    "btn_Start" : "Start",
+    "btn_Setting" : "Setting",
+    "btn_Human" : "btn_Human",
+    "btn_Dice" : "Dice",
+    "btn_Roulette" : "Roulette",
+    "btn_Dart" : "Dart",
+    "label_PlayerCnt" : "Player Count",
+    "label_Map" : "Select Map",
+    "label_SelectDice": "Select Dice"
+}

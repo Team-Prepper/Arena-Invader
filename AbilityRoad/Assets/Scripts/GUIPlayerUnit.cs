@@ -1,8 +1,9 @@
+using EHTool.UIKit;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GUIPlayerUnit : MonoBehaviour, IObserver<Character> {
+public class GUIPlayerUnit : GUIPopUp, IObserver<Character> {
 
     [SerializeField] Text _name;
     [SerializeField] string _nameFormat = "{0}";

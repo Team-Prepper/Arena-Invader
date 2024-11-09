@@ -12,5 +12,6 @@
   <Element name="Raid"                path="Prefabs/GUI/PopUp/GUI_Raid" />
   <Element name="Shop"                path="Prefabs/GUI/PopUp/GUI_Shop" />
   <Element name="PlayerAction"        path="Prefabs/GUI/PopUp/GUI_PlayerAction" />
+  <Element name="PlayerInfor"        path="Prefabs/GUI/PopUp/GUI_PlayerInfor" />
   <Element name="Inventory"           path="Prefabs/GUI/PopUp/GUI_Inventory" />
 </List>

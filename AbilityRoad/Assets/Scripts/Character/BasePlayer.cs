@@ -11,6 +11,8 @@ public class BasePlayer : Character
     [SerializeField] Color[] _pawnColor;
 
     IList<Vector3> _emptyPlace;
+    public List<IItem> Items => items;
+
     [SerializeField] protected List<IItem> items;
 
     [SerializeField] protected int _chance = 0;

@@ -43,7 +43,7 @@ public class GUIPlayerButtonUnit : MonoBehaviour, IObserver<Character> {
     }
 
     public void OpenPlayerInfor() {
-        UIManager.Instance.OpenGUI<GUIPlayerUnit>("PlayerInfor").SetPlayer(_target);
+        GameObject.FindWithTag("PlayerInfor").GetComponent<GUIPlayerUnit>().SetPlayer(_target);
     }
 
 }

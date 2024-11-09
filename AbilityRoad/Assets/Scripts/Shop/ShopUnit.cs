@@ -12,9 +12,9 @@ public class ShopUnit : MonoBehaviour
 
     public void SetSlot(int price, Sprite icon, UnityAction action)
     {
-        _priceText.text = price.ToString();
+        if (_priceText != null) _priceText.text = price.ToString();
         _icon.sprite = icon;
-        _selectButton.onClick.AddListener(action);
+        if (_selectButton != null) _selectButton.onClick.AddListener(action);
     }
 
     public void DisableSlot()

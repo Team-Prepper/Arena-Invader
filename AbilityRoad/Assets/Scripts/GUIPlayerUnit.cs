@@ -1,10 +1,13 @@
 using EHTool.UIKit;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
-public class GUIPlayerUnit : GUIPopUp, IObserver<Character> {
-
+public class GUIPlayerUnit : MonoBehaviour, IObserver<Character> {
+    [SerializeField] Image _icon;
     [SerializeField] Text _name;
     [SerializeField] string _nameFormat = "{0}";
     [SerializeField] Text _health;
@@ -15,6 +18,9 @@ public class GUIPlayerUnit : GUIPopUp, IObserver<Character> {
     [SerializeField] string _attackFormat = "{0}";
     [SerializeField] Text _defense;
     [SerializeField] string _defenseFormat = "{0}";
+    [SerializeField] CanvasGroup _canvasGroup;
+
+    [SerializeField] ShopUnit[] _shopButtons;
 
 #nullable enable
     private IDisposable? _cancellation;
@@ -36,9 +42,31 @@ public class GUIPlayerUnit : GUIPopUp, IObserver<Character> {
         _defense.text = string.Format(_defenseFormat, value.GetDefenseValue());
     }
 
-    public void SetPlayer(Character target) {
+    public void SetPlayer(BasePlayer target) {
+
+        _icon.sprite = CharacterManager.Instance.GetPlayerSpr(target.GetCharacterCode());
+        _canvasGroup.alpha = 1;
+        _canvasGroup.blocksRaycasts = true;
         _cancellation?.Dispose();
         _cancellation = target.Subscribe(this);
+
+        List<IItem> items = target.Items;
+
+        for (int i = 0; i < _shopButtons.Length; i++)
+        {
+            if (i >= items.Count) {
+                _shopButtons[i].gameObject.SetActive(false);
+                continue;
+            }
+            _shopButtons[i].gameObject.SetActive(true);
+            _shopButtons[i].SetSlot(0, items[i].Icon, () => { });
+        }
+    }
+
+    public void Close()
+    {
+        _canvasGroup.alpha = 0;
+
     }
 
 }

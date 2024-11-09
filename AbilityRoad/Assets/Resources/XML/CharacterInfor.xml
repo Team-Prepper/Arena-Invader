@@ -2,4 +2,5 @@
 <List>
   <Element name="Player"                path="Data/Player" />
   <Element name="Player_AI"             path="Data/Player_AI" />
+  <Element name="Baron"                 path="Data/Baron" />
 </List>

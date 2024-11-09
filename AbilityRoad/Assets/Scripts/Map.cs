@@ -1,6 +1,7 @@
 using EHTool;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using UnityEngine;
 
 public class Map : MonoBehaviour {
@@ -17,6 +18,8 @@ public class Map : MonoBehaviour {
     ObjectCharacter _object;
 
     IDictionary<int, string> _raidDict;
+    
+    private int currentTurn = 0;
 
     private void Start()
     {
@@ -40,9 +43,17 @@ public class Map : MonoBehaviour {
     }
 
     public void StartNewTurn(int turn) {
+        currentTurn = turn;
         if (!_raidDict.ContainsKey(turn)) return;
 
         _object = AssetOpener.ImportComponent<ObjectCharacter>(_raidDict[turn]);
+    }
+
+    public int GetLeftBaronTurn()
+    {
+        List<int> keys = new List<int>(_raidDict.Keys);
+        keys.Sort();
+        return keys[0] - currentTurn;
     }
 
 }

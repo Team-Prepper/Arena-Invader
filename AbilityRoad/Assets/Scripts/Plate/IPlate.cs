@@ -54,7 +54,7 @@ public abstract class IPlate : MonoBehaviour {
         return _nowPawn;
     }
 
-    public int GetValue(Character attacker, Character defender)
+    public virtual int GetValue(Character attacker, Character defender)
     {
         return _event.GetValue(_nowPawn, attacker, defender);
     }

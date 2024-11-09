@@ -38,4 +38,9 @@ public class BranchPlate : IPlate
         }
         callback?.Invoke(_fromTo[from]);
     }
+
+    public override int GetValue(Character attacker, Character defender)
+    {
+        return base.GetValue(attacker, defender) + 5;
+    }
 }

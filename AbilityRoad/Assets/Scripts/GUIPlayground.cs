@@ -12,7 +12,12 @@ public class GUIPlayground : GUIFullScreen
     [SerializeField] GUIPlayerUnit _playerInfor;
     [SerializeField] Text _turnInfor;
     [SerializeField] string _turnInforFormat = "{0}'s Turn";
-
+    [Header("Baron Infor")]
+    [SerializeField] GUIBaronInfo _baronInfor;
+    [SerializeField] GameObject _baronInfoTextGO;
+    [SerializeField] Text _baronInfoText;
+    [SerializeField] string _baronInforFormat = "{0} Turn left";
+    [Header("generator")]
     [SerializeField] MatchGenerator _generator;
 
     public override void Open()
@@ -58,6 +63,21 @@ public class GUIPlayground : GUIFullScreen
     {
         _turnInfor.text =
             string.Format(_turnInforFormat, GameManager.Instance.Playground.NowPlayer.GetName());
+
+        if (GameManager.Instance.Playground.Map.GetObject() == null)
+        { 
+            _baronInfoTextGO.gameObject.SetActive(true);
+            _baronInfor.gameObject.SetActive(false);
+            _baronInfoText.text =
+                string.Format(_baronInforFormat, GameManager.Instance.Playground.Map.GetLeftBaronTurn());
+        }
+        else
+        {
+            _baronInfoTextGO.gameObject.SetActive(false);
+            _baronInfor.gameObject.SetActive(true);
+            _baronInfor.SetBaronInfo(GameManager.Instance.Playground.Map.GetObject());
+        }
+       
     }
 
     public void PressButton(int idx) {

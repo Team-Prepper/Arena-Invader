@@ -39,7 +39,8 @@ public class AIPlayer : BasePlayer
         {
             if(pawn.IsPiggyBacked()) continue;
             IPlate plate = pawn.MovePredict(value);
-            int currentPawnValue = plate == null ? 10 : plate.GetValue(this, SetTarget());
+            int currentPawnValue = plate == null ? 100 : plate.GetValue(this, SetTarget());
+            if(pawn.isPiggied()) currentPawnValue *= 2;
             if (currentPawnValue >= mostValuablePawnValue)
             {
                 mostValuablePawn = pawn;

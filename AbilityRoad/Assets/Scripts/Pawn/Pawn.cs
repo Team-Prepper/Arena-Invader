@@ -205,4 +205,9 @@ public class Pawn : MonoBehaviour {
     {
         return _isPiggyBacked;
     }
+    
+    public bool isPiggied()
+    {
+        return _piggyBacking != null;
+    }
 }

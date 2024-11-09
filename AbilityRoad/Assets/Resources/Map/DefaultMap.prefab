@@ -2387,6 +2387,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _startPlate: {fileID: 5040216781645386397}
+  _raidInfors:
+  - StartTurn: 2
+    SpawnCode: ObjectCharacter/Dragon
 --- !u!1 &5894198595178470569
 GameObject:
   m_ObjectHideFlags: 0

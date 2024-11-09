@@ -15,6 +15,15 @@ public class GUIBattle : GUIPopUp {
 
                 target.ReduceHealth(GameManager.Instance.Playground.CalcDamage(attacker, target));
 
+                if (!target.IsAlive())
+                {
+                    StartCoroutine(WaitASeconds(() => {
+                        callback?.Invoke();
+                        Close();
+                    }));
+                    return;
+                }
+
                 StartCoroutine(WaitASeconds(() => {
                     attacker.ReduceHealth(GameManager.Instance.Playground.CalcDamage(target, attacker));
 
@@ -30,8 +39,6 @@ public class GUIBattle : GUIPopUp {
         });
         
     }
-
-    
 
     public void SetTarget(Character attacker, CallbackMethod<Character> callback) {
 

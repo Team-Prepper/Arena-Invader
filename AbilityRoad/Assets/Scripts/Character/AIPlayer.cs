@@ -40,12 +40,12 @@ public class AIPlayer : BasePlayer
     private Character SetTarget()
     {
         Character target = null;
-        int minHealth = 1000;
+        int minHealth = int.MaxValue;
         foreach (var player in GameManager.Instance.Playground.Players)
         {
             if (player == this) continue;
             int currentHealth = player.GetHealth();
-            if (minHealth < currentHealth)
+            if (minHealth > currentHealth)
             {
                 minHealth = currentHealth;
                 target = player;

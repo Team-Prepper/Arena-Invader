@@ -34,8 +34,6 @@ public class BasePlayer : Character
 
         _emptyPlace = new List<Vector3>();
 
-        _healthUI.SetHealth(_health);
-
     }
 
     public void LeavePawn(Pawn pawn)

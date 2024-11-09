@@ -7,8 +7,40 @@ public class GUIRaid : GUIFullScreen {
 
     CallbackMethod _callback;
 
-    public void StartRaid(IPawnMove attacker, IPlate plate, CallbackMethod callback) {
+    public void StartRaid(BasePlayer attacker, ObjectCharacter target, CallbackMethod callback) {
+
+
+        StartCoroutine(WaitASeconds(() => {
+            target.ReduceHealth(GameManager.Instance.Playground.CalcDamage(attacker, target));
+            if (!target.IsAlive()) {
+                target.RewardTo(attacker);
+
+                StartCoroutine(WaitASeconds(() => {
+                    callback?.Invoke();
+                    Close();
+                }));
+                return;
+
+            }
+
+            StartCoroutine(WaitASeconds(() => {
+                attacker.ReduceHealth(GameManager.Instance.Playground.CalcDamage(target, attacker));
+
+                StartCoroutine(WaitASeconds(() => {
+                    callback?.Invoke();
+                    Close();
+                }));
+
+            }));
+        }));
+
         _callback = callback;
-        _callback?.Invoke();
+    }
+
+    IEnumerator WaitASeconds(CallbackMethod callback)
+    {
+        yield return new WaitForSeconds(1f);
+
+        callback?.Invoke();
     }
 }

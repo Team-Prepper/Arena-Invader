@@ -1,11 +1,48 @@
+using EHTool;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Map : MonoBehaviour {
 
+    [System.Serializable]
+    public class RaidInfor {
+        public int StartTurn;
+        public string SpawnCode;
+    }
+
     [SerializeField] IPlate _startPlate;
+    [SerializeField] RaidInfor[] _raidInfors;
+
+    ObjectCharacter _object;
+
+    IDictionary<int, string> _raidDict;
+
+    private void Start()
+    {
+        _raidDict = new Dictionary<int, string>();
+
+        for (int i = 0; i < _raidInfors.Length; i++) {
+            _raidDict.Add(_raidInfors[i].StartTurn, _raidInfors[i].SpawnCode);
+        }
+    }
 
     public IPlate GetStartPlate() {
         return _startPlate;
+    }
+
+    public ObjectCharacter GetObject() {
+        if (_object == null) return null;
+        if (_object.IsAlive()) return _object;
+
+        _object = null;
+        return _object;
+    }
+
+    public void StartNewTurn(int turn) {
+        if (!_raidDict.ContainsKey(turn)) return;
+
+        _object = AssetOpener.Import<ObjectCharacter>(_raidDict[turn]);
     }
 
 }

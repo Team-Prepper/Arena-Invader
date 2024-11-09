@@ -60,6 +60,7 @@ public class Playground : IPlayground {
             {
                 Turn++;
                 _turnIdx = 0;
+                Map.StartNewTurn(Turn);
             }
             if (Players[_turnIdx].IsAlive()) break;
         }

@@ -8,7 +8,6 @@ using UnityEngine;
 public class Character : MonoBehaviour, IObservable<Character> {
 
     [SerializeField] protected string _name;
-    [SerializeField] protected IGUIUnitHealth _healthUI;
     [SerializeField] protected Status _status;
     [SerializeField] protected int _health;
     [SerializeField] protected int _coin;
@@ -41,7 +40,6 @@ public class Character : MonoBehaviour, IObservable<Character> {
     internal void AddHeal(int healAmount)
     {
         _health += healAmount;
-        _healthUI.SetHealth(_health);
 
         Notify();
     }
@@ -49,7 +47,6 @@ public class Character : MonoBehaviour, IObservable<Character> {
     public void ReduceHealth(int amount)
     {
         _health -= amount;
-        _healthUI.SetHealth(_health);
         Notify();
 
         if (_health >= 0) return;

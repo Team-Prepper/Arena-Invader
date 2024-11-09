@@ -25,7 +25,7 @@ public class GUIPlayerButtonUnit : MonoBehaviour, IObserver<Character> {
 
     public void OnNext(Character value)
     {
-        _name.text = string.Format(_healthFormat, value.GetHealth());
+        _name.text = string.Format(_nameFormat, value.GetHealth());
         _health.text = string.Format(_healthFormat, value.GetHealth());
         _coin.text = string.Format(_coinFormat, value.GetCoin());
     }

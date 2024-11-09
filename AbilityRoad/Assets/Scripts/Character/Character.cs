@@ -9,6 +9,7 @@ using UnityEngine.Serialization;
 public class Character : MonoBehaviour, IObservable<Character> {
 
     [SerializeField] protected string _name;
+    [SerializeField] protected string _code = "Player";
     [SerializeField] protected Status _status;
     [SerializeField] protected int _health;
     [SerializeField] protected int _money;
@@ -23,6 +24,8 @@ public class Character : MonoBehaviour, IObservable<Character> {
     }
 
     private readonly ISet<IObserver<Character>> _observers = new HashSet<IObserver<Character>>();
+
+    public string GetCharacterCode() => _code;
 
     public IDisposable Subscribe(IObserver<Character> observer)
     {

@@ -116,10 +116,10 @@ RectTransform:
   m_Father: {fileID: 8543402160430135860}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 50}
-  m_SizeDelta: {x: 0, y: 150}
-  m_Pivot: {x: 0.5, y: 0}
+  m_SizeDelta: {x: 1920, y: 150}
+  m_Pivot: {x: 0, y: 0}
 --- !u!222 &2303787940398294747
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -145,11 +145,11 @@ MonoBehaviour:
     m_Right: 50
     m_Top: 50
     m_Bottom: 50
-  m_ChildAlignment: 4
+  m_ChildAlignment: 3
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 300, y: 150}
-  m_Spacing: {x: 100, y: 0}
+  m_CellSize: {x: 320, y: 170}
+  m_Spacing: {x: 50, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
 --- !u!1 &4938533849958241847
@@ -164,7 +164,7 @@ GameObject:
   - component: {fileID: 912229200690232659}
   - component: {fileID: 44447263363308849}
   m_Layer: 5
-  m_Name: GUIPlayground
+  m_Name: GUI_Playground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -233,7 +233,7 @@ GameObject:
   - component: {fileID: 9169724421415817862}
   - component: {fileID: 7045719293543908163}
   m_Layer: 5
-  m_Name: box_buttons (1)
+  m_Name: box_TurnInfor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -19,10 +19,7 @@ public class GUIMatchSetting : GUIFullScreen
 
     public void GenerateMatch()
     {
-        /*
-        string json = JsonUtility.ToJson(_infor, true);
-        File.WriteAllText(_path, json);*/
-
+        UIManager.Instance.OpenGUI<GUIPlayground>("Playground").GenerateMatch(_infor);
     }
 
     public void SetPlayerCnt(int cnt) {
@@ -34,6 +31,7 @@ public class GUIMatchSetting : GUIFullScreen
         for (int i = 0; i < cnt; i++)
         {
             if (i >= def.Length) {
+                _infor.PlayerInfors[i] = new MatchInfor.PlayerInfor();
                 continue;
             }
             _infor.PlayerInfors[i] = def[i];
@@ -44,7 +42,13 @@ public class GUIMatchSetting : GUIFullScreen
 
     void SetDetails() {
         for (int i = 0; i < _details.Length; i++) {
-            _details[i].gameObject.SetActive(i < _infor.PlayerInfors.Length);
+            if (i >= _infor.PlayerInfors.Length)
+            {
+                _details[i].gameObject.SetActive(false);
+                continue;
+            }
+            _details[i].gameObject.SetActive(true);
+            _details[i].SetDefaultValue(i, _infor.PlayerInfors[i].CharacterCode, _infor.PlayerInfors[i].Name);
         }
     }
 

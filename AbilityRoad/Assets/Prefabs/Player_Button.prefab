@@ -148,7 +148,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f157b49458374f245b42b0460cc43b0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _name: {fileID: 489146850990587504}
+  _icon: {fileID: 1666351163798744153}
+  _name: {fileID: 3305666057675814948}
   _nameFormat: '{0}'
   _health: {fileID: 489146850990587504}
   _healthFormat: '{0}'

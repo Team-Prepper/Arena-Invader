@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class GUIPlayerButtonUnit : MonoBehaviour, IObserver<Character> {
 
+    [SerializeField] Image _icon;
     [SerializeField] Text _name;
     [SerializeField] string _nameFormat = "{0}";
     [SerializeField] Text _health;
@@ -25,13 +26,14 @@ public class GUIPlayerButtonUnit : MonoBehaviour, IObserver<Character> {
 
     public void OnNext(Character value)
     {
-        _name.text = string.Format(_nameFormat, value.GetHealth());
+        _name.text = string.Format(_nameFormat, value.GetName());
         _health.text = string.Format(_healthFormat, value.GetHealth());
         _coin.text = string.Format(_coinFormat, value.Money);
     }
 
     public void SetPlayer(BasePlayer target)
     {
+        _icon.sprite = CharacterManager.Instance.GetPlayerSpr(target.GetCharacterCode());
         _cancellation = target.Subscribe(this);
 
     }

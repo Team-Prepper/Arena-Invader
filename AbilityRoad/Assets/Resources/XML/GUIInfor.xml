@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <List>
+  <Element name="Playground"          path="Prefabs/GUI/FullScreen/GUI_Playground" />
   <Element name="Dice"                path="Prefabs/GUI/PopUp/GUI_UIDice" />
   <Element name="SelectMovePawn"      path="Prefabs/GUI/PopUp/GUI_SelectMovePawn" />
   <Element name="Battle"              path="Prefabs/GUI/PopUp/GUI_Battle" />

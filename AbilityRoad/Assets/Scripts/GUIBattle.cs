@@ -17,8 +17,6 @@ public class GUIBattle : GUIPopUp {
     [SerializeField] Image _attacker;
     [SerializeField] Image _target;
 
-    [SerializeField] private List<GameObject> _swordAuras = new List<GameObject>();
-
 
     public void StartBattle(Character attacker, CallbackMethod callback)
     {

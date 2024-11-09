@@ -531,6 +531,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _addedValue:
-    _attack: 100
+    _attack: 0
+    _defence: 0
+  _levelStatus:
+  - _attack: 100
     _defence: 100
-  _levelStatus: []

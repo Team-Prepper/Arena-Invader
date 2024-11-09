@@ -12,6 +12,7 @@
     "btn_Buy" : "Buy",
     "btn_Discard" : "Discard",
     "btn_Use" : "Use",
+    "label_Price" : "Price",
     "label_Setting" : "Setting",
     "label_Language" : "Language",
     "label_Sound" : "Sound",

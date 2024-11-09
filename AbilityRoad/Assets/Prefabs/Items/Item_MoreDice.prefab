@@ -46,6 +46,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _price: 10
   _name: OneMoreDice
-  _icon: {fileID: 0}
+  _icon: {fileID: 21300000, guid: cc8514d4e3b86e841b3c55517741ce8f, type: 3}
   _description: on more dice
   _itemValue: 2

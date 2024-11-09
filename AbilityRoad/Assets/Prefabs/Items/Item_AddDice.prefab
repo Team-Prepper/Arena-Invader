@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _price: 10
   _name: MoreDicePoint
-  _icon: {fileID: 21300000, guid: 7ab74e659e1f0a34d9cfec21c478fc12, type: 3}
+  _icon: {fileID: 21300000, guid: 3846446d743c33f449e42e002c42ff4a, type: 3}
   _description: more more
   _itemValue: 2
   _dicePoint: 5

@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _price: 20
   _name: Item_Minus
-  _icon: {fileID: 0}
+  _icon: {fileID: 21300000, guid: f24dc2d375424f546b9583a4a4c2d685, type: 3}
   _description: 
   _itemValue: 0
   _dicePoint: 3

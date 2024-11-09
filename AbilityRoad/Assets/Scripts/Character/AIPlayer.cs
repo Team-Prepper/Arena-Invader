@@ -91,7 +91,7 @@ public class AIPlayer : BasePlayer
         yield return new WaitForSeconds(1f);
 
         // 4. shop.Close 호출
-        shop.Close();
+        shop?.Close();
     }
 
 

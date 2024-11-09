@@ -8,7 +8,9 @@ public class BasePlayer : Character
     [SerializeField] Transform[] _pawnPosition;
     [SerializeField] Color[] _pawnColor;
 
+    [SerializeField] private int _gold = 0;
     IList<Vector3> _emptyPlace;
+    [SerializeField] List<IItem> _items;
 
     protected int _chance = 0;
 
@@ -96,6 +98,14 @@ public class BasePlayer : Character
         {
             _pawns[i].ExitTurn();
         }
+    }
 
+    public bool BuyItem(IItem item)
+    {
+        if (_gold < item.Price) return false;
+
+        _gold -= item.Price;
+        _items.Add(item);
+        return true;
     }
 }

@@ -87,6 +87,7 @@ public class Pawn : MonoBehaviour {
     }
 
     public void Dispose(Vector3 pos) {
+        if (!_owner.IsAlive()) return;
         _moveTo.MoveTo(pos, null);
     }
 

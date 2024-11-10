@@ -65,6 +65,7 @@ public class Character : MonoBehaviour, IObservable<Character> {
         if (_health >= 0) return;
 
         DeathEvent();
+        gameObject.SetActive(false);
     }
 
     protected virtual void DeathEvent() {}

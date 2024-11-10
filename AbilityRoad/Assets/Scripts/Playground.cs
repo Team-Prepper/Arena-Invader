@@ -11,7 +11,7 @@ public class Playground : IPlayground {
     public Map Map { get; set; }
     public int Turn { get; private set; }
 
-    IList<int> _deathPlayerIdx;
+    ISet<int> _deathPlayerIdx;
     int _turnIdx;
 
     string _matchDiceCode = "DartDice";
@@ -19,7 +19,7 @@ public class Playground : IPlayground {
     public Playground()
     {
         Players = new List<BasePlayer>();
-        _deathPlayerIdx = new List<int>();
+        _deathPlayerIdx = new HashSet<int>();
         _turnIdx = 0;
         Turn = 0;
     }
@@ -28,6 +28,11 @@ public class Playground : IPlayground {
     {
         if (Players.Contains(player)) return;
         Players.Add(player);
+    }
+
+    public bool IsGameEnd()
+    {
+        return Players.Count - _deathPlayerIdx.Count < 2;
     }
 
     public void PlayerDeath(BasePlayer player)
@@ -39,7 +44,7 @@ public class Playground : IPlayground {
             break;
         }
 
-        if (Players.Count - _deathPlayerIdx.Count < 2)
+        if (IsGameEnd())
         {
             GameEnd();
         }
@@ -47,6 +52,7 @@ public class Playground : IPlayground {
 
     void GameEnd()
     {
+        GameManager.Instance.Playground = new Playground();
         Object.Destroy(Map.gameObject);
         Map = null;
         foreach (var player in Players)
@@ -103,5 +109,4 @@ public class Playground : IPlayground {
     {
         return UIManager.Instance.OpenGUI<GUIDice>(_matchDiceCode);
     }
-
 }

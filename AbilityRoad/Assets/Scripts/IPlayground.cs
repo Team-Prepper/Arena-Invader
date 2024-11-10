@@ -17,5 +17,5 @@ public interface IPlayground
 
     public void SetMatchDice(string code);
     public GUIDice GetMatchDice();
-
+    bool IsGameEnd();
 }

@@ -25,6 +25,11 @@ public class BasePlayer : Character
         GameManager.Instance.Playground.PlayerDeath(this);
     }
 
+    IEnumerator WaitAMinute(CallbackMethod callback) {
+        yield return new WaitForSeconds(1f);
+        callback?.Invoke();
+    }
+
     public void SetInitial(int idx, string name)
     {
         _level = 0;

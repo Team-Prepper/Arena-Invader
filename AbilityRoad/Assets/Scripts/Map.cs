@@ -47,6 +47,7 @@ public class Map : MonoBehaviour {
         if (!_raidDict.ContainsKey(turn)) return;
 
         _object = AssetOpener.ImportComponent<ObjectCharacter>(_raidDict[turn]);
+        _object.transform.SetParent(transform);
         SFXManager.Instance.PlayBGM("2nd");
     }
 

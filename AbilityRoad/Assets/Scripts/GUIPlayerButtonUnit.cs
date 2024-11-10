@@ -3,6 +3,7 @@ using EHTool.UIKit;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.GraphicsBuffer;
 
 public class GUIPlayerButtonUnit : MonoBehaviour, IObserver<Character> {
 
@@ -29,6 +30,11 @@ public class GUIPlayerButtonUnit : MonoBehaviour, IObserver<Character> {
 
     public void OnNext(Character value)
     {
+        if (!value.IsAlive())
+        {
+            gameObject.SetActive(false);
+            return;
+        }
         _name.text = string.Format(_nameFormat, value.GetName());
         _health.text = string.Format(_healthFormat, value.GetHealth());
         _coin.text = string.Format(_coinFormat, value.Money);

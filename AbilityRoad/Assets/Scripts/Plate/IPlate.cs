@@ -43,6 +43,7 @@ public abstract class IPlate : MonoBehaviour {
                 return;
             }
             _otherOwnerOverlapEvent?.Event(this, pawn);
+            SFXManager.Instance.PlaySFX("Kill");
         });
     }
 

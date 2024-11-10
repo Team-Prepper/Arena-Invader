@@ -24,7 +24,7 @@ public class GUIDice : GUIPopUp
 
     public void Roll() {
         if (_isRolling) return;
-
+        SFXManager.Instance.PlaySFX("Roll");
         _btn.enabled = false;
         _isRolling = true;
 

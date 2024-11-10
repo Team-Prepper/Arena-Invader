@@ -121,15 +121,19 @@ public class Pawn : MonoBehaviour {
         }
 
         ResetImproveState();
-        
-        _isPiggyBacked = false;
 
-        if (_nowPlate != null)
+        if (_nowPlate == null)
         {
-            _nowPlate.SetPawn(null);
-            _nowPlate = null;
-            GetOwner().BackHomePawn(this);
+            if (_isPiggyBacked) {
+                _isPiggyBacked = false;
+                GetOwner().BackHomePawn(this);
+            }
+            return;
         }
+        _isPiggyBacked = false;
+        _nowPlate.SetPawn(null);
+        _nowPlate = null;
+        GetOwner().BackHomePawn(this);
     }
 
     private void ResetImproveState()

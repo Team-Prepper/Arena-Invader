@@ -23,6 +23,11 @@ public class GUISetting : GUIPopUp {
     [SerializeField] private AudioMixer _audioMixer;
     [SerializeField] private Slider _musicMasterSlider;
 
+    public override void SetOff()
+    {
+        Close();
+    }
+
     private void Start()
     {
         _DropdownSetting();

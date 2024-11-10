@@ -1350,18 +1350,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3736301660124952858}
-        m_TargetAssemblyTypeName: GUIMatchSetting, Assembly-CSharp
-        m_MethodName: GenerateMatch
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Map/DefaultMap
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 324877654708211335}
         m_TargetAssemblyTypeName: MonoSoundPlayer, Assembly-CSharp
         m_MethodName: PlaySound
@@ -1372,6 +1360,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: ButtonSelect
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3736301660124952858}
+        m_TargetAssemblyTypeName: EHTool.UIKit.GUIWindow, Assembly-CSharp
+        m_MethodName: OpenWindow
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Setting
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &2318649560918314704
@@ -1907,7 +1907,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: ab53c3686e8494d42bdeb9087e40b9d8, type: 3}
-    m_FontSize: 48
+    m_FontSize: 32
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 3
@@ -1918,7 +1918,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC2DC\uC791"
+  m_Text: Start
   _key: btn_Start
 --- !u!1 &3692283410302430213
 GameObject:
@@ -2463,7 +2463,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uB9F5 \uC120\uD0DD"
+  m_Text: Select Map
   _key: label_Map
 --- !u!1 &4122909923805600973
 GameObject:
@@ -2897,7 +2897,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC8FC\uC0AC\uC704 \uC120\uD0DD"
+  m_Text: Select Dice
   _key: label_SelectDice
 --- !u!1 &6480410445551450560
 GameObject:
@@ -3541,7 +3541,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: ab53c3686e8494d42bdeb9087e40b9d8, type: 3}
-    m_FontSize: 48
+    m_FontSize: 32
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 3
@@ -3552,7 +3552,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC124\uC815"
+  m_Text: Setting
   _key: btn_Setting
 --- !u!1 &7518505265021073948
 GameObject:
@@ -4182,7 +4182,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uD50C\uB808\uC774\uC5B4 \uC218"
+  m_Text: Player Count
   _key: label_PlayerCnt
 --- !u!1 &8482091249091707851
 GameObject:

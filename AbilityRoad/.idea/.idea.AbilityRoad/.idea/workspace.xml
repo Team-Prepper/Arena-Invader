@@ -6,7 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="4a77bd12-6663-4a58-93b6-42bb74de1419" name="변경" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.AbilityRoad/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AbilityRoad/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/JMO Assets/Cartoon FX Remaster/CFXR Demo.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/JMO Assets/Cartoon FX Remaster/CFXR Demo.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Title.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Title.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SFXManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SFXManager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,7 +113,7 @@
       <workItem from="1731130278092" duration="2109000" />
       <workItem from="1731135288230" duration="6162000" />
       <workItem from="1731187749830" duration="9145000" />
-      <workItem from="1731200279115" duration="958000" />
+      <workItem from="1731200279115" duration="1972000" />
     </task>
     <servers />
   </component>

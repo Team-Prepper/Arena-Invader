@@ -58,6 +58,13 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: a105605e106384ea08b44f685a84efdb, type: 3}
   - name: TurnStart
     clip: {fileID: 8300000, guid: 4033fa8595af34b0d9c9e6ae27d81fff, type: 3}
+  backgroundMusics:
+  - name: 1st
+    clip: {fileID: 8300000, guid: c0658f7e68fcd49da8f583d35394ba71, type: 3}
+  - name: 2nd
+    clip: {fileID: 8300000, guid: e319f2cade7544cf3a6f0eb689a0f07c, type: 3}
+  - name: 3rd
+    clip: {fileID: 8300000, guid: 284e52dedab624abb8da48f5f23a3957, type: 3}
 --- !u!82 &4995427511573199296
 AudioSource:
   m_ObjectHideFlags: 0

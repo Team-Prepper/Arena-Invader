@@ -129,8 +129,8 @@ MonoBehaviour:
   - {r: 0, g: 0, b: 1, a: 1}
   - {r: 1, g: 1, b: 0, a: 1}
   - {r: 0, g: 1, b: 0, a: 1}
-  money: 0
-  _items: []
+  items: []
+  _chance: 0
 --- !u!114 &1065116643142892012
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,8 +147,8 @@ MonoBehaviour:
     _attack: 0
     _defence: 0
   _levelStatus:
-  - _attack: 100
-    _defence: 100
+  - _attack: 10
+    _defence: 0
 --- !u!1 &4958900561680636048
 GameObject:
   m_ObjectHideFlags: 0

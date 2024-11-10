@@ -24,6 +24,7 @@ public class MatchGenerator : MonoBehaviour
             player.SetInitial(i, _matchInfor.PlayerInfors[i].Name);
             player.transform.position = _playerPosition[i].position;
         }
+        SFXManager.Instance.PlayBGM("1st");
         GameManager.Instance.Playground.TurnStart();
     }
 }

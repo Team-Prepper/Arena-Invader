@@ -114,7 +114,7 @@ MonoBehaviour:
   _name: 
   _code: Player_AI
   _status: {fileID: 1855259384941681325}
-  _health: 1
+  _health: 100
   _money: 0
   _pawns:
   - {fileID: 1853524339805271838}

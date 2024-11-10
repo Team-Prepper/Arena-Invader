@@ -19,8 +19,8 @@ public class D6Dice : IDice {
     private bool _isRolling;
 
     private float torqueMin = 5f;
-    private float torqueMax = 20f;
-    private float throwStrength = 20f;
+    private float torqueMax = 10f;
+    private float throwStrength = 10f;
     private float _waitTime = 1f;
 
     [SerializeField] private UnityEvent _diceStopEvent;

@@ -145,6 +145,7 @@ public class BasePlayer : Character
 
     public void SlainObject()
     {
+        PopUpManager.Instance.ShowPopUp(GetName() + " has slain the object!");
         _status.AddAttackValue(50);
         _status.AddDefenceValue(50);
     }

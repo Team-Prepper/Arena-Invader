@@ -6,7 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="4a77bd12-6663-4a58-93b6-42bb74de1419" name="변경" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.AbilityRoad/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AbilityRoad/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GUIPlayerUnit.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GUIPlayerUnit.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Baron.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Baron.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ObjectCharacter/Baron.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ObjectCharacter/Baron.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Pawn/GUIRaid.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Pawn/GUIRaid.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,6 +125,8 @@
       <workItem from="1731187749830" duration="9145000" />
       <workItem from="1731200279115" duration="1972000" />
       <workItem from="1731203326360" duration="23000" />
+      <workItem from="1731203954356" duration="686000" />
+      <workItem from="1731205692397" duration="474000" />
     </task>
     <servers />
   </component>

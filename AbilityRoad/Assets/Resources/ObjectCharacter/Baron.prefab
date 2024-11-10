@@ -516,7 +516,7 @@ MonoBehaviour:
   _name: Baron
   _code: Baron
   _status: {fileID: 5905440539354983776}
-  _health: 100
+  _health: 200
   _money: 0
 --- !u!114 &5905440539354983776
 MonoBehaviour:
@@ -534,5 +534,5 @@ MonoBehaviour:
     _attack: 0
     _defence: 0
   _levelStatus:
-  - _attack: 100
-    _defence: 100
+  - _attack: 20
+    _defence: 20

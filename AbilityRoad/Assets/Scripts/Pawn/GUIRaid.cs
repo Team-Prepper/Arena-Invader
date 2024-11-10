@@ -43,8 +43,8 @@ public class GUIRaid : GUIPopUp {
 
                     if (!attacker.IsAlive())
                     {
+                        callback?.Invoke();
                         Close();
-                        return;
                     }
 
                     StartCoroutine(WaitASeconds(() =>

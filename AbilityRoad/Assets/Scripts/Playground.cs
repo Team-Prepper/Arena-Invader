@@ -1,6 +1,7 @@
 using EHTool.LangKit;
 using EHTool.UIKit;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class Playground : IPlayground {
@@ -45,7 +46,15 @@ public class Playground : IPlayground {
 
     void GameEnd()
     {
+        Object.Destroy(Map);
+        Map = null;
+        foreach (var player in Players) {
+            if (!player.IsAlive()) continue;
 
+            IGUIFullScreen nowScreen = UIManager.Instance.NowDisplay;
+            UIManager.Instance.OpenGUI<GUIResult>("Result").SetWinner(player);
+            nowScreen.Close();
+        }
     }
 
     public void TurnStart()

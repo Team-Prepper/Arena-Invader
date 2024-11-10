@@ -42,6 +42,7 @@ public class GUIMatchSetting : GUIFullScreen
         }
 
         UIManager.Instance.OpenGUI<GUIPlayground>("Playground").GenerateMatch(_infor);
+
     }
 
     public void SetPlayerCnt(int cnt) {

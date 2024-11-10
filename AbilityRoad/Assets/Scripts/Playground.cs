@@ -19,6 +19,7 @@ public class Playground : IPlayground {
     public Playground()
     {
         Players = new List<BasePlayer>();
+        _deathPlayerIdx = new List<int>();
         _turnIdx = 0;
         Turn = 0;
     }
@@ -46,14 +47,17 @@ public class Playground : IPlayground {
 
     void GameEnd()
     {
-        Object.Destroy(Map);
+        Object.Destroy(Map.gameObject);
         Map = null;
-        foreach (var player in Players) {
-            if (!player.IsAlive()) continue;
-
-            IGUIFullScreen nowScreen = UIManager.Instance.NowDisplay;
-            UIManager.Instance.OpenGUI<GUIResult>("Result").SetWinner(player);
-            nowScreen.Close();
+        foreach (var player in Players)
+        {
+            if (player.IsAlive())
+            {
+                IGUIFullScreen nowScreen = UIManager.Instance.NowDisplay;
+                UIManager.Instance.OpenGUI<GUIResult>("Result").SetWinner(player);
+                nowScreen.Close();
+            }
+            Object.Destroy(player.gameObject);
         }
     }
 

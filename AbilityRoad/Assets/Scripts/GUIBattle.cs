@@ -35,6 +35,7 @@ public class GUIBattle : GUIPopUp {
 
                     if (!target.IsAlive())
                     {
+                        StopAllCoroutines();
                         callback?.Invoke();
                         Close();
                         return;
@@ -68,14 +69,13 @@ public class GUIBattle : GUIPopUp {
         
         int damage = GameManager.Instance.Playground.CalcDamage(attacker, target);
 
-        target.ReduceHealth(damage);
-
         _damageTarget.text = string.Format(_damageFormat, damage);
         _damageTr.position = targetImg.transform.position;
 
         StartCoroutine(WaitASeconds(() =>
         {
             callback?.Invoke();
+            target.ReduceHealth(damage);
         }));
 
     }

@@ -64,7 +64,7 @@ public class Character : MonoBehaviour, IObservable<Character> {
 
         if (_health >= 0) return;
 
-        // ????? ?? ???? ???
+        DeathEvent();
     }
 
     protected virtual void DeathEvent() {}

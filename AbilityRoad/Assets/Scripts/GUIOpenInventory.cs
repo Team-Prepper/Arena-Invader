@@ -70,6 +70,7 @@ public class GUIOpenInventory : GUIPopUp
             SFXManager.Instance.PlaySFX("ButtonSelect");
             _owner.UseItem(currentItem, callback);
             _inventoryButtons[buttonIndex].DisableSlot();
+            Close();
         });
         
         

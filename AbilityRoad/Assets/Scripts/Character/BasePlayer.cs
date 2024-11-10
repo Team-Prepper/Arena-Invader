@@ -21,6 +21,9 @@ public class BasePlayer : Character
 
     protected override void DeathEvent()
     {
+        foreach (var p in _pawns) {
+            p.BackHome();
+        }
         base.DeathEvent();
         GameManager.Instance.Playground.PlayerDeath(this);
     }

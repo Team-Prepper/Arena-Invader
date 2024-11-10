@@ -24,8 +24,11 @@ public class GUIRaid : GUIPopUp {
 
         StartCoroutine(WaitASeconds(() =>
         {
-            AttackSequence(_attacker, _target, attacker, target,0, () =>
+
+            AttackSequence(_attacker, _target, attacker, target, 0, (int damage) =>
             {
+                target.ReduceHealth(damage);
+
                 if (!target.IsAlive())
                 {
                     attacker.SlainObject();
@@ -34,8 +37,16 @@ public class GUIRaid : GUIPopUp {
                     return;
                 }
 
-                AttackSequence(_target, _attacker, target, attacker, 2,() =>
+                AttackSequence(_target, _attacker, target, attacker, 1, (damage) =>
                 {
+                    attacker.ReduceHealth(damage);
+
+                    if (!attacker.IsAlive())
+                    {
+                        Close();
+                        return;
+                    }
+
                     StartCoroutine(WaitASeconds(() =>
                     {
                         callback?.Invoke();
@@ -47,7 +58,7 @@ public class GUIRaid : GUIPopUp {
         }));
     }
     
-    void AttackSequence(Image attackerImg, Image targetImg, Character attacker, Character target, int attackSequence, CallbackMethod callback)
+    void AttackSequence(Image attackerImg, Image targetImg, Character attacker, Character target, int attackSequence, CallbackMethod<int> callback)
     {
         _message.text = string.Format(LangManager.Instance.GetStringByKey("msg_XAttack"), attacker.GetName());
 
@@ -58,14 +69,12 @@ public class GUIRaid : GUIPopUp {
         
         int damage = GameManager.Instance.Playground.CalcDamage(attacker, target);
 
-        target.ReduceHealth(damage);
-
         _damageTarget.text = string.Format(_damageFormat, damage);
         _damageTr.position = targetImg.transform.position;
 
         StartCoroutine(WaitASeconds(() =>
         {
-            callback?.Invoke();
+            callback?.Invoke(damage);
         }));
 
     }

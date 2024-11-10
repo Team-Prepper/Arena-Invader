@@ -61,6 +61,7 @@ public class Playground : IPlayground {
             {
                 IGUIFullScreen nowScreen = UIManager.Instance.NowDisplay;
                 UIManager.Instance.OpenGUI<GUIResult>("Result").SetWinner(player);
+                SFXManager.Instance.PlayBGM("Win");
                 nowScreen.Close();
             }
             Object.Destroy(player.gameObject);
@@ -79,6 +80,7 @@ public class Playground : IPlayground {
 
     public void TurnEnd()
     {
+        if (IsGameEnd()) return;
 
         while (true)
         {

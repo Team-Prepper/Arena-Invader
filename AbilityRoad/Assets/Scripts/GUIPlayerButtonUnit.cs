@@ -7,6 +7,7 @@ using static UnityEngine.GraphicsBuffer;
 
 public class GUIPlayerButtonUnit : MonoBehaviour, IObserver<Character> {
 
+    [SerializeField] GameObject _parent;
     [SerializeField] Image _icon;
     [SerializeField] Text _name;
     [SerializeField] string _nameFormat = "{0}";
@@ -32,7 +33,7 @@ public class GUIPlayerButtonUnit : MonoBehaviour, IObserver<Character> {
     {
         if (!value.IsAlive())
         {
-            gameObject.SetActive(false);
+            _parent.SetActive(false);
             return;
         }
         _name.text = string.Format(_nameFormat, value.GetName());

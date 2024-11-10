@@ -112,6 +112,7 @@ public class Pawn : MonoBehaviour {
 
     public void BackHome()
     {
+
         if (_piggyBacking)
         {
             _piggyBacking.transform.SetParent(null);
@@ -121,9 +122,14 @@ public class Pawn : MonoBehaviour {
 
         ResetImproveState();
         
-        _nowPlate = null;
         _isPiggyBacked = false;
-        GetOwner().BackHomePawn(this);
+
+        if (_nowPlate != null)
+        {
+            _nowPlate.SetPawn(null);
+            _nowPlate = null;
+            GetOwner().BackHomePawn(this);
+        }
     }
 
     private void ResetImproveState()

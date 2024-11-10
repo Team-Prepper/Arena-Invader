@@ -16,4 +16,10 @@ public class GUIResult : GUIFullScreen
         _winnerAttackImage.sprite = CharacterManager.Instance.GetPlayerAttackerSpr(winner.GetCharacterCode());
         _winnerTargetImage.sprite = CharacterManager.Instance.GetPlayerDamageSpr(winner.GetCharacterCode());
     }
+
+    public override void Close()
+    {
+        SFXManager.Instance.PlayBGM("Start");
+        base.Close();
+    }
 }

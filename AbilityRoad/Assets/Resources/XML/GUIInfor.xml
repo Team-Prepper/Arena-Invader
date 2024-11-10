@@ -8,7 +8,7 @@
   <Element name="TurnStart"           path="Prefabs/GUI/PopUp/GUI_TurnStart" />
   <Element name="Dice"                path="Prefabs/GUI/PopUp/GUI_D6Dice" />
   <Element name="DartDice"            path="Prefabs/GUI/PopUp/GUI_DartDice" />
-  <Element name="DiceRoulette"        path="Prefabs/GUI/PopUp/GUI_RouletteDice" />
+  <Element name="RouletteDice"        path="Prefabs/GUI/PopUp/GUI_RouletteDice" />
   <Element name="SelectMovePawn"      path="Prefabs/GUI/PopUp/GUI_SelectMovePawn" />
   <Element name="Battle"              path="Prefabs/GUI/PopUp/GUI_Battle" />
   <Element name="Raid"                path="Prefabs/GUI/PopUp/GUI_Raid" />

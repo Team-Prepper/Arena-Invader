@@ -8,10 +8,12 @@ public class GUIResult : GUIFullScreen
 {
 
     [SerializeField] Text _winnerName;
-    [SerializeField] Image _winnerIcon;
+    [SerializeField] Image _winnerAttackImage;
+    [SerializeField] Image _winnerTargetImage;
 
     public void SetWinner(BasePlayer winner) {
         _winnerName.text = winner.GetName();
-        _winnerIcon.sprite = CharacterManager.Instance.GetPlayerSpr(winner.GetCharacterCode());
+        _winnerAttackImage.sprite = CharacterManager.Instance.GetPlayerAttackerSpr(winner.GetCharacterCode());
+        _winnerTargetImage.sprite = CharacterManager.Instance.GetPlayerDamageSpr(winner.GetCharacterCode());
     }
 }

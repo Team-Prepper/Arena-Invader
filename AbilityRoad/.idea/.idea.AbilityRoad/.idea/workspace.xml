@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="4a77bd12-6663-4a58-93b6-42bb74de1419" name="변경" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.AbilityRoad/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AbilityRoad/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Title.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Title.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SFXManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SFXManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GUIPlayerUnit.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GUIPlayerUnit.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,6 +67,14 @@
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <method v="2" />
     </configuration>
+    <configuration name="독립실행형 플레이어" type="RunUnityExe" factoryName="Unity Executable">
+      <option name="EXE_PATH" value="$USER_HOME$/Desktop/ArenaInvader.app/Contents/MacOS/AbilityRoad" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="$USER_HOME$/Desktop/ArenaInvader.app/Contents/MacOS" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <method v="2" />
+    </configuration>
     <configuration name="Unity 시작" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="/Applications/Unity/Hub/Editor/2022.3.42f1/Unity.app/Contents/MacOS/Unity" />
       <option name="PROGRAM_PARAMETERS" value="-projectPath $PROJECT_DIR$ -debugCodeOptimization" />
@@ -114,6 +121,7 @@
       <workItem from="1731135288230" duration="6162000" />
       <workItem from="1731187749830" duration="9145000" />
       <workItem from="1731200279115" duration="1972000" />
+      <workItem from="1731203326360" duration="23000" />
     </task>
     <servers />
   </component>

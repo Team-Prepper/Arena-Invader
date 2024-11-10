@@ -67,6 +67,10 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: e319f2cade7544cf3a6f0eb689a0f07c, type: 3}
   - name: 3rd
     clip: {fileID: 8300000, guid: 284e52dedab624abb8da48f5f23a3957, type: 3}
+  - name: Start
+    clip: {fileID: 8300000, guid: 9c70d510cc7cc45539104b9a28056d8f, type: 3}
+  - name: Win
+    clip: {fileID: 8300000, guid: 232c279c5616944c0a991fba9b145d1a, type: 3}
 --- !u!82 &4995427511573199296
 AudioSource:
   m_ObjectHideFlags: 0

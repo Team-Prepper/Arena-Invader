@@ -13,6 +13,8 @@ public abstract class IPlate : MonoBehaviour {
 
     protected Pawn _nowPawn;
 
+    [SerializeField] private GameObject _catchEffect;
+
     protected virtual void Initial()
     {
         _event = new MultipleArriveEvent(GetComponents<IArriveEvent>());
@@ -44,6 +46,7 @@ public abstract class IPlate : MonoBehaviour {
             }
             _otherOwnerOverlapEvent?.Event(this, pawn);
             SFXManager.Instance.PlaySFX("Kill");
+            Instantiate(_catchEffect, transform.position + Vector3.up, Quaternion.identity);
         });
     }
 

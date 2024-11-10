@@ -2,6 +2,7 @@
 <List>
   <Element name="Playground"          path="Prefabs/GUI/FullScreen/GUI_Playground" />
   <Element name="MatchSetting"        path="Prefabs/GUI/FullScreen/GUI_MatchSetting" />
+  <Element name="Result"              path="Prefabs/GUI/FullScreen/GUI_Result" />
 
   <Element name="Setting"             path="Prefabs/GUI/PopUp/GUI_Setting" />
   <Element name="TurnStart"           path="Prefabs/GUI/PopUp/GUI_TurnStart" />

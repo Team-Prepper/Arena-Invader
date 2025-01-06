@@ -4,11 +4,15 @@ namespace EHTool.UIKit {
     public class GUIWindow : MonoBehaviour , IGUI {
         // Start is called before the first frame update
 
+        protected CallbackMethod _setOnEvent;
+
         public int priority = 0;
 
         virtual public void SetOn()
         {
             gameObject.SetActive(true);
+            _setOnEvent?.Invoke();
+            _setOnEvent = null;
         }
 
         virtual public void SetOff()
@@ -20,8 +24,6 @@ namespace EHTool.UIKit {
 
         public virtual void Open()
         {
-            SetOn();
-
             RectTransform rect = gameObject.GetComponent<RectTransform>();
 
             rect.SetParent(GameObject.Find("Canvas").transform);
@@ -29,6 +31,12 @@ namespace EHTool.UIKit {
             rect.offsetMin = Vector3.zero;
             rect.offsetMax = Vector3.one;
             rect.anchorMax = Vector2.one;
+        }
+
+        public virtual void Open(CallbackMethod callback)
+        {
+            Open();
+            _setOnEvent += callback;
         }
 
         public virtual void Close()

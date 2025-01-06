@@ -19,6 +19,7 @@ public class GUIPlayerButtonUnit : MonoBehaviour, IObserver<Character> {
 #nullable enable
     private IDisposable? _cancellation;
 
+#nullable enable
     BasePlayer _target;
 
     public void OnCompleted()

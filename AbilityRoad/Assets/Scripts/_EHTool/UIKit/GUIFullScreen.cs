@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace EHTool.UIKit {
     public class GUIFullScreen : GUIWindow, IGUIFullScreen {
-
+        
         private IList<IGUIPopUp> _popupUI;
         protected IGUIPopUp _nowPopUp;
         protected IGUIPanel _nowPanel;
@@ -51,6 +51,7 @@ namespace EHTool.UIKit {
                 _nowPopUp.SetOff();
             }
             _nowPopUp = popUp;
+            _nowPopUp.SetOn();
 
         }
 

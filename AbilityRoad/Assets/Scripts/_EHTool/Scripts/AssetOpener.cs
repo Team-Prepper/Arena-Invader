@@ -1,0 +1,53 @@
+using System.Xml;
+using UnityEngine;
+
+namespace EHTool {
+    public class AssetOpener : MonoBehaviour {
+
+        public static T Import<T>(string path) where T : Object
+        {
+            T source = Resources.Load(path) as T;
+            return Instantiate(source);
+        }
+
+        public static T ImportComponent<T>(string path) where T : Component
+        {
+            return ImportGameObject(path).GetComponent<T>();
+
+        }
+
+        public static GameObject ImportGameObject(string path)
+        {
+            GameObject source = Resources.Load(path) as GameObject;
+            return Instantiate(source);
+        }
+
+        public static string ReadTextAsset(string path) { 
+            TextAsset retval = (TextAsset)Resources.Load(path, typeof(TextAsset));
+
+            return retval.text;
+        }
+
+        public static XmlDocument ReadXML(string path)
+        {
+            string xmlData = ReadTextAsset("XML/" + path);
+
+            if (xmlData == null) return null;
+
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.LoadXml(xmlData);
+
+            return xmlDoc;
+        }
+
+        public static void SaveXML(XmlDocument doc)
+        {
+
+        }
+    }
+
+    public interface XMLNodeReader {
+        public void Read(XmlNode node);
+    }
+
+}

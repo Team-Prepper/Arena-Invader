@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Item_OneMoreDice : IItem
 {
-    public override void UseItem(BasePlayer player)
+    public override void UseItem(ICharacterController player)
     {
         player.AddChance();
     }

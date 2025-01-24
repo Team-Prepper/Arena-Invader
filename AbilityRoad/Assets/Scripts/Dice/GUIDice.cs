@@ -1,13 +1,14 @@
 using EHTool.UIKit;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class GUIDice : GUIPopUp
 {
     [SerializeField] Button _btn;
     [SerializeField] IDice _dice;
 
-    CallbackMethod<int> _callback;
+    Action<int> _callback;
 
     bool _isRolling;
 
@@ -17,7 +18,7 @@ public class GUIDice : GUIPopUp
         _dice.Initial();
     }
 
-    public void SetCallback(CallbackMethod<int> callback)
+    public void SetCallback(Action<int> callback)
     {
         _callback = callback;
     }

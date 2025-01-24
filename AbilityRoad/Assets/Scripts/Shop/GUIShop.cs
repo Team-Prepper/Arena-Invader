@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using EHTool.LangKit;
 using EHTool.UIKit;
@@ -24,12 +24,13 @@ public class GUIShop : GUIPopUp
     
     private List<IItem> _currentSaleItems = new List<IItem>();
 
-    private CallbackMethod _callback;
+    private Action _callback;
+    private Action _buyEvent;
 
     private Transform _container;
     private BasePlayer _buyer;
     
-    public void EnterShop(BasePlayer buyer, CallbackMethod callback)
+    public void EnterShop(BasePlayer buyer, Action callback)
     {
         _buyer = buyer;
         SetItems(_saleItems);
@@ -42,7 +43,7 @@ public class GUIShop : GUIPopUp
         _currentSaleItems.Clear();
         for (int i = 0; i < _shopButtons.Length; i++)
         {
-            IItem currentSlotItem = _saleItems[Random.Range(0, items.Count)];
+            IItem currentSlotItem = _saleItems[UnityEngine.Random.Range(0, items.Count)];
             _currentSaleItems.Add(currentSlotItem);
 
             // 현재 인덱스 값을 로컬 변수에 저장
@@ -66,13 +67,17 @@ public class GUIShop : GUIPopUp
             _selectItemPrice.text = currentItem.Price.ToString();
             _selectItemDescription.text = currentItem.Description;
         }
-        
-        _buyButton.onClick.RemoveAllListeners();
-        _buyButton.onClick.AddListener(() =>
+
+        _buyEvent = () =>
         {
+
             SFXManager.Instance.PlaySFX("ButtonSelect");
             PurchaseItem(currentItem, buttonIndex);
-        });
+        };
+    }
+
+    public void BuyButton() {
+        _buyEvent?.Invoke();    
     }
     
     private void PurchaseItem(IItem item, int buttonIndex)
@@ -87,7 +92,6 @@ public class GUIShop : GUIPopUp
             _selectItemName.text = LangManager.Instance.GetStringByKey("Item_Empty");;
             _selectItemPrice.text = "0";
             _selectItemDescription.text = "None";
-            _buyButton.onClick.RemoveAllListeners();
         }
     }
     
@@ -95,11 +99,10 @@ public class GUIShop : GUIPopUp
     {
         return _currentSaleItems;
     }
-    
 
-    public override void Close()
+    public void CloseButton()
     {
         _callback?.Invoke();
-        base.Close();
+
     }
 }

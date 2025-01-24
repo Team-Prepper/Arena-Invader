@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.Events;
+using Random = UnityEngine.Random;
 
 public class D6Dice : IDice {
 
@@ -50,7 +52,7 @@ public class D6Dice : IDice {
         RollDice();
     }
     
-    public override void Roll(CallbackMethod<int> callback)
+    public override void Roll(Action<int> callback)
     {
         _diceStopEvent.AddListener(() => callback(Value));
         RollDice();

@@ -1,10 +1,7 @@
 using EHTool;
-using EHTool.LangKit;
-using EHTool.UIKit;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class Character : MonoBehaviour, IObservable<Character> {
 
@@ -84,6 +81,7 @@ public class Character : MonoBehaviour, IObservable<Character> {
         _money = Mathf.Min(_money - amount, 0);
         Notify();
     }
+
     internal void AddAttack(int attackAmount)
     {
         _status.AddAttackValue(attackAmount);

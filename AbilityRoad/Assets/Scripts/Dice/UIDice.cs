@@ -1,5 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,19 +14,19 @@ public class UIDice : IDice {
         _num.text = string.Format("{0}", random);
     }
 
-    public override void Roll(CallbackMethod<int> callback) {
+    public override void Roll(Action<int> callback) {
         StartCoroutine(Dice(callback));
     }
 
-    IEnumerator Dice(CallbackMethod<int> callback)
+    IEnumerator Dice(Action<int> callback)
     {
 
         for (int i = 0; i < 3; i++)
         {
             yield return new WaitForSeconds(.2f);
-            _num.text = string.Format("{0}", Random.Range(_range.x, _range.y));
+            _num.text = string.Format("{0}", UnityEngine.Random.Range(_range.x, _range.y));
         }
-        random = Random.Range(_range.x, _range.y);
+        random = UnityEngine.Random.Range(_range.x, _range.y);
 
         _num.text = string.Format("{0}", random);
 

@@ -54,7 +54,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 105205995461742196}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -183,7 +183,7 @@ GameObject:
   - component: {fileID: 6253820900929149127}
   - component: {fileID: 3151134955657264635}
   m_Layer: 5
-  m_Name: Button (Legacy)
+  m_Name: btn_Inventory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -303,6 +303,18 @@ MonoBehaviour:
           m_StringArgument: ButtonSelect
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 626318661666137262}
+        m_TargetAssemblyTypeName: GUIPlayerAction, Assembly-CSharp
+        m_MethodName: OpenInventory
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &3151134955657264635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -326,6 +338,7 @@ GameObject:
   - component: {fileID: 4437660994442584143}
   - component: {fileID: 2232554443752288978}
   - component: {fileID: 3566779697764952132}
+  - component: {fileID: 3572307017089069930}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -390,6 +403,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3572307017089069930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3544619987448766139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 5, y: 5}
+  m_UseGraphicAlpha: 1
 --- !u!1 &4143785346035562685
 GameObject:
   m_ObjectHideFlags: 0
@@ -404,7 +432,7 @@ GameObject:
   - component: {fileID: 3441448012403979583}
   - component: {fileID: 5208579809442737775}
   m_Layer: 5
-  m_Name: Button (Legacy) (1)
+  m_Name: btn_Dice
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -522,6 +550,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: ButtonSelect
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 626318661666137262}
+        m_TargetAssemblyTypeName: GUIPlayerAction, Assembly-CSharp
+        m_MethodName: RollDice
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &5208579809442737775

@@ -8,6 +8,7 @@ public class MatchInfor
     [System.Serializable]
     public class PlayerInfor {
         public string CharacterCode = "Player";
+        public bool IsAI = false;
         public string Name = "Player";
         
     }

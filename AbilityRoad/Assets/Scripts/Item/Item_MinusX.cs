@@ -6,7 +6,7 @@ public class Item_MinusX : IItem
 {
     [SerializeField] int _dicePoint = 3;
     
-    public override void UseItem(BasePlayer player)
+    public override void UseItem(ICharacterController player)
     {
         foreach (var user in GameManager.Instance.Playground.Players)
         {

@@ -1,36 +1,22 @@
 using EHTool;
 using System.Collections;
 using System.Collections.Generic;
-using System.Xml;
 using UnityEngine;
 
 public class CharacterManager : Singleton<CharacterManager> {
-    class CharacterData {
-        internal string name;
-        internal string path;
-
-        internal void Read(XmlNode node)
-        {
-            name = node.Attributes["name"].Value;
-            path = node.Attributes["path"].Value;
-        }
-    }
 
     IDictionary<string, CharacterMetaData> _dic;
 
     protected override void OnCreate()
     {
         _dic = new Dictionary<string, CharacterMetaData>();
-        XmlDocument xmlDoc = AssetOpener.ReadXML("CharacterInfor");
 
-        XmlNodeList nodes = xmlDoc.SelectNodes("List/Element");
+        IDictionaryConnector<string, string> connector
+            = new JsonDictionaryConnector<string, string>();
 
-        for (int i = 0; i < nodes.Count; i++)
+        foreach (var value in connector.ReadData("CharacterInfor"))
         {
-            CharacterData charData = new CharacterData();
-            charData.Read(nodes[i]);
-
-            _dic.Add(charData.name, AssetOpener.Import<CharacterMetaData>(charData.path));
+            _dic.Add(value.Key, AssetOpener.Import<CharacterMetaData>(value.Value));
         }
     }
 

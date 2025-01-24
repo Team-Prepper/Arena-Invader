@@ -23,5 +23,5 @@ public abstract class IItem : MonoBehaviour
     private int _itemValue;
     public int ItemValue => _itemValue;
     
-    public abstract void UseItem(BasePlayer player);
+    public abstract void UseItem(ICharacterController player);
 }

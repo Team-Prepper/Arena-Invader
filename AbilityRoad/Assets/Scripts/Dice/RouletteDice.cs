@@ -1,5 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class RouletteDice : IDice {
@@ -12,10 +12,10 @@ public class RouletteDice : IDice {
     [SerializeField] int _minValue;
 
     public override void Initial() {
-        _rouletteTr.eulerAngles = Vector3.forward * Random.Range(-180, 180);
+        _rouletteTr.eulerAngles = Vector3.forward * UnityEngine.Random.Range(-180, 180);
     }
 
-    public override void Roll(CallbackMethod<int> callback)
+    public override void Roll(Action<int> callback)
     {
         StartCoroutine(Dice(callback));
     }
@@ -35,10 +35,10 @@ public class RouletteDice : IDice {
         return idx + _minValue;
     }
 
-    IEnumerator Dice(CallbackMethod<int> callback)
+    IEnumerator Dice(Action<int> callback)
     {
         float spendTime = 0;
-        float speed = Random.Range(_speedRange.x, _speedRange.y);
+        float speed = UnityEngine.Random.Range(_speedRange.x, _speedRange.y);
         while (spendTime < _maxTime) {
             _rouletteTr.Rotate(Vector3.forward * Mathf.Lerp(speed, 0, spendTime / _maxTime) * Time.deltaTime);
             spendTime += Time.deltaTime;

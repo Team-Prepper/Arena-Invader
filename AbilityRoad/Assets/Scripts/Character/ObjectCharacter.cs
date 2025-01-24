@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ObjectCharacter : Character
 {
-    public void RewardTo(BasePlayer target) { 
+    public void RewardTo(ICharacterController target) { 
         
     }
 

@@ -71,7 +71,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4886042393337310813}
-  - component: {fileID: 6278886811509475050}
+  - component: {fileID: 806569730599695191}
   - component: {fileID: 1065116643142892012}
   m_Layer: 0
   m_Name: Player
@@ -99,7 +99,7 @@ Transform:
   - {fileID: 6000263700246973027}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6278886811509475050
+--- !u!114 &806569730599695191
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -108,10 +108,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3628364833649253308}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6dadac4a1633490488c69897c1b2f87e, type: 3}
+  m_Script: {fileID: 11500000, guid: a36448ad543992b4cb32e84fe1443aff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _name: 
+  _name: Player
   _code: Player
   _status: {fileID: 1065116643142892012}
   _health: 100
@@ -126,11 +126,10 @@ MonoBehaviour:
   - {fileID: 8939902260188462707}
   _pawnColor:
   - {r: 1, g: 0, b: 0, a: 1}
-  - {r: 0, g: 0, b: 1, a: 1}
-  - {r: 1, g: 1, b: 0, a: 1}
   - {r: 0, g: 1, b: 0, a: 1}
+  - {r: 1, g: 1, b: 0, a: 1}
+  - {r: 0, g: 1, b: 1, a: 1}
   items: []
-  _chance: 0
 --- !u!114 &1065116643142892012
 MonoBehaviour:
   m_ObjectHideFlags: 0

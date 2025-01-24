@@ -1,5 +1,7 @@
 using System.Collections;
 using UnityEngine;
+using System;
+
 
 public class DartDice : IDice {
 
@@ -15,7 +17,7 @@ public class DartDice : IDice {
 
     public override void Initial()
     {
-        _plateTr.eulerAngles = Vector3.forward * Random.Range(-180, 180);
+        _plateTr.eulerAngles = Vector3.forward * UnityEngine.Random.Range(-180, 180);
 
     }
 
@@ -44,7 +46,7 @@ public class DartDice : IDice {
         return idx + _minValue;
     }
 
-    public override void Roll(CallbackMethod<int> callback)
+    public override void Roll(Action<int> callback)
     {
         _beforeHit = true;
         _dartPoint.SetParent(_plateTr);
@@ -52,7 +54,7 @@ public class DartDice : IDice {
         StartCoroutine(Stop(callback));
     }
 
-    IEnumerator Stop(CallbackMethod<int> callback) {
+    IEnumerator Stop(Action<int> callback) {
         float spendTime = 0;
 
         while (spendTime < _stopTime) {

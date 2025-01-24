@@ -48956,6 +48956,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1325298516412648092}
   - component: {fileID: 407054167781541282}
+  - component: {fileID: 3658693387236985483}
+  - component: {fileID: 1272072942121083525}
   m_Layer: 0
   m_Name: MatchGenerator
   m_TagString: MatchGenerator
@@ -48997,16 +48999,45 @@ MonoBehaviour:
   _matchInfor:
     PlayerInfors:
     - CharacterCode: Player
+      IsAI: 0
       Name: Player1
     - CharacterCode: Player_AI
+      IsAI: 0
       Name: Enemy1
     MapName: Map/DefaultMap
     MatchDice: DartDice
+  _guiActionSelector: {fileID: 1272072942121083525}
+  _aiActionSelector: {fileID: 3658693387236985483}
+  _localCharacterController: {fileID: 2607116009554403006, guid: 1e57e32785a477d46b5039179373544c, type: 3}
   _playerPosition:
   - {fileID: 9028819212524920354}
   - {fileID: 6686629886535700417}
   - {fileID: 3265063031517102440}
   - {fileID: 5787496684997875697}
+--- !u!114 &3658693387236985483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4468946734358152986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b60ec70c05eae1840ae141acbcc62374, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1272072942121083525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4468946734358152986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20e26cc93315ef94c98228247b88d098, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5036745110621061871
 GameObject:
   m_ObjectHideFlags: 0

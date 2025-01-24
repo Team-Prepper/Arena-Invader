@@ -1,47 +1,30 @@
-using System.Collections;
 using System.Collections.Generic;
 using EHTool.UIKit;
 using UnityEngine;
-using UnityEngine.Serialization;
+using System;
 
 public class BasePlayer : Character
 {
-    [SerializeField] protected Pawn[] _pawns;
+    [SerializeField] public Pawn[] _pawns;
     [SerializeField] Transform[] _pawnPosition;
     [SerializeField] Color[] _pawnColor;
+
+    ICharacterController _cc;
 
     IList<Vector3> _emptyPlace;
     public List<IItem> Items => items;
 
-    [SerializeField] protected List<IItem> items;
+    [SerializeField] public List<IItem> items;
 
-    [SerializeField] protected int _chance = 0;
-
-    protected int extraDicePoint = 0;
-
-    protected override void DeathEvent()
+    public void SetInitial(ICharacterController cc, int idx, string name)
     {
-        foreach (var p in _pawns) {
-            p.BackHome();
-        }
-        base.DeathEvent();
-        GameManager.Instance.Playground.PlayerDeath(this);
-    }
-
-    IEnumerator WaitAMinute(CallbackMethod callback) {
-        yield return new WaitForSeconds(1f);
-        callback?.Invoke();
-    }
-
-    public void SetInitial(int idx, string name)
-    {
+        _cc = cc;
         _level = 0;
         _name = name;
 
-        GameManager.Instance.Playground.AddPlayer(this);
         for (int i = 0; i < _pawns.Length; i++)
         {
-            _pawns[i].SetOwner(this);
+            _pawns[i].SetOwner(this, i);
 
             _pawns[i].SetColor(_pawnColor[idx]);
             _pawns[i].transform.position = _pawnPosition[i].position;
@@ -51,17 +34,26 @@ public class BasePlayer : Character
 
     }
 
-    public void LeavePawn(Pawn pawn)
+    protected override void DeathEvent()
     {
-        _emptyPlace.Add(pawn.transform.position);
+        foreach (var p in _pawns) {
+            p.BackHome();
+        }
+        base.DeathEvent();
+        //GameManager.Instance.Playground.PlayerDeath(this);
     }
 
-    public void LevelUp(Pawn pawn, int levelUpAmount, bool isPiggyBacked)
+    public void LeavePawn(int id)
+    {
+        _emptyPlace.Add(_pawns[id].transform.position);
+    }
+
+    public void LevelUp(int id, int levelUpAmount, bool isPiggyBacked)
     {
         SFXManager.Instance.PlaySFX("PowerUp");
         _level += levelUpAmount;
 
-        pawn.Dispose(_emptyPlace[0]);
+        _pawns[id].Dispose(_emptyPlace[0]);
         _emptyPlace.RemoveAt(0);
 
         if (isPiggyBacked) return;
@@ -69,34 +61,22 @@ public class BasePlayer : Character
         EndTurn();
     }
 
-    public void BackHomePawn(Pawn pawn)
+    public void BackHomePawn(int id)
     {
-        pawn.Dispose(_emptyPlace[0]);
+        _pawns[id].Dispose(_emptyPlace[0]);
         _emptyPlace.RemoveAt(0);
 
     }
 
-    public virtual void StartTurn()
-    {
-        _chance = 1;
-    }
-
     public void EndTurn()
     {
-        if (_chance == 0)
-        {
-            GameManager.Instance.Playground.TurnEnd();
-            return;
-        }
-        RollDice();
+        _cc.EndTurn();
     }
 
     public void AddChance()
     {
-        _chance++;
+        _cc.AddChance();
     }
-
-    public virtual void RollDice() { }
 
     public void OnPawnChoose()
     {
@@ -114,7 +94,9 @@ public class BasePlayer : Character
         }
     }
 
-    public virtual void EnterShop(CallbackMethod callback) { }
+    public void EnterShop(Action callback) {
+        _cc.EnterShop(callback);
+    }
 
     public bool BuyItem(IItem item)
     {
@@ -126,12 +108,12 @@ public class BasePlayer : Character
         return true;
     }
     
-    public void UseItem(IItem item, CallbackMethod callback = null)
+    public void UseItem(IItem item, Action callback = null)
     {
         Debug.Log("USE ITEM!!");
         items.Remove(item);
-        item.UseItem(this);
-        RollDice(); // !!!!!!! hard coded!!!!!!!!
+        //item.UseItem(this);
+        //RollDice(); // !!!!!!! hard coded!!!!!!!!
         callback?.Invoke();
     }
 
@@ -142,10 +124,10 @@ public class BasePlayer : Character
     
     public void GetExtraDicePoint(int point)
     {
-        extraDicePoint += point;
+        _cc.GetExtraDicePoint(point);
     }
 
-    public void OpenInventory(CallbackMethod callback)
+    public void OpenInventory(Action callback)
     {
         UIManager.Instance.OpenGUI<GUIOpenInventory>("Inventory").OpenInventory(this,items);
         callback?.Invoke();
@@ -158,4 +140,5 @@ public class BasePlayer : Character
         _status.AddAttackValue(50);
         _status.AddDefenceValue(50);
     }
+
 }

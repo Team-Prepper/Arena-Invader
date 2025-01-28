@@ -1,5 +1,3 @@
-#if UNITY_EDITOR
-using System.CodeDom.Compiler;
 using UnityEditor;
 using UnityEngine;
 
@@ -34,4 +32,3 @@ namespace EHTool.LangKit {
         }
     }
 }
-#endif

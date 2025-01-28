@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 using System.Xml;
 using System.IO;
 
@@ -8,7 +7,7 @@ namespace EHTool {
 
     public class XMLDictionaryConnector<K, V> : IDictionaryConnector<K, V> {
 
-        class XMLKeyValue : XMLNodeReader {
+        class XMLKeyValue {
             public K key;
             public V value;
 
@@ -29,7 +28,12 @@ namespace EHTool {
 
         public IDictionary<K, V> ReadData(string path)
         {
-            XmlDocument xmlDoc = AssetOpener.ReadXML(path);
+            string xmlStr = AssetOpener.ReadTextAsset("XML/" + path);
+
+            if (xmlStr == null) return null;
+
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.LoadXml(xmlStr);
 
             IDictionary<K, V> retval = new Dictionary<K, V>();
 

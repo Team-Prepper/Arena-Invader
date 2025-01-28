@@ -1,4 +1,5 @@
 using EHTool.UIKit;
+using JetBrains.Annotations;
 using System;
 
 public class StartBattle : IArriveEvent {
@@ -19,10 +20,33 @@ public class StartBattle : IArriveEvent {
     {
         ObjectCharacter _object = GameManager.Instance.Playground.Map.GetObject();
         if (_object != null) {
-            UIManager.Instance.OpenGUI<GUIRaid>("Raid").StartRaid(target.GetOwner(), _object, callback);
+            UIManager.Instance.OpenGUI<GUIRaid>("Raid").StartBattle(target.GetOwner(), _object, callback);
             return;
         }
-        UIManager.Instance.OpenGUI<GUIBattle>("Battle").StartBattle(target.GetOwner(), callback);
+
+        Character attackTarget = SetTarget(target.GetOwner());
+
+        if (attackTarget == null) {
+            callback?.Invoke();
+            return;
+        }
+
+        UIManager.Instance.OpenGUI<GUIBattle>("Battle").
+            StartBattle(target.GetOwner(), attackTarget, callback);
+    }
+
+    public Character SetTarget(Character attacker)
+    {
+
+        foreach (var player in GameManager.Instance.Playground.Players)
+        {
+            if (player.Target == attacker) continue;
+            if (!player.Target.IsAlive()) continue;
+
+            return player.Target;
+        }
+
+        return null;
     }
 
 }

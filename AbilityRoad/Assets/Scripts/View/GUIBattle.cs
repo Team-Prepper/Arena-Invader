@@ -14,41 +14,36 @@ public class GUIBattle : GUIPopUp {
     [SerializeField] Text _damageTarget;
     [SerializeField] string _damageFormat = "{0}";
 
-    [SerializeField] Image _attacker;
-    [SerializeField] Image _target;
+    [SerializeField] protected Image _attacker;
+    [SerializeField] protected Image _target;
 
-
-    public void StartBattle(Character attacker, Action callback)
+    public void StartBattle(Character attacker, Character target, Action callback)
     {
 
-        SetTarget(attacker, (target) =>
+        _attacker.sprite = CharacterManager.Instance.GetPlayerStandSpr(attacker.GetCharacterCode());
+        _target.sprite = CharacterManager.Instance.GetPlayerStandSpr(target.GetCharacterCode());
+
+        StartCoroutine(WaitASeconds(() =>
         {
 
-            _attacker.sprite = CharacterManager.Instance.GetPlayerStandSpr(attacker.GetCharacterCode());
-            _target.sprite = CharacterManager.Instance.GetPlayerStandSpr(target.GetCharacterCode());
-
-            StartCoroutine(WaitASeconds(() =>
+            AttackSequence(_attacker, _target, attacker, target, 0, (int damage) =>
             {
+                target.ReduceHealth(damage);
 
-                AttackSequence(_attacker, _target, attacker, target,0, (int damage) =>
+                if (!target.IsAlive())
                 {
-                    target.ReduceHealth(damage);
+                    callback?.Invoke();
+                    Close();
+                    return;
+                }
 
-                    if (!target.IsAlive())
-                    {
-                        callback?.Invoke();
-                        Close();
-                        return;
-                    }
 
-                    AttackSequence(_target, _attacker, target, attacker, 1,(damage) =>
+                StartCoroutine(WaitASeconds(() =>
+                {
+
+                    AttackSequence(_target, _attacker, target, attacker, 1, (damage) =>
                     {
                         attacker.ReduceHealth(damage);
-
-                        if (!attacker.IsAlive()) {
-                            Close();
-                            return;
-                        }
 
                         StartCoroutine(WaitASeconds(() =>
                         {
@@ -57,15 +52,14 @@ public class GUIBattle : GUIPopUp {
                         }));
                     });
 
-                });
-            }));
+                }));
 
-
-        });
+            });
+        }));
 
     }
 
-    void AttackSequence(Image attackerImg, Image targetImg, Character attacker, Character target, int attackSequence, Action<int> callback)
+    protected void AttackSequence(Image attackerImg, Image targetImg, Character attacker, Character target, int attackSequence, Action<int> callback)
     {
         _message.text = string.Format(LangManager.Instance.GetStringByKey("msg_XAttack"), attacker.GetName());
 
@@ -79,30 +73,12 @@ public class GUIBattle : GUIPopUp {
         _damageTarget.text = string.Format(_damageFormat, damage);
         _damageTr.position = targetImg.transform.position;
 
-        if (!target.IsAlive() && GameManager.Instance.Playground.IsGameEnd())
-        {
-            return;
-        }
-        StartCoroutine(WaitASeconds(() =>
-        {
-            callback?.Invoke(damage);
-        }));
+        callback?.Invoke(damage);
 
     }
 
-    public void SetTarget(Character attacker, Action<Character> callback)
-    {
 
-        foreach (var player in GameManager.Instance.Playground.Players)
-        {
-            if (player.Target == attacker) continue;
-            if (!player.Target.IsAlive()) continue;
-            callback?.Invoke(player.Target);
-            return;
-        }
-    }
-
-    IEnumerator WaitASeconds(Action callback)
+    protected IEnumerator WaitASeconds(Action callback)
     {
         yield return new WaitForSeconds(1f);
 

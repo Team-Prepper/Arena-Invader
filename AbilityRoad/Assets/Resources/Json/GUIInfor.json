@@ -2,6 +2,8 @@
     "Playground": "Prefabs/GUI/FullScreen/GUI_Playground",
     "MatchSetting": "Prefabs/GUI/FullScreen/GUI_MatchSetting",
     "Result": "Prefabs/GUI/FullScreen/GUI_Result",
+    "Multiplay": "Prefabs/GUI/FullScreen/GUI_Multiplay",
+
     "Setting": "Prefabs/GUI/PopUp/GUI_Setting",
     "TurnStart": "Prefabs/GUI/PopUp/GUI_TurnStart",
     "Dice": "Prefabs/GUI/PopUp/GUI_D6Dice",

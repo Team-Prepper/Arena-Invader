@@ -6,6 +6,12 @@ using UnityEngine;
 
 public class LocalPlayground : IPlayground {
 
+    ISet<int> _deathPlayerIdx;
+    int _turnIdx;
+
+    public Map Map { get; set; }
+    public int Turn { get; private set; }
+
     public IList<ICharacterController> Players { get; private set; }
 
     public ICharacterController NowPlayer {
@@ -13,25 +19,12 @@ public class LocalPlayground : IPlayground {
             if (Players == null || _turnIdx >= Players.Count) return null;
             return Players[_turnIdx];
         }
-    
-    } 
 
-    public Map Map { get; set; }
-    public int Turn { get; private set; }
-
-    public MatchInfor MatchInfor { get; set; }
-
-    ISet<int> _deathPlayerIdx;
-    int _turnIdx;
-
-    public ICharacterController InstantiateCC() {
-        return AssetOpener.ImportComponent<LocalCharacterController>("LocalCC");
     }
 
     public LocalPlayground()
     {
         Players = new List<ICharacterController>();
-        MatchInfor = new LocalMatchInfor(2, "Map/DefaultMap", "DartDice");
 
         _deathPlayerIdx = new HashSet<int>();
         _turnIdx = 0;
@@ -39,15 +32,48 @@ public class LocalPlayground : IPlayground {
 
     }
 
+    public ICharacterController InstantiateCC(Vector3 pos) {
+        LocalCharacterController retval =
+            AssetOpener.ImportComponent<LocalCharacterController>("LocalCC");
+        retval.transform.position = pos;
+
+        return retval;
+    }
+
+    public void StartMatch()
+    {
+        GameManager.Instance.Playground.Map =
+            AssetOpener.ImportComponent<Map>(GameManager.Instance.MatchInfor.MapName);
+
+        MatchGenerator generator = GameObject.FindWithTag("MatchGenerator").GetComponent<MatchGenerator>();
+        generator.SetMatchInfor(GameManager.Instance.MatchInfor);
+        generator.Generate();
+
+    }
+
+    public void PlayReady()
+    {
+        UIManager.Instance.OpenGUI<GUIPlayground>("Playground").Generate();
+
+        GUICharacterActionSelector _guiActionSelector = new GUICharacterActionSelector();
+        AICharacterActionSelector _aiActionSelector = new AICharacterActionSelector();
+
+        for (int i = 0; i < Players.Count; i++)
+        {
+            Players[i].SetMatch(
+                GameManager.Instance.MatchInfor.PlayerInfors[i].
+                CharacterCode.Equals("Player_AI") ?
+                _aiActionSelector : _guiActionSelector);
+
+        }
+
+        TurnStart();
+    }
+
     public void AddPlayer(ICharacterController player)
     {
         if (Players.Contains(player)) return;
         Players.Add(player);
-    }
-
-    public bool IsGameEnd()
-    {
-        return Players.Count - _deathPlayerIdx.Count < 2;
     }
 
     public void PlayerDeath(ICharacterController player)
@@ -116,6 +142,11 @@ public class LocalPlayground : IPlayground {
     public int CalcDamage(Character attacker, Character target)
     {
         return Mathf.Max(1, attacker.GetAttackValue() - target.GetDefenseValue());
+    }
+
+    public bool IsGameEnd()
+    {
+        return Players.Count - _deathPlayerIdx.Count < 2;
     }
 
 }

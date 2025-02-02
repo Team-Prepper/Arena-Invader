@@ -18,46 +18,37 @@ public class UNetCharacterController : NetworkBehaviour, ICharacterController {
 
     void Start() {
         _shopSync = new ServerClientSyncGUI<GUIShop>("Shop");
-        _diceSync = new ServerClientSyncGUI<GUIDice>(GameManager.Instance.Playground.MatchInfor.MatchDice);
+        _diceSync = new ServerClientSyncGUI<GUIDice>(GameManager.Instance.MatchInfor.MatchDice);
         _selectMovePawnSync = new ServerClientSyncGUI<GUISelectMovePawn>("SelectMovePawn");
         _inventorySync = new ServerClientSyncGUI<GUIOpenInventory>("Inventory");
     }
 
     public void SetMatch(ICharacterActionSelector selector) {
-
         _selector = selector;
-        SetMatchServerRpc();
-
     }
+
     public void SetTargetCharacter(string name, string characterCode, int idx)
     {
         SetTargetCharacterClientRpc(characterCode, name, idx);
     }
 
-    [ServerRpc]
-    void SetMatchServerRpc() {
-        GameManager.Instance.Playground.AddPlayer(this);
-    }
-
     [ClientRpc]
     void SetTargetCharacterClientRpc(string name, string characterCode, int idx) {
+
         Target = CharacterManager.Instance.SpawnPlayer(characterCode);
+        Target.transform.SetParent(transform);
+        Target.transform.localPosition = Vector3.zero;
+        GameManager.Instance.Playground.AddPlayer(this);
+
         Target.SetInitial(this, name, idx);
     }
 
     public void StartTurn()
     {
-        StartTurnClientRpc();
-    }
-
-    [ClientRpc]
-    void StartTurnClientRpc()
-    {
         if (_selector == null) return;
 
         _chance++;
         _selector.StartTurn(this);
-
     }
 
     public void AbilityChange(string abilityType, string amount)
@@ -67,8 +58,11 @@ public class UNetCharacterController : NetworkBehaviour, ICharacterController {
 
     public void MovePawn(int pawnId, int amount)
     {
-        MovePawnClientRpc(pawnId, amount);
+        MovePawnServerRpc(pawnId, amount);
     }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void MovePawnServerRpc(int pawnId, int amount) => MovePawnClientRpc(pawnId, amount);
 
     [ClientRpc]
     public void MovePawnClientRpc(int pawnId, int amount)
@@ -79,17 +73,13 @@ public class UNetCharacterController : NetworkBehaviour, ICharacterController {
 
     public void EndTurn()
     {
+        if (_selector == null) return;
         if (_chance == 0)
         {
-            EndTurnServerRpc();
+            GameManager.Instance.Playground.TurnEnd();
             return;
         }
         _selector.StartTurn(this);
-    }
-
-    [ServerRpc]
-    void EndTurnServerRpc() {
-        GameManager.Instance.Playground.TurnEnd();
     }
 
     public void AddChance()
@@ -115,11 +105,17 @@ public class UNetCharacterController : NetworkBehaviour, ICharacterController {
         shop.EnterShop(Target, () =>
         {
             callback?.Invoke();
-            CloseShopClientRpc();
+            CloseShopServerRpc();
         });
 
-        EnterShopClientRpc();
+        EnterShopServerRpc();
     }
+
+    [ServerRpc(RequireOwnership = false)]
+    void EnterShopServerRpc() => EnterShopClientRpc();
+
+    [ServerRpc(RequireOwnership = false)]
+    void CloseShopServerRpc() => CloseShopClientRpc();
 
     [ClientRpc]
     void EnterShopClientRpc() => _shopSync.ClientOpen();
@@ -136,18 +132,23 @@ public class UNetCharacterController : NetworkBehaviour, ICharacterController {
         dice.SetCallback((value) => {
             callback?.Invoke(value + extraDicePoint);
             extraDicePoint = 0;
-            CloseDiceClientRpc();
+            CloseDiceServerRpc();
         });
 
-        OpenDiceClientRpc();
+        OpenDiceServerRpc();
 
         return dice;
     }
 
-    [ClientRpc]
+    [ServerRpc(RequireOwnership = false)]
+    void OpenDiceServerRpc() => OpenDiceClientRpc();
+
+    [ServerRpc(RequireOwnership = false)]
+    void CloseDiceServerRpc() => CloseDiceClientRpc();
+    [ClientRpc(RequireOwnership=false)]
     void OpenDiceClientRpc() => _diceSync.ClientOpen();
 
-    [ClientRpc]
+    [ClientRpc(RequireOwnership = false)]
     void CloseDiceClientRpc() => _diceSync.Close();
 
     public GUISelectMovePawn SelectMovePawn(int value)
@@ -158,13 +159,19 @@ public class UNetCharacterController : NetworkBehaviour, ICharacterController {
 
         movePawn.SetPlayer(this, value, () => {
             Target.OffPawnChoose();
-            CloseSelectMovePawnClientRpc();
+            CloseSelectMovePawnServerRpc();
         });
 
-        OpenSelectMovePawnClientRpc();
+        OpenSelectMovePawnServerRpc();
 
         return movePawn;
     }
+
+    [ServerRpc(RequireOwnership = false)]
+    void OpenSelectMovePawnServerRpc() => OpenSelectMovePawnClientRpc();
+
+    [ServerRpc(RequireOwnership = false)]
+    void CloseSelectMovePawnServerRpc() => CloseSelectMovePawnClientRpc();
 
     [ClientRpc]
     void OpenSelectMovePawnClientRpc() => _selectMovePawnSync.ClientOpen();

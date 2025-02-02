@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class MatchCharacterDetail : MonoBehaviour
@@ -13,6 +14,11 @@ public class MatchCharacterDetail : MonoBehaviour
         _idx = idx;
         _icon.sprite = CharacterManager.Instance.GetPlayerSpr(character);
         _nameSet.text = name;
+
+        _nameSet.onSubmit.AddListener((value) =>
+        {
+            _mother.SetPlayerName(idx, value);
+        });
     }
 
     public void SetCharacter(string code)

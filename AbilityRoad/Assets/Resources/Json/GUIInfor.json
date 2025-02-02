@@ -4,6 +4,8 @@
     "Result": "Prefabs/GUI/FullScreen/GUI_Result",
     "Multiplay": "Prefabs/GUI/FullScreen/GUI_Multiplay",
 
+    "UNetMatchInforSetting": "Prefabs/GUI/PopUp/GUI_UNetMatchSetting",
+    "LocalMatchInforSetting": "Prefabs/GUI/PopUp/GUI_LocalMatchSetting",
     "Setting": "Prefabs/GUI/PopUp/GUI_Setting",
     "TurnStart": "Prefabs/GUI/PopUp/GUI_TurnStart",
     "Dice": "Prefabs/GUI/PopUp/GUI_D6Dice",

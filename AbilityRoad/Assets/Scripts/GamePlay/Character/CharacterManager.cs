@@ -1,5 +1,4 @@
 using EHTool;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,21 +19,26 @@ public class CharacterManager : Singleton<CharacterManager> {
         }
     }
 
-    public Sprite GetPlayerAttackerSpr(string code) {
+    public Sprite GetPlayerAttackerSpr(string code)
+    {
+        if (!_dic.ContainsKey(code)) code = "Player";
         return _dic[code].CharacterAttack;
     }
 
     public Sprite GetPlayerDamageSpr(string code)
     {
+        if (!_dic.ContainsKey(code)) code = "Player";
         return _dic[code].CharacterDamage;
     }
 
     public Sprite GetPlayerStandSpr(string code)
     {
+        if (!_dic.ContainsKey(code)) code = "Player";
         return _dic[code].CharacterStand;
     }
 
     public Sprite GetPlayerSpr(string code) {
+        if (!_dic.ContainsKey(code)) code = "Player";
         return _dic[code].CharacterIcon;
     }
 

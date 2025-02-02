@@ -269,6 +269,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 9087906075390032431}
+        m_TargetAssemblyTypeName: EHTool.UIKit.GUIWindow, EHTool
+        m_MethodName: OpenWindow
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: MatchSetting
+          m_BoolArgument: 0
+        m_CallState: 2
   _soundKey: ButtonSelect
 --- !u!1 &7417160303830546251
 GameObject:
@@ -337,7 +349,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: ab53c3686e8494d42bdeb9087e40b9d8, type: 3}
-    m_FontSize: 52
+    m_FontSize: 44
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 3
@@ -348,7 +360,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: btn_StartHost
+  m_Text: "\uD638\uC2A4\uD2B8 \uC2DC\uC791"
   _key: btn_StartHost
 --- !u!1 &7602488047805290939
 GameObject:
@@ -417,7 +429,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: ab53c3686e8494d42bdeb9087e40b9d8, type: 3}
-    m_FontSize: 52
+    m_FontSize: 44
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 3
@@ -428,7 +440,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: btn_StartClient
+  m_Text: "\uD074\uB77C\uC774\uC5B8\uD2B8 \uCC38\uAC00"
   _key: btn_StartClient
 --- !u!1 &8797048947580494981
 GameObject:
@@ -561,6 +573,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 9087906075390032431}
+        m_TargetAssemblyTypeName: EHTool.UIKit.GUIWindow, EHTool
+        m_MethodName: OpenWindow
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: MatchSetting
           m_BoolArgument: 0
         m_CallState: 2
   _soundKey: ButtonSelect

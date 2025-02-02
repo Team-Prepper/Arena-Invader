@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AICharacterActionSelector : MonoBehaviour, ICharacterActionSelector {
+public class AICharacterActionSelector : ICharacterActionSelector {
 
-    [SerializeField] ICharacterController _target;
+    ICharacterController _target;
 
     public void StartTurn(ICharacterController target)
     {
@@ -64,7 +64,7 @@ public class AICharacterActionSelector : MonoBehaviour, ICharacterActionSelector
         int minHealth = int.MaxValue;
         foreach (var player in GameManager.Instance.Playground.Players)
         {
-            if (player.Target == this) continue;
+            if (player.Target == _target.Target) continue;
             int currentHealth = player.Target.GetHealth();
             if (minHealth > currentHealth)
             {
@@ -77,7 +77,8 @@ public class AICharacterActionSelector : MonoBehaviour, ICharacterActionSelector
 
     public void SelectItem(GUIShop shop, Action<int> callback)
     {
-        StartCoroutine(EnterShopSequence(shop));
+        shop?.CloseButton();
+        //StartCoroutine(EnterShopSequence(shop));
         //callback?.Invoke(1);
     }
 

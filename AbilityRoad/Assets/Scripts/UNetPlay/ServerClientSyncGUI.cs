@@ -22,7 +22,8 @@ public class ServerClientSyncGUI<T> where T : GUIWindow {
 
     public void Close()
     {
-        _gui?.Close();
+        if (_gui == null) return;
+        _gui.Close();
         _gui = null;
     }
 

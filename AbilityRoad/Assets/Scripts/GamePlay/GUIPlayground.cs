@@ -1,5 +1,7 @@
+using EHTool;
 using EHTool.UIKit;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,22 +24,17 @@ public class GUIPlayground : GUIFullScreen
     public override void Open()
     {
         base.Open();
-        if (_generator) {
+
+        if (_generator)
+        {
+            _generator.Generate();
             Generate();
         }
+
     }
 
-    public void GenerateMatch(MatchInfor infor)
+    public void Generate()
     {
-        _generator = GameObject.FindWithTag("MatchGenerator").GetComponent<MatchGenerator>();
-        _generator.SetMatchInfor(infor);
-        Generate();
-    }
-
-    void Generate()
-    {
-        _generator.Generate();
-
         _players = GameManager.Instance.Playground.Players;
 
         for (int i = 0; i < _buttons.Length; i++)

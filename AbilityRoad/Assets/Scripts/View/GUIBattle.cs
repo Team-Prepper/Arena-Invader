@@ -37,7 +37,6 @@ public class GUIBattle : GUIPopUp {
                     return;
                 }
 
-
                 StartCoroutine(WaitASeconds(() =>
                 {
 

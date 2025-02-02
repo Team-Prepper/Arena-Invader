@@ -14,14 +14,18 @@ public class LocalCharacterController : MonoBehaviour, ICharacterController {
 
     public void SetMatch(ICharacterActionSelector selector)
     {
-        GameManager.Instance.Playground.AddPlayer(this);
         _selector = selector;
-
     }
+
     public void SetTargetCharacter(string name, string characterCode, int idx)
     {
+        GameManager.Instance.Playground.AddPlayer(this);
+
         Target = CharacterManager.Instance.SpawnPlayer(characterCode);
+        Target.transform.SetParent(transform);
+        Target.transform.localPosition = Vector3.zero;
         Target.SetInitial(this, name, idx);
+
         _name = name;
 
     }
@@ -83,8 +87,8 @@ public class LocalCharacterController : MonoBehaviour, ICharacterController {
     {
         _chance--;
 
-        GUIDice gui =UIManager.Instance.OpenGUI<GUIDice>
-            (GameManager.Instance.Playground.MatchInfor.MatchDice);
+        GUIDice gui = UIManager.Instance.OpenGUI<GUIDice>
+            (GameManager.Instance.MatchInfor.MatchDice);
 
         gui.SetCallback((value) => {
             callback?.Invoke(value + extraDicePoint);

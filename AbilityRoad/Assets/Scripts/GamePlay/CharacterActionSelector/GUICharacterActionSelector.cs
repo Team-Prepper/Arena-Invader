@@ -1,10 +1,9 @@
 using EHTool.UIKit;
 using System;
-using UnityEngine;
 
-public class GUICharacterActionSelector : MonoBehaviour, ICharacterActionSelector {
+public class GUICharacterActionSelector : ICharacterActionSelector {
 
-    [SerializeField] ICharacterController _target;
+    ICharacterController _target;
 
     public void StartTurn(ICharacterController target)
     {

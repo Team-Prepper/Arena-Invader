@@ -1,18 +1,222 @@
-using System.Collections;
+using EHTool;
+using EHTool.LangKit;
+using EHTool.UIKit;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.Netcode;
 using UnityEngine;
 
-public class UNetPlayground : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
+public class UNetPlayground : NetworkBehaviour, IPlayground {
+
+    int _readyPlayerCnt = 0;
+
+    ISet<int> _deathPlayerIdx;
+    int _turnIdx;
+
+    bool _actionSelectorSet;
+
+    public Map Map { get; set; }
+    public int Turn { get; private set; }
+
+    public IList<ICharacterController> Players { get; private set; }
+
+    public override void OnNetworkSpawn()
     {
-        
+        GameManager.Instance.Playground = this;
+
+        if (!NetworkManager.Singleton.IsHost)
+        {
+            Debug.Log("This is Client UNetPlayground");
+        }
+
+        Players = new List<ICharacterController>();
+
+        _deathPlayerIdx = new HashSet<int>();
+        _turnIdx = 0;
+        Turn = 0;
+        _actionSelectorSet = false;
+
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public ICharacterController NowPlayer {
+        get {
+            if (Players == null || _turnIdx >= Players.Count) return null;
+            return Players[_turnIdx];
+        }
+
     }
+
+    public ICharacterController InstantiateCC(Vector3 pos)
+    {
+        UNetCharacterController retval = AssetOpener.ImportComponent<UNetCharacterController>("UNetCC");
+        retval.GetComponent<NetworkObject>().Spawn();
+        retval.transform.position = pos;
+
+        return retval;
+    }
+
+    public void StartMatch()
+    {
+        if (!NetworkManager.Singleton.IsHost) return;
+
+        MatchGenerator generator = GameObject.FindWithTag("MatchGenerator").GetComponent<MatchGenerator>();
+        generator.SetMatchInfor(GameManager.Instance.MatchInfor);
+        generator.Generate();
+
+        StartMatchClientRpc();
+    }
+
+    [ClientRpc]
+    public void StartMatchClientRpc() {
+
+        GameManager.Instance.Playground.Map =
+            AssetOpener.ImportComponent<Map>(GameManager.Instance.MatchInfor.MapName);
+
+        if (IsHost) return;
+
+        PlayReady();
+
+    }
+
+    public void AddPlayer(ICharacterController player)
+    {
+        if (Players.Contains(player)) return;
+
+        Players.Add(player);
+    }
+
+    public bool IsGameEnd()
+    {
+        return Players.Count - _deathPlayerIdx.Count < 2;
+    }
+
+    public void PlayerDeath(ICharacterController player)
+    {
+        for (int i = 0; i < Players.Count; i++)
+        {
+            if (Players[i] != player) continue;
+            _deathPlayerIdx.Add(i);
+            break;
+        }
+    }
+
+    public void PlayReady()
+    {
+        PlayReadyServerRpc();
+    }
+
+    [ServerRpc(RequireOwnership =false)]
+    public void PlayReadyServerRpc() {
+
+        _readyPlayerCnt++;
+
+        if (_readyPlayerCnt >= GameManager.Instance.MatchInfor.PlayerInfors.Count) {
+            GameStartClientRpc();
+            TurnStart();
+        }
+    }
+
+    [ClientRpc]
+    public void GameStartClientRpc()
+    {
+        UIManager.Instance.OpenGUI<GUIPlayground>("Playground").Generate();
+    }
+
+    public void TurnStart()
+    {
+        TurnStartClientRpc(_turnIdx);
+    }
+
+    [ClientRpc]
+    public void TurnStartClientRpc(int idx)
+    {
+        Map.StartNewTurn(Turn);
+
+        GUITurnStart turnStartCall = UIManager.Instance.OpenGUI<GUITurnStart>("TurnStart");
+
+        Action callbackAction = () => {
+            turnStartCall.Close();
+        };
+
+        if (NetworkManager.Singleton.ConnectedClientsIds.ElementAt(_turnIdx)
+            == NetworkManager.Singleton.LocalClientId)
+        {
+
+            if (!_actionSelectorSet)
+            {
+                Players[(int)idx].SetMatch(new GUICharacterActionSelector());
+                _actionSelectorSet = true;
+            }
+
+            callbackAction += () => {
+                Players[idx].StartTurn();
+            };
+
+        }
+
+        turnStartCall.SetWaitForCallback(
+            string.Format(LangManager.Instance.GetStringByKey("msg_XTurn"),
+            Players[idx].Target.GetName()), callbackAction);
+
+    }
+
+    public void TurnEnd() {
+        TurnEndServerRpc();
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void TurnEndServerRpc()
+    {
+        if (IsGameEnd())
+        {
+            GameEnd();
+            return;
+        }
+
+        while (true)
+        {
+            _turnIdx = _turnIdx + 1;
+
+            if (_turnIdx >= Players.Count)
+            {
+                Turn++;
+                _turnIdx = 0;
+            }
+            if (Players[_turnIdx].Target.IsAlive()) break;
+        }
+
+        TurnStart();
+    }
+
+    void GameEnd()
+    {
+        GameEndClientRpc();
+    }
+
+    [ClientRpc]
+    void GameEndClientRpc() {
+
+        GameManager.Instance.Playground = new LocalPlayground();
+        Destroy(Map.gameObject);
+        Map = null;
+
+        foreach (var player in Players)
+        {
+            if (player.Target.IsAlive())
+            {
+                IGUIFullScreen nowScreen = UIManager.Instance.NowDisplay;
+                UIManager.Instance.OpenGUI<GUIResult>("Result").SetWinner(player.Target);
+                SFXManager.Instance.PlayBGM("Win");
+                nowScreen.Close();
+            }
+            Destroy(player.Target.gameObject);
+        }
+    }
+
+    public int CalcDamage(Character attacker, Character target)
+    {
+        return Mathf.Max(1, attacker.GetAttackValue() - target.GetDefenseValue());
+    }
+
 }

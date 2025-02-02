@@ -133,18 +133,6 @@ MonoBehaviour:
           m_StringArgument: Player_AI
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 5598127103876066704}
-        m_TargetAssemblyTypeName: MonoSoundPlayer, Assembly-CSharp
-        m_MethodName: PlaySound
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: ButtonSelect
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &572130601864762057
 GameObject:
   m_ObjectHideFlags: 0
@@ -180,7 +168,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: 25}
-  m_SizeDelta: {x: 180, y: 180}
+  m_SizeDelta: {x: 220, y: 220}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &6011098718312310545
 CanvasRenderer:
@@ -253,11 +241,11 @@ RectTransform:
   - {fileID: 2133890644802158380}
   m_Father: {fileID: 359719087456140999}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 50, y: 1}
-  m_SizeDelta: {x: 240, y: 280}
-  m_Pivot: {x: 0, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -40}
+  m_SizeDelta: {x: 300, y: 320}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &3597191398817339511
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -399,18 +387,6 @@ MonoBehaviour:
           m_StringArgument: Player
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 5598127103876066704}
-        m_TargetAssemblyTypeName: MonoSoundPlayer, Assembly-CSharp
-        m_MethodName: PlaySound
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: ButtonSelect
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &4381544911340732486
 GameObject:
   m_ObjectHideFlags: 0
@@ -444,9 +420,9 @@ RectTransform:
   - {fileID: 736533255812629510}
   m_Father: {fileID: 359719087456140999}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 438, y: 15}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 100}
   m_SizeDelta: {x: 400, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4192983889341525777
@@ -588,11 +564,11 @@ RectTransform:
   - {fileID: 8498114478277715127}
   m_Father: {fileID: 359719087456140999}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 311, y: -113}
-  m_SizeDelta: {x: 180, y: 50}
-  m_Pivot: {x: 0, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -450}
+  m_SizeDelta: {x: 240, y: 50}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &3706681478063203682
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -944,7 +920,6 @@ GameObject:
   - component: {fileID: 157077212887291069}
   - component: {fileID: 9166660890666969764}
   - component: {fileID: 2742909848838569210}
-  - component: {fileID: 5598127103876066704}
   m_Layer: 5
   m_Name: box_Details (0)
   m_TagString: Untagged
@@ -964,8 +939,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8379139379142265345}
   - {fileID: 6918416198465966232}
+  - {fileID: 8379139379142265345}
   - {fileID: 315172540447133854}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1027,18 +1002,6 @@ MonoBehaviour:
   _mother: {fileID: 0}
   _icon: {fileID: 6013999913083887379}
   _nameSet: {fileID: 3380970832652201605}
---- !u!114 &5598127103876066704
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8739852565541946584}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0f6e46c72d3d9144a287c55ff5fa94a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &9028181040418581553
 GameObject:
   m_ObjectHideFlags: 0

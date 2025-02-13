@@ -9,15 +9,17 @@ public class GUIPlayground : GUIFullScreen
 {
     IList<ICharacterController> _players;
 
-    [SerializeField] GUIPlayerButtonUnit[] _buttons;
-    [SerializeField] GUIPlayerUnit _playerInfor;
+    [SerializeField] GUIUnitPlayerButton[] _buttons;
+    [SerializeField] GUIUnitPlayer _playerInfor;
     [SerializeField] Text _turnInfor;
     [SerializeField] string _turnInforFormat = "{0}'s Turn";
+
     [Header("Baron Infor")]
     [SerializeField] GUIBaronInfo _baronInfor;
     [SerializeField] GameObject _baronInfoTextGO;
     [SerializeField] Text _baronInfoText;
     [SerializeField] string _baronInforFormat = "{0} Turn left";
+
     [Header("generator")]
     [SerializeField] MatchGenerator _generator;
 

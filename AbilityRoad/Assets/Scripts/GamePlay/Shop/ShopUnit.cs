@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class ShopUnit : MonoBehaviour
@@ -10,15 +7,16 @@ public class ShopUnit : MonoBehaviour
     [SerializeField] Image _icon;
     [SerializeField] private Button _selectButton;
 
-    public void SetSlot(int price, Sprite icon, UnityAction action)
+    public void SetSlot(ItemData item)
     {
-        if (_priceText != null) _priceText.text = price.ToString();
-        _icon.sprite = icon;
-        if (_selectButton != null) _selectButton.onClick.AddListener(action);
+        if (_priceText != null)
+            _priceText.text = item.Price.ToString();
+        _icon.sprite = item.Icon;
     }
 
     public void DisableSlot()
     {
+        _icon.gameObject.SetActive(false);
         _selectButton.interactable = false;
     }
 }

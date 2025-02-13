@@ -14,12 +14,12 @@ public interface ICharacterController {
     public void AddChance();
     void GetExtraDicePoint(int point);
 
-    GUIOpenInventory OpenInventory(Action<int> value);
+    GUIOpenInventory OpenInventory();
 
     GUISelectMovePawn SelectMovePawn(int value);
     public void MovePawn(int pawnId, int amount);
 
-    public void EnterShop(Action callback);
+    public void OpenShop(Action callback);
 
     public void AbilityChange(string abilityType, string amount);
 }

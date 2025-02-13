@@ -1,9 +1,8 @@
-using EHTool.UIKit;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-public class GUIDice : GUIPopUp
+public class GUIDice : GUINetworkPopUp<int>
 {
     [SerializeField] Button _btn;
     [SerializeField] IDice _dice;
@@ -24,7 +23,10 @@ public class GUIDice : GUIPopUp
     }
 
     public void Roll() {
+
+        if (!IsControlled) return;
         if (_isRolling) return;
+
         SFXManager.Instance.PlaySFX("Roll");
         _btn.enabled = false;
         _isRolling = true;

@@ -12,9 +12,10 @@ public class BasePlayer : Character
     ICharacterController _cc;
 
     IList<Vector3> _emptyPlace;
-    public List<IItem> Items => items;
 
-    [SerializeField] public List<IItem> items;
+    public List<ItemData> Items => items;
+
+    [SerializeField] public List<ItemData> items;
 
     public void SetInitial(ICharacterController cc, string name, int idx)
     {
@@ -40,7 +41,7 @@ public class BasePlayer : Character
             p.BackHome();
         }
         base.DeathEvent();
-        //GameManager.Instance.Playground.PlayerDeath(this);
+        GameManager.Instance.Playground.PlayerDeath(_cc);
     }
 
     public void LeavePawn(int id)
@@ -95,10 +96,10 @@ public class BasePlayer : Character
     }
 
     public void EnterShop(Action callback) {
-        _cc.EnterShop(callback);
+        _cc.OpenShop(callback);
     }
 
-    public bool BuyItem(IItem item)
+    public bool BuyItem(ItemData item)
     {
         if(item == null) return false;
         if (Money < item.Price) return false;
@@ -108,29 +109,18 @@ public class BasePlayer : Character
         return true;
     }
     
-    public void UseItem(IItem item, Action callback = null)
+    public void UseItem(ItemData item, Action callback = null)
     {
         Debug.Log("USE ITEM!!");
         items.Remove(item);
-        //item.UseItem(this);
+        item.Item.UseItem(_cc);
         //RollDice(); // !!!!!!! hard coded!!!!!!!!
         callback?.Invoke();
     }
 
-    public void DiscardItem(IItem item)
+    public void DiscardItem(ItemData item)
     {
         items.Remove(item);
-    }
-    
-    public void GetExtraDicePoint(int point)
-    {
-        _cc.GetExtraDicePoint(point);
-    }
-
-    public void OpenInventory(Action callback)
-    {
-        UIManager.Instance.OpenGUI<GUIOpenInventory>("Inventory").OpenInventory(this,items);
-        callback?.Invoke();
     }
 
     public void SlainObject()

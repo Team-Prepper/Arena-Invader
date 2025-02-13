@@ -1,5 +1,6 @@
 using EHTool.UIKit;
 using System;
+using UnityEngine;
 
 public class GUICharacterActionSelector : ICharacterActionSelector {
 
@@ -14,6 +15,7 @@ public class GUICharacterActionSelector : ICharacterActionSelector {
         
         action.PlayerTurnStart(this);
 
+        Debug.Log("StartTurn");
     }
 
     public void RollDice()
@@ -24,7 +26,13 @@ public class GUICharacterActionSelector : ICharacterActionSelector {
 
     }
 
-    public void SelectItem(GUIShop shop, Action<int> callback)
+    public void Inventory(GUIOpenInventory i)
+    {
+        GUIOpenInventory inventory = _target.OpenInventory();
+
+    }
+
+    public void Shop(GUIShop shop)
     {
 
     }

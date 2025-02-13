@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5855ca2a4dd9794aa5a77184db6ebb2, type: 3}
+  m_Name: Data_Item_MoreDice
+  m_EditorClassIdentifier: 
+  Item: {fileID: 6390376149249606081, guid: eda03a7b0e7a6422ca1a6e018f60278c, type: 3}
+  Price: 10
+  Name: Item_OneMoreDice
+  Icon: {fileID: 21300000, guid: cc8514d4e3b86e841b3c55517741ce8f, type: 3}
+  Desc: on more dice
+  ItemValue: 2

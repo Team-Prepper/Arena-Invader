@@ -3,15 +3,23 @@ using UnityEngine;
 
 public class GUIMatchSetting : GUIFullScreen
 {
-    [SerializeField] string _path;
     [SerializeField] MatchCharacterDetail[] _details;
 
     public override void Open()
     {
         base.Open();
 
+        if (GameManager.Instance.MatchInfor == null)
+        {
+            GameManager.Instance.OnMatchInforChanged += SetUI;
+        }
+        else
+        {
+            SetUI();
+            SetDetails();
+        }
+
         GameManager.Instance.OnMatchInforChanged += SetDetails;
-        SetDetails();
     }
 
     public override void Close()
@@ -20,16 +28,27 @@ public class GUIMatchSetting : GUIFullScreen
         GameManager.Instance.OnMatchInforChanged -= SetDetails;
     }
 
+    public void SetUI()
+    {
+        GameManager.Instance.OnMatchInforChanged -= SetUI;
+        GameManager.Instance.MatchInfor.SetMatchSettingUI(this);
+
+    }
+
+    public void Dispose()
+    {
+        GameManager.Instance.MatchInfor.Dispose();
+
+    }
+
     public void GenerateMatch()
     {
-        GameManager.Instance.Playground.StartMatch();
+        GameManager.Instance.MatchInfor.StartMatch();
     }
 
     void SetDetails()
     {
         IMatchInfor infor = GameManager.Instance.MatchInfor;
-
-        if (infor == null) return;
 
         for (int i = 0; i < _details.Length; i++) {
             if (i >= infor.PlayerInfors.Count)

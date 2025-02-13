@@ -1,3 +1,4 @@
+using EHTool.UIKit;
 using System;
 using System.Collections.Generic;
 
@@ -23,6 +24,10 @@ public interface IMatchInfor
 
     public string MapName { get; }
     public string MatchDice { get; }
+
+    public void SetMatchSettingUI(IGUI gui);
+    public void StartMatch();
+    public void Dispose();
 
     public void SetPlayerCnt(int cnt);
     public void SetDice(string diceCode);

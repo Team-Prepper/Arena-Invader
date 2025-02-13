@@ -1,13 +1,15 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using EHTool.LangKit;
-using EHTool.UIKit;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GUIShop : GUIPopUp
-{
+public class GUIShop : GUINetworkPopUp<int> {
+
     [SerializeField] private GameObject _inforGO;
+
+    public int Size => _shopButtons.Length;
 
     [Header("Default Info")]
     [SerializeField] private Sprite _defaultIcon;
@@ -17,92 +19,110 @@ public class GUIShop : GUIPopUp
     [SerializeField] private Text _selectItemPrice;
     [SerializeField] private Text _selectItemDescription;
     [SerializeField] private Button _buyButton;
-    
+
     [Header("Shop Button")]
     [SerializeField] ShopUnit[] _shopButtons;
-    [SerializeField] List<IItem> _saleItems;
-    
-    private List<IItem> _currentSaleItems = new List<IItem>();
 
-    private Action _callback;
+    private IList<ItemData> _currentSaleItems = new List<ItemData>();
+
     private Action _buyEvent;
 
-    private Transform _container;
     private BasePlayer _buyer;
-    
-    public void EnterShop(BasePlayer buyer, Action callback)
+
+    public void SetBuyer(BasePlayer buyer)
     {
         _buyer = buyer;
-        SetItems(_saleItems);
-        _callback = callback;
     }
-    
-    private void SetItems(List<IItem> items)
+
+    public void SetItems(int seed)
     {
         _inforGO.SetActive(false);
-        _currentSaleItems.Clear();
+        _currentSaleItems = ItemManager.Instance.ItemListFromInt(seed, _shopButtons.Length);
+
         for (int i = 0; i < _shopButtons.Length; i++)
         {
-            IItem currentSlotItem = _saleItems[UnityEngine.Random.Range(0, items.Count)];
-            _currentSaleItems.Add(currentSlotItem);
-
-            // 현재 인덱스 값을 로컬 변수에 저장
-            int index = i;
-    
-            _shopButtons[i].SetSlot(currentSlotItem.Price, currentSlotItem.Icon, () => SelectItem(currentSlotItem, index));
+            _shopButtons[i].SetSlot(_currentSaleItems[i]);
         }
     }
 
-    public void SelectItem(IItem currentItem, int buttonIndex = -1)
+    public void SelectItem(int idx = -1)
     {
-        _inforGO.SetActive(true);
-        if (currentItem == null)
-        {
-            /*TODO Default IMG*/
-        }
-        else
-        {
-            _selectItemIcon.sprite = currentItem.Icon;
-            _selectItemName.text = LangManager.Instance.GetStringByKey(currentItem.Name);
-            _selectItemPrice.text = currentItem.Price.ToString();
-            _selectItemDescription.text = currentItem.Description;
-        }
+        if (!IsControlled) return;
 
         _buyEvent = () =>
         {
-
             SFXManager.Instance.PlaySFX("ButtonSelect");
-            PurchaseItem(currentItem, buttonIndex);
+            PurchaseItem(idx);
+            DisableSelectItem(idx);
+            NetworkModify(-idx - 1);
         };
+
+        DisplaySelectItem(idx);
+        NetworkModify(idx);
     }
 
-    public void BuyButton() {
-        _buyEvent?.Invoke();    
-    }
-    
-    private void PurchaseItem(IItem item, int buttonIndex)
+    public override void NetworkModifiedEvent(int value)
     {
-        if (_buyer.BuyItem(item))
+        if (IsControlled) return;
+
+        if (value >= 0)
         {
-            Debug.Log("buttonIndex : " + buttonIndex);
-            if(buttonIndex != -1)
-                _shopButtons[buttonIndex].DisableSlot();
-            
-            _selectItemIcon.sprite = _defaultIcon;
-            _selectItemName.text = LangManager.Instance.GetStringByKey("Item_Empty");;
-            _selectItemPrice.text = "0";
-            _selectItemDescription.text = "None";
+            DisplaySelectItem(value);
+            return;
         }
+
+        DisableSelectItem(-value + 1);
     }
-    
-    public List<IItem> GetSaleItems()
+
+    private void DisplaySelectItem(int idx)
+    {
+        if (idx == -1)
+        {
+            _inforGO.SetActive(false);
+            /*TODO Default IMG*/
+            return;
+        }
+
+        _inforGO.SetActive(true);
+
+        ItemData currentItem = _currentSaleItems[idx];
+
+        _selectItemIcon.sprite = currentItem.Icon;
+        _selectItemName.text = LangManager.Instance.GetStringByKey(currentItem.Name);
+        _selectItemPrice.text = currentItem.Price.ToString();
+        _selectItemDescription.text = currentItem.Desc;
+
+    }
+
+    private void DisableSelectItem(int idx)
+    {
+        if (idx != -1)
+        {
+            _shopButtons[idx].DisableSlot();
+            return;
+        }
+
+        _selectItemIcon.sprite = _defaultIcon;
+        _selectItemName.text = LangManager.Instance.GetStringByKey("Item_Empty"); ;
+        _selectItemPrice.text = "0";
+        _selectItemDescription.text = "None";
+
+    }
+
+    public void BuyButton()
+    {
+        if (!IsControlled) return;
+        _buyEvent?.Invoke();
+    }
+
+    private void PurchaseItem(int idx)
+    {
+        if (!_buyer.BuyItem(_currentSaleItems[idx])) return;
+    }
+
+    public IList<ItemData> GetSaleItems()
     {
         return _currentSaleItems;
     }
 
-    public void CloseButton()
-    {
-        _callback?.Invoke();
-
-    }
 }

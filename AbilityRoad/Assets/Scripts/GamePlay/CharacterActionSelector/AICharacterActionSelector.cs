@@ -1,9 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class AICharacterActionSelector : ICharacterActionSelector {
+public class AICharacterActionSelector : MonoBehaviour, ICharacterActionSelector {
 
     ICharacterController _target;
 
@@ -13,12 +14,33 @@ public class AICharacterActionSelector : ICharacterActionSelector {
 
         if (_target.Target.items.Count > 0)
         {
-            IItem item = _target.Target.items[UnityEngine.Random.Range(0, _target.Target.items.Count)];
-            item.UseItem(_target);
-            _target.Target.items.Remove(item);
+            StartCoroutine(InventorySequence());
+            return;
         }
 
         RollDice();
+    }
+
+    IEnumerator InventorySequence()
+    {
+        GUIOpenInventory inventory = _target.OpenInventory();
+        int idx = UnityEngine.Random.Range(0, _target.Target.items.Count);
+
+        Debug.Log(idx);
+
+        // 1. shop.EnterShop 호출 후 1초 대기
+        yield return new WaitForSeconds(1f);
+        inventory.SelectItem(idx);
+
+        // 1. shop.EnterShop 호출 후 1초 대기
+        yield return new WaitForSeconds(1f);
+        inventory.UseItem(idx);
+
+        yield return new WaitForSeconds(1f);
+
+        inventory.TryClose();
+        RollDice();
+
     }
 
     public void RollDice()
@@ -75,48 +97,59 @@ public class AICharacterActionSelector : ICharacterActionSelector {
         return target;
     }
 
-    public void SelectItem(GUIShop shop, Action<int> callback)
-    {
-        shop?.CloseButton();
-        //StartCoroutine(EnterShopSequence(shop));
-        //callback?.Invoke(1);
+    public void Inventory(GUIOpenInventory inventory) { 
+        
     }
 
-    private IEnumerator EnterShopSequence(GUIShop shop)
+    public void Shop(GUIShop shop)
+    {
+        StartCoroutine(ShopSequence(shop));
+    }
+
+    private IEnumerator ShopSequence(GUIShop shop)
     {
 
         // 1. shop.EnterShop 호출 후 1초 대기
         yield return new WaitForSeconds(1f);
 
         // 2. shop.SelectItem 호출 후 1초 대기
-        IItem selected = SelectBuyItem(shop.GetSaleItems());
+        int selected = SelectBuyItem(shop.GetSaleItems());
+
+        if (selected == -1)
+        {
+            // 4. shop.Close 호출
+            shop?.TryClose();
+            yield break;
+        }
+
         shop.SelectItem(selected);
         yield return new WaitForSeconds(1f);
 
         // 3. BuyItem 호출 후 1초 대기
-        _target.Target.BuyItem(selected);
+        shop.BuyButton();
         yield return new WaitForSeconds(1f);
 
         // 4. shop.Close 호출
-        shop?.CloseButton();
+        shop?.TryClose();
+
     }
 
-    private IItem SelectBuyItem(List<IItem> items)
+    private int SelectBuyItem(IList<ItemData> items)
     {
-        IItem mostValuableItem = null;
+        int mostValueableItemIdx = -1;
         int mostValuableItemValue = -1;
 
-        foreach (var item in items)
+        for (int i = 0; i < items.Count; i++)
         {
-            int currentItemValue = item.ItemValue;
-            if (currentItemValue >= mostValuableItemValue && item.Price <= _target.Target.Money)
+            int currentItemValue = items[i].ItemValue;
+            if (currentItemValue >= mostValuableItemValue && items[i].Price <= _target.Target.Money)
             {
-                mostValuableItem = item;
+                mostValueableItemIdx = i;
                 mostValuableItemValue = currentItemValue;
             }
         }
 
-        return mostValuableItem;
+        return mostValueableItemIdx;
     }
 
 }

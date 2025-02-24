@@ -1,0 +1,19 @@
+using System;
+using UnityEngine;
+
+public class AttackAdd : IArriveEvent {
+
+    [SerializeField] int _attackAmount = 0;
+
+    public override int GetPriority() => 1;
+    public override int GetValue(GamePawn attacker, GamePawn defender)
+    {
+        return _attackAmount;
+    }
+
+    public override void AddAbility(GamePawn target, Action callback)
+    {
+        target.AddAttack(_attackAmount);
+        callback?.Invoke();
+    }
+}

@@ -4,13 +4,16 @@ using System;
 
 public class LocalCharacterController : MonoBehaviour, ICharacterController {
 
+    public int PlayerId { get; private set; }
+
+    [SerializeField] private LocalStatus _status;
+    public IStatus Status => _status;
+
     public BasePlayer Target { get; private set; }
-    ICharacterActionSelector _selector;
+    private ICharacterActionSelector _selector;
 
     [SerializeField] private int _chance = 0;
     private int extraDicePoint = 0;
-
-    string _name;
 
     public void SetMatch(ICharacterActionSelector selector)
     {
@@ -19,14 +22,20 @@ public class LocalCharacterController : MonoBehaviour, ICharacterController {
 
     public void SetTargetCharacter(string name, string characterCode, int idx)
     {
+        PlayerId = idx;
+
         GameManager.Instance.Playground.AddPlayer(this);
+
+        _status = gameObject.GetComponent<LocalStatus>();
+
+        Status.Name = name;
+        Status.CharacterCode = characterCode;
+        Status.SetCC(this);
 
         Target = CharacterManager.Instance.SpawnPlayer(characterCode);
         Target.transform.SetParent(transform);
         Target.transform.localPosition = Vector3.zero;
-        Target.SetInitial(this, name, idx);
-
-        _name = name;
+        Target.SetInitial(this, idx);
 
     }
 
@@ -37,15 +46,9 @@ public class LocalCharacterController : MonoBehaviour, ICharacterController {
         _selector.StartTurn(this);
     }
 
-    public void AbilityChange(string abilityType, string amount)
-    {
-
-    }
-
     public void MovePawn(int pawnId, int amount)
     {
-        Target._pawns[pawnId].OffFocus();
-        Target._pawns[pawnId].Move(amount);
+        Target.Pawns[pawnId].Move(amount);
     }
 
     public void EndTurn()
@@ -71,15 +74,15 @@ public class LocalCharacterController : MonoBehaviour, ICharacterController {
     {
         GUIOpenInventory inventory = UIManager.Instance.OpenGUI<GUIOpenInventory>("Inventory");
         inventory.SetTarget(
-            ItemManager.Instance.ItemListToInt(Target.Items),
-            Target.Items.Count, this);
+            ItemManager.Instance.ItemListToInt(Status.Items),
+            Status.Items.Count, this);
         return inventory;
     }
 
     public void OpenShop(Action callback) {
         GUIShop shop = UIManager.Instance.OpenGUI<GUIShop>("Shop");
 
-        shop.SetBuyer(Target);
+        shop.SetBuyer(this);
         shop.SetItems(ItemManager.Instance.RandomItemListByInt(shop.Size));
 
         shop.SetCloseMethod(() =>

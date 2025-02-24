@@ -23,6 +23,11 @@ public class GUINetworkPopUp<T> : GUIPopUp
         Close();
     }
 
+    public override void Close()
+    {
+        base.Close();
+    }
+
     public void SetCloseMethod(Action closeAction) { 
         _closeAction = closeAction;
     }

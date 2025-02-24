@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3101662815762839096}
   - component: {fileID: 3698092696231186331}
-  - component: {fileID: 5621369175506155979}
+  - component: {fileID: 3185931308920642839}
   - component: {fileID: 9038997950466094188}
   - component: {fileID: 6751346143428697564}
+  - component: {fileID: 8930313951885589550}
   m_Layer: 0
   m_Name: Pawn_Attack
   m_TagString: Pawn
@@ -60,7 +61,7 @@ CapsuleCollider:
   m_Height: 3
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5621369175506155979
+--- !u!114 &3185931308920642839
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -69,16 +70,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 936136003452631792}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 073b7d9cda977d940b2b77a64d49c202, type: 3}
+  m_Script: {fileID: 11500000, guid: 7e95d97f1218ee04ba53df4b57584421, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _sprite: {fileID: 782154150925674418}
-  _owner: {fileID: 0}
-  _model: {fileID: 2397050263089555426}
+  _select: {fileID: 8930313951885589550}
   _moveOnMap: {fileID: 9038997950466094188}
-  _moveTo: {fileID: 6751346143428697564}
+  _initialMoveOnMap: {fileID: 6751346143428697564}
   _nowPlate: {fileID: 0}
-  _up: {x: 0, y: 0.2, z: 0}
   _attackCoefficient: 2
   _defenseCoefficient: 1
   _healthCoefficient: 1
@@ -115,6 +114,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _stall: 0.3
   _delay: 0.3
+--- !u!114 &8930313951885589550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 936136003452631792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70c90b71ad72c8641ac570a5d3a517d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _model: {fileID: 2397050263089555426}
+  _up: {x: 0, y: 0.2, z: 0}
 --- !u!1001 &1955620159295801810
 PrefabInstance:
   m_ObjectHideFlags: 0

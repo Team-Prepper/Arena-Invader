@@ -6,7 +6,8 @@ public interface ICharacterActionSelector {
 
     public void RollDice();
 
-    public void Inventory(GUIOpenInventory inventory);
+    public void Inventory();
+
     public void Shop(GUIShop shop);
 
 }

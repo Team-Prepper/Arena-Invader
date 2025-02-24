@@ -11,10 +11,10 @@ public class GUIResult : GUIFullScreen
     [SerializeField] Image _winnerAttackImage;
     [SerializeField] Image _winnerTargetImage;
 
-    public void SetWinner(BasePlayer winner) {
-        _winnerName.text = winner.GetName();
-        _winnerAttackImage.sprite = CharacterManager.Instance.GetPlayerAttackerSpr(winner.GetCharacterCode());
-        _winnerTargetImage.sprite = CharacterManager.Instance.GetPlayerDamageSpr(winner.GetCharacterCode());
+    public void SetWinner(IStatus winner) {
+        _winnerName.text = winner.Name;
+        _winnerAttackImage.sprite = CharacterManager.Instance.GetCharacterSprites(winner.CharacterCode).CharacterAttack;
+        _winnerTargetImage.sprite = CharacterManager.Instance.GetCharacterSprites(winner.CharacterCode).CharacterDamage;
     }
 
     public override void Close()

@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1575102657709549211}
   - component: {fileID: 4249503849973373735}
   - component: {fileID: 6042779855241681245}
-  - component: {fileID: 6318946336606165380}
   m_Layer: 0
   m_Name: Dragon
   m_TagString: Untagged
@@ -68,29 +67,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 012e474248d9c614aa90b0a07fd65ee0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _name: Dragon
-  _healthUI: {fileID: 0}
-  _status: {fileID: 6318946336606165380}
+  _code: Player
   _health: 100
-  _coin: 0
---- !u!114 &6318946336606165380
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6308993001856803414}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbab49114b843a34997b1139bfa0f17e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _addedValue:
-    _attack: 0
-    _defence: 0
-  _levelStatus:
-  - _attack: 100
-    _defence: 100
 --- !u!1 &8495234885371401998
 GameObject:
   m_ObjectHideFlags: 0

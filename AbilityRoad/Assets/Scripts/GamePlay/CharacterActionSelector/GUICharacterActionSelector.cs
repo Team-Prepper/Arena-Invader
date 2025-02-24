@@ -26,15 +26,14 @@ public class GUICharacterActionSelector : ICharacterActionSelector {
 
     }
 
-    public void Inventory(GUIOpenInventory i)
+    public void Inventory()
     {
         GUIOpenInventory inventory = _target.OpenInventory();
 
     }
 
-    public void Shop(GUIShop shop)
-    {
-
+    public void Shop(GUIShop shop) {
+        
     }
 
 }

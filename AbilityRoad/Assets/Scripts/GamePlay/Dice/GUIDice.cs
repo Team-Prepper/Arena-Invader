@@ -22,9 +22,13 @@ public class GUIDice : GUINetworkPopUp<int>
         _callback = callback;
     }
 
+    public void RollButton() {
+        if (!IsControlled) return;
+        Roll();
+    }
+
     public void Roll() {
 
-        if (!IsControlled) return;
         if (_isRolling) return;
 
         SFXManager.Instance.PlaySFX("Roll");

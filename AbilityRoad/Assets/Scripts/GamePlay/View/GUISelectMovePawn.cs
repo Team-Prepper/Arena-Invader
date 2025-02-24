@@ -1,4 +1,4 @@
-using System;
+using BoardGame;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,18 +23,6 @@ public class GUISelectMovePawn : GUINetworkPopUp<int> {
         _pawnPredict.SetActive(false);
     }
 
-    int GetPawnValue(Pawn newPawn) {
-
-        for (int i = 0; i < _target.Target._pawns.Length; i++)
-        {
-            if (_target.Target._pawns[i] == newPawn)
-            {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     private Pawn GetPredictPawn()
     {
 
@@ -51,10 +39,11 @@ public class GUISelectMovePawn : GUINetworkPopUp<int> {
         }
 
         
-        if (!hit.transform.TryGetComponent(out Pawn newPawn))
+        if (!hit.transform.TryGetComponent(out GamePawn newPawn)) {
             return null;
+        }
 
-        if (newPawn.GetOwner() != _target.Target)
+        if (newPawn.GetPlayer() != _target)
         {
             return null;
         }
@@ -80,7 +69,7 @@ public class GUISelectMovePawn : GUINetworkPopUp<int> {
 
         if (_selectedPawn != newPawn)
         {
-            int idx = GetPawnValue(newPawn);
+            int idx = newPawn.Id;
 
             FocusPawn(idx);
             NetworkModify(idx);
@@ -88,8 +77,7 @@ public class GUISelectMovePawn : GUINetworkPopUp<int> {
 
         if (Input.GetMouseButtonUp(0))
         {
-            _target.MovePawn(_selectedPawn.Id, _amount);
-            TryClose();
+            MovePawn(_selectedPawn.Id);
         }
 
     }
@@ -99,8 +87,9 @@ public class GUISelectMovePawn : GUINetworkPopUp<int> {
         FocusPawn(value);
     }
 
-    void FocusPawn(int value)
+    public void FocusPawn(int value)
     {
+
         if (_selectedPawn != null)
         {
             _selectedPawn.OffFocus();
@@ -111,16 +100,23 @@ public class GUISelectMovePawn : GUINetworkPopUp<int> {
 
         if (value < 0) return;
 
-        _selectedPawn = _target.Target._pawns[value];
+        _selectedPawn = _target.Target.Pawns[value];
         _selectedPawn.OnFocus();
 
-        IPlate nextPlate = _selectedPawn.MovePredict(_amount);
+        Plate nextPlate = _selectedPawn.MovePredict(_amount);
 
         if (nextPlate != null)
         {
             _pawnPredict.transform.position = nextPlate.transform.position;
             _pawnPredict.SetActive(true);
         }
+
+    }
+
+    public void MovePawn(int idx) {
+        _pawnPredict.SetActive(false);
+        _target.MovePawn(idx, _amount);
+        TryClose();
 
     }
 

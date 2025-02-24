@@ -27,11 +27,11 @@ public class GUIShop : GUINetworkPopUp<int> {
 
     private Action _buyEvent;
 
-    private BasePlayer _buyer;
+    private ICharacterController _cc;
 
-    public void SetBuyer(BasePlayer buyer)
+    public void SetBuyer(ICharacterController buyer)
     {
-        _buyer = buyer;
+        _cc = buyer;
     }
 
     public void SetItems(int seed)
@@ -45,10 +45,14 @@ public class GUIShop : GUINetworkPopUp<int> {
         }
     }
 
-    public void SelectItem(int idx = -1)
-    {
+    public void SelectItemButton(int idx) {
         if (!IsControlled) return;
 
+        SelectItem(idx);
+    }
+
+    public void SelectItem(int idx = -1)
+    {
         _buyEvent = () =>
         {
             SFXManager.Instance.PlaySFX("ButtonSelect");
@@ -112,12 +116,21 @@ public class GUIShop : GUINetworkPopUp<int> {
     public void BuyButton()
     {
         if (!IsControlled) return;
+        Buy();
+    }
+
+    public void Buy() {
         _buyEvent?.Invoke();
     }
 
     private void PurchaseItem(int idx)
     {
-        if (!_buyer.BuyItem(_currentSaleItems[idx])) return;
+        ItemData item = _currentSaleItems[idx];
+        if(item == null) return;
+        if (_cc.Status.Money < item.Price) return;
+
+        _cc.Status.Money -= item.Price;
+        _cc.Status.Items.Add(item);
     }
 
     public IList<ItemData> GetSaleItems()

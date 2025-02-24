@@ -6,10 +6,10 @@ public class GUIBaronInfo : MonoBehaviour
     [SerializeField] Text _baronName;
     [SerializeField] Text _baronHP;
     
-    public void SetBaronInfo(Character character)
+    public void SetBaronInfo(IStatus character)
     {
-        _baronImage.sprite = CharacterManager.Instance.GetPlayerSpr(character.GetCharacterCode());
+        //_baronImage.sprite = CharacterManager.Instance.GetPlayerSpr(character.GetCharacterCode());
         _baronName.text = "Baron";
-        _baronHP.text = character.GetHealth().ToString();
+        //_baronHP.text = character.GetHealth().ToString();
     }
 }

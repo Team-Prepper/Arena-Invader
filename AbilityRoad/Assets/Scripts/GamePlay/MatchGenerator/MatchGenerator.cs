@@ -25,7 +25,9 @@ public class MatchGenerator : MonoBehaviour
         for (int i = 0; i < _matchInfor.PlayerInfors.Count; i++) {
             ICharacterController cc = GameManager.Instance.Playground.InstantiateCC(_playerPosition[i].position);
 
-            cc.SetTargetCharacter("Player", _matchInfor.PlayerInfors[i].Name, i);
+            cc.SetTargetCharacter(
+                _matchInfor.PlayerInfors[i].Name,
+                _matchInfor.PlayerInfors[i].CharacterCode, i);
 
         }
 

@@ -9,7 +9,7 @@ public class LocalPlayground : IPlayground {
     ISet<int> _deathPlayerIdx;
     int _turnIdx;
 
-    public Map Map { get; set; }
+    public GameMap Map { get; set; }
     public int Turn { get; private set; }
 
     public IList<ICharacterController> Players { get; private set; }
@@ -42,8 +42,8 @@ public class LocalPlayground : IPlayground {
 
     public void StartMatch()
     {
-        GameManager.Instance.Playground.Map =
-            AssetOpener.ImportComponent<Map>(GameManager.Instance.MatchInfor.MapName);
+        Map = AssetOpener.ImportComponent<GameMap>
+            (GameManager.Instance.MatchInfor.MapName);
 
         MatchGenerator generator = GameObject.FindWithTag("MatchGenerator").GetComponent<MatchGenerator>();
         generator.SetMatchInfor(GameManager.Instance.MatchInfor);
@@ -93,10 +93,10 @@ public class LocalPlayground : IPlayground {
         Map = null;
         foreach (var player in Players)
         {
-            if (player.Target.IsAlive())
+            if (player.Status.IsAlive())
             {
                 IGUIFullScreen nowScreen = UIManager.Instance.NowDisplay;
-                UIManager.Instance.OpenGUI<GUIResult>("Result").SetWinner(player.Target);
+                UIManager.Instance.OpenGUI<GUIResult>("Result").SetWinner(player.Status);
                 SFXManager.Instance.PlayBGM("Win");
                 nowScreen.Close();
             }
@@ -109,7 +109,7 @@ public class LocalPlayground : IPlayground {
         GUITurnStart turnStartCall = UIManager.Instance.OpenGUI<GUITurnStart>("TurnStart");
 
         turnStartCall.SetWaitForCallback(
-            string.Format(LangManager.Instance.GetStringByKey("msg_XTurn"), Players[_turnIdx].Target.GetName()), () => {
+            string.Format(LangManager.Instance.GetStringByKey("msg_XTurn"), Players[_turnIdx].Status.Name), () => {
             Players[_turnIdx].StartTurn();
             turnStartCall.Close();
         });
@@ -133,15 +133,15 @@ public class LocalPlayground : IPlayground {
                 _turnIdx = 0;
                 Map.StartNewTurn(Turn);
             }
-            if (Players[_turnIdx].Target.IsAlive()) break;
+            if (!_deathPlayerIdx.Contains(_turnIdx)) break;
         }
 
         TurnStart();
     }
 
-    public int CalcDamage(Character attacker, Character target)
+    public int CalcDamage(IStatus attacker, IStatus target)
     {
-        return Mathf.Max(1, attacker.GetAttackValue() - target.GetDefenseValue());
+        return Mathf.Max(1, attacker.Atk - target.Dfs);
     }
 
     public bool IsGameEnd()

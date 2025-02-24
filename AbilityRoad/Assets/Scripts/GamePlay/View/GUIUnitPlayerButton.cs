@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GUIUnitPlayerButton : MonoBehaviour, IObserver<Character> {
+public class GUIUnitPlayerButton : MonoBehaviour, IObserver<IStatus> {
 
     [SerializeField] GameObject _parent;
     [SerializeField] Image _icon;
@@ -15,7 +15,7 @@ public class GUIUnitPlayerButton : MonoBehaviour, IObserver<Character> {
 
 #nullable enable
     private IDisposable? _cancellation;
-    private BasePlayer? _target;
+    private IStatus? _target;
 
     public void OnCompleted()
     {
@@ -25,22 +25,22 @@ public class GUIUnitPlayerButton : MonoBehaviour, IObserver<Character> {
     {
     }
 
-    public void OnNext(Character value)
+    public void OnNext(IStatus value)
     {
         if (!value.IsAlive())
         {
             _parent.SetActive(false);
             return;
         }
-        _health.text = string.Format(_healthFormat, value.GetHealth());
+        _health.text = string.Format(_healthFormat, value.HP);
         _coin.text = string.Format(_coinFormat, value.Money);
     }
 
-    public void SetPlayer(BasePlayer target)
+    public void SetPlayer(IStatus target)
     {
         _target = target;
-        _name.text = string.Format(_nameFormat, target.GetName());
-        _icon.sprite = CharacterManager.Instance.GetPlayerSpr(target.GetCharacterCode());
+        _name.text = string.Format(_nameFormat, target.Name);
+        _icon.sprite = CharacterManager.Instance.GetCharacterSprites(target.CharacterCode).CharacterIcon;
         _cancellation = target.Subscribe(this);
 
     }
@@ -48,7 +48,7 @@ public class GUIUnitPlayerButton : MonoBehaviour, IObserver<Character> {
     public void OpenPlayerInfor() {
         if (_target == null) return;
 
-        GameObject.FindWithTag("PlayerInfor").GetComponent<GUIUnitPlayer>().SetPlayer(_target);
+        //GameObject.FindWithTag("PlayerInfor").GetComponent<GUIUnitPlayer>().SetPlayer(_target);
     }
 
 }

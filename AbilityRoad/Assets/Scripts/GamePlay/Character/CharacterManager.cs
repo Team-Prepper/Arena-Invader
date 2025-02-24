@@ -19,31 +19,14 @@ public class CharacterManager : Singleton<CharacterManager> {
         }
     }
 
-    public Sprite GetPlayerAttackerSpr(string code)
+    public CharacterSprites GetCharacterSprites(string code)
     {
         if (!_dic.ContainsKey(code)) code = "Player";
-        return _dic[code].CharacterAttack;
-    }
-
-    public Sprite GetPlayerDamageSpr(string code)
-    {
-        if (!_dic.ContainsKey(code)) code = "Player";
-        return _dic[code].CharacterDamage;
-    }
-
-    public Sprite GetPlayerStandSpr(string code)
-    {
-        if (!_dic.ContainsKey(code)) code = "Player";
-        return _dic[code].CharacterStand;
-    }
-
-    public Sprite GetPlayerSpr(string code) {
-        if (!_dic.ContainsKey(code)) code = "Player";
-        return _dic[code].CharacterIcon;
+        return _dic[code].CharacterSprs;
     }
 
     public BasePlayer SpawnPlayer(string code) {
-        return (BasePlayer)Object.Instantiate(_dic[code].Prefab);
+        return Object.Instantiate(_dic[code].Prefab).GetComponent<BasePlayer>();
     }
     
 }

@@ -16,7 +16,7 @@ public class UNetPlayground : NetworkBehaviour, IPlayground {
 
     bool _actionSelectorSet;
 
-    public Map Map { get; set; }
+    public GameMap Map { get; set; }
     public int Turn { get; private set; }
 
     public IList<ICharacterController> Players { get; private set; }
@@ -49,7 +49,8 @@ public class UNetPlayground : NetworkBehaviour, IPlayground {
 
     public ICharacterController InstantiateCC(Vector3 pos)
     {
-        UNetCharacterController retval = AssetOpener.ImportComponent<UNetCharacterController>("UNetCC");
+        UNetCharacterController retval =
+            AssetOpener.ImportComponent<UNetCharacterController>("UNetCC");
         retval.GetComponent<NetworkObject>().Spawn();
         retval.transform.position = pos;
 
@@ -60,7 +61,8 @@ public class UNetPlayground : NetworkBehaviour, IPlayground {
     {
         if (!NetworkManager.Singleton.IsHost) return;
 
-        MatchGenerator generator = GameObject.FindWithTag("MatchGenerator").GetComponent<MatchGenerator>();
+        MatchGenerator generator = GameObject.FindWithTag
+            ("MatchGenerator").GetComponent<MatchGenerator>();
         generator.SetMatchInfor(GameManager.Instance.MatchInfor);
         generator.Generate();
 
@@ -70,8 +72,8 @@ public class UNetPlayground : NetworkBehaviour, IPlayground {
     [ClientRpc]
     public void StartMatchClientRpc() {
 
-        GameManager.Instance.Playground.Map =
-            AssetOpener.ImportComponent<Map>(GameManager.Instance.MatchInfor.MapName);
+        Map = AssetOpener.ImportComponent<GameMap>
+            (GameManager.Instance.MatchInfor.MapName);
 
         if (IsHost) return;
 
@@ -83,7 +85,11 @@ public class UNetPlayground : NetworkBehaviour, IPlayground {
     {
         if (Players.Contains(player)) return;
 
-        Players.Add(player);
+        while (Players.Count <= player.PlayerId) {
+            Players.Add(null);
+        }
+
+        Players[player.PlayerId] = player;
     }
 
     public bool IsGameEnd()
@@ -158,7 +164,7 @@ public class UNetPlayground : NetworkBehaviour, IPlayground {
 
         turnStartCall.SetWaitForCallback(
             string.Format(LangManager.Instance.GetStringByKey("msg_XTurn"),
-            Players[idx].Target.GetName()), callbackAction);
+            Players[idx].Status.Name), callbackAction);
 
     }
 
@@ -184,7 +190,7 @@ public class UNetPlayground : NetworkBehaviour, IPlayground {
                 Turn++;
                 _turnIdx = 0;
             }
-            if (Players[_turnIdx].Target.IsAlive()) break;
+            if (!_deathPlayerIdx.Contains(_turnIdx)) break;
         }
 
         TurnStart();
@@ -205,10 +211,10 @@ public class UNetPlayground : NetworkBehaviour, IPlayground {
 
         foreach (var player in Players)
         {
-            if (player.Target.IsAlive())
+            if (player.Status.IsAlive())
             {
                 IGUIFullScreen nowScreen = UIManager.Instance.NowDisplay;
-                UIManager.Instance.OpenGUI<GUIResult>("Result").SetWinner(player.Target);
+                UIManager.Instance.OpenGUI<GUIResult>("Result").SetWinner(player.Status);
                 SFXManager.Instance.PlayBGM("Win");
                 nowScreen.Close();
             }
@@ -216,9 +222,9 @@ public class UNetPlayground : NetworkBehaviour, IPlayground {
         }
     }
 
-    public int CalcDamage(Character attacker, Character target)
+    public int CalcDamage(IStatus attacker, IStatus target)
     {
-        return Mathf.Max(1, attacker.GetAttackValue() - target.GetDefenseValue());
+        return Mathf.Max(1, attacker.Atk - target.Dfs);
     }
 
 }

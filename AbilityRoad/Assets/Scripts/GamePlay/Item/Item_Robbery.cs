@@ -11,8 +11,8 @@ public class Item_Robbery : IItem
         foreach (var user in GameManager.Instance.Playground.Players)
         {
             if(user == player) continue;
-            player.Target.Money += user.Target.Money >= _robbingMoney ? _robbingMoney : user.Target.Money;
-            user.Target.Money -= _robbingMoney;
+            player.Status.Money += user.Status.Money >= _robbingMoney ? _robbingMoney : user.Status.Money;
+            user.Status.Money -= _robbingMoney;
         }
     }
 }

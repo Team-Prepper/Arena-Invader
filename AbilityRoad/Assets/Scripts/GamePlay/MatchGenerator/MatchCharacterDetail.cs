@@ -12,7 +12,7 @@ public class MatchCharacterDetail : MonoBehaviour
 
     public void SetDefaultValue(int idx, string character, string name) {
         _idx = idx;
-        _icon.sprite = CharacterManager.Instance.GetPlayerSpr(character);
+        _icon.sprite = CharacterManager.Instance.GetCharacterSprites(character).CharacterIcon;
         _nameSet.text = name;
 
         _nameSet.onSubmit.AddListener((value) =>
@@ -23,7 +23,7 @@ public class MatchCharacterDetail : MonoBehaviour
 
     public void SetCharacter(string code)
     {
-        _icon.sprite = CharacterManager.Instance.GetPlayerSpr(code);
+        _icon.sprite = CharacterManager.Instance.GetCharacterSprites(code).CharacterIcon;
         _mother.SetPlayerCharacter(_idx, code);
     }
 

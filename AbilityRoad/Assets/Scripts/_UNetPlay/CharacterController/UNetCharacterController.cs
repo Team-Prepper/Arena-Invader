@@ -4,16 +4,21 @@ using UnityEngine;
 
 public class UNetCharacterController : NetworkBehaviour, ICharacterController {
     
+    public int PlayerId { get; set; }
+    [SerializeField] private UNetStatus _status;
+
+    public IStatus Status => _status;
     public BasePlayer Target { get; private set; }
-    ICharacterActionSelector _selector;
+
+    private ICharacterActionSelector _selector;
 
     [SerializeField] private int _chance = 0;
     private int extraDicePoint = 0;
 
-    [SerializeField] UNetSyncShop _syncShop;
-    [SerializeField] UNetSyncMovePawn _syncMovePawn;
-    [SerializeField] UNetSyncDice _syncDice;
-    [SerializeField] UNetSyncInventory _syncInventory;
+    [SerializeField] private UNetSyncShop _syncShop;
+    [SerializeField] private UNetSyncMovePawn _syncMovePawn;
+    [SerializeField] private UNetSyncDice _syncDice;
+    [SerializeField] private UNetSyncInventory _syncInventory;
 
     void Start()
     {
@@ -29,18 +34,31 @@ public class UNetCharacterController : NetworkBehaviour, ICharacterController {
 
     public void SetTargetCharacter(string name, string characterCode, int idx)
     {
-        SetTargetCharacterClientRpc(characterCode, name, idx);
+        _status = gameObject.GetComponent<UNetStatus>();
+
+        Status.Name = name;
+        Status.CharacterCode = characterCode;
+        Status.SetCC(this);
+        
+        SetTargetCharacterClientRpc(name, characterCode, idx);
     }
 
     [ClientRpc]
     void SetTargetCharacterClientRpc(string name, string characterCode, int idx) {
 
+        PlayerId = idx;
+        GameManager.Instance.Playground.AddPlayer(this);
+        
+        _status = gameObject.GetComponent<UNetStatus>();
+        Status.Name = name;
+        Status.CharacterCode = characterCode;
+
         Target = CharacterManager.Instance.SpawnPlayer(characterCode);
         Target.transform.SetParent(transform);
         Target.transform.localPosition = Vector3.zero;
-        GameManager.Instance.Playground.AddPlayer(this);
 
-        Target.SetInitial(this, name, idx);
+        Target.SetInitial(this, idx);
+
     }
 
     public void StartTurn()
@@ -67,8 +85,7 @@ public class UNetCharacterController : NetworkBehaviour, ICharacterController {
     [ClientRpc]
     public void MovePawnClientRpc(int pawnId, int amount)
     {
-        Target._pawns[pawnId].OffFocus();
-        Target._pawns[pawnId].Move(amount);
+        Target.Pawns[pawnId].Move(amount);
     }
 
     public void EndTurn()
@@ -95,15 +112,14 @@ public class UNetCharacterController : NetworkBehaviour, ICharacterController {
     public GUIOpenInventory OpenInventory()
     {
         GUIOpenInventory inventory = _syncInventory.OpenInventory();
+        inventory.SetCloseMethod(_selector.RollDice);
         return inventory;
     }
 
     public void OpenShop(Action callback)
     {
         if (_selector == null) return;
-
-        GUIShop shop = _syncShop.OpenShop(callback);
-        _selector.Shop(shop);
+        _syncShop.OpenShop(callback);
         
     }
 

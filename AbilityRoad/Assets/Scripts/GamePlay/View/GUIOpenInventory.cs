@@ -34,7 +34,7 @@ public class GUIOpenInventory : GUINetworkPopUp<int> {
             {
                 ItemData item = _items[i];  // 로컬 변수로 캡처
                 int index = i;
-                _inventoryButtons[i].SetSlot(item.Icon, () => SelectItem(index));
+                _inventoryButtons[i].SetSlot(item.Icon, () => SelectItemButton(index));
                 continue;
             }
             _inventoryButtons[i].SetSlot(null, null);
@@ -47,23 +47,28 @@ public class GUIOpenInventory : GUINetworkPopUp<int> {
             Close();
         });
     }
+
+    public void SelectItemButton(int idx) {
+
+        if (!IsControlled) return;
+        SelectItem(idx);
+
+    }
     
     public void SelectItem(int idx)
     {
-        if (!IsControlled) return;
-
         ItemData currentItem = _items[idx];
 
         _useButton.onClick.RemoveAllListeners();
         _useButton.onClick.AddListener(() =>
         {
-            UseItem(idx);
+            UseItemButton(idx);
         });
         
         _discardButton.onClick.RemoveAllListeners();
         _discardButton.onClick.AddListener(() => {
             SFXManager.Instance.PlaySFX("ButtonSelect");
-            _cc.Target.DiscardItem(currentItem);
+            _cc.Status.DiscardItem(currentItem);
         });
 
         DisplaySelectItem(idx);
@@ -71,12 +76,17 @@ public class GUIOpenInventory : GUINetworkPopUp<int> {
 
     }
 
+    public void UseItemButton(int idx) {
+        if (!IsControlled) return;
+        UseItem(idx);
+
+    }
+
     public void UseItem(int idx)
     {
-        if (!IsControlled) return;
 
         ItemData currentItem = _items[idx];
-        _cc.Target.UseItem(currentItem);
+        _cc.Status.UseItem(currentItem);
         _inventoryButtons[idx].DisableSlot();
 
     }
@@ -101,7 +111,5 @@ public class GUIOpenInventory : GUINetworkPopUp<int> {
         _selectItemName.text = LangManager.Instance.GetStringByKey(currentItem.Name);
         _selectItemDescription.text = currentItem.Desc;
     }
-
-
 
 }

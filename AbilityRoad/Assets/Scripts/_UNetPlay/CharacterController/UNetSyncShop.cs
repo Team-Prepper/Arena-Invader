@@ -19,7 +19,7 @@ public class UNetSyncShop : NetworkBehaviour {
 
         int seed = ItemManager.Instance.RandomItemListByInt(shop.Size);
 
-        shop.SetBuyer(_cc.Target);
+        shop.SetBuyer(_cc);
         shop.SetItems(seed);
 
         shop.SetCloseMethod(() =>

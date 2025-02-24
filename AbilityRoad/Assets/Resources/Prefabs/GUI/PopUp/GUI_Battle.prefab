@@ -564,9 +564,8 @@ MonoBehaviour:
   _damageTr: {fileID: 1829111767986962383}
   _damageTarget: {fileID: 247266642298322878}
   _damageFormat: '{0}'
-  _attacker: {fileID: 1591996871873364889}
-  _target: {fileID: 4333712652384941665}
-  _swordAuras: []
+  _attackerImg: {fileID: 1591996871873364889}
+  _targetImg: {fileID: 4333712652384941665}
 --- !u!1 &7925917303821836516
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GUIUnitPlayer : MonoBehaviour, IObserver<Character> {
+public class GUIUnitPlayer : MonoBehaviour, IObserver<IStatus> {
 
     [SerializeField] Image _icon;
     [SerializeField] Text _name;
@@ -31,22 +31,22 @@ public class GUIUnitPlayer : MonoBehaviour, IObserver<Character> {
     {
     }
 
-    public void OnNext(Character value)
+    public void OnNext(IStatus value)
     {
-        _name.text = string.Format(_nameFormat, value.GetName());
-        _health.text = string.Format(_healthFormat, value.GetHealth());
+        _name.text = string.Format(_nameFormat, value.Name);
+        _health.text = string.Format(_healthFormat, value.HP);
         _coin.text = string.Format(_coinFormat, value.Money);
-        _attack.text = string.Format(_attackFormat, value.GetAttackValue());
-        _defense.text = string.Format(_defenseFormat, value.GetDefenseValue());
+        _attack.text = string.Format(_attackFormat, value.Atk);
+        _defense.text = string.Format(_defenseFormat, value.Dfs);
     }
 
-    public void SetPlayer(BasePlayer target) {
+    public void SetPlayer(IStatus target) {
 
-        _icon.sprite = CharacterManager.Instance.GetPlayerSpr(target.GetCharacterCode());
+        _icon.sprite = CharacterManager.Instance.GetCharacterSprites(target.CharacterCode).CharacterIcon;;
         _canvasGroup.alpha = 1;
         _canvasGroup.blocksRaycasts = true;
         _cancellation?.Dispose();
-        _cancellation = target.Subscribe(this);
+        //_cancellation = target.Subscribe(this);
 
         List<ItemData> items = target.Items;
 
@@ -58,7 +58,9 @@ public class GUIUnitPlayer : MonoBehaviour, IObserver<Character> {
             }
             _shopButtons[i].gameObject.SetActive(true);
             _shopButtons[i].SetSlot(items[i]);
+           
         }
+
     }
 
     public void Close()

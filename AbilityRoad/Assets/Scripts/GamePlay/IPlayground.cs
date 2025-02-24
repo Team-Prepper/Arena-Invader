@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public interface IPlayground {
-    public Map Map { get; set; }
+    public GameMap Map { get; set; }
     public int Turn { get; }
 
     public IList<ICharacterController> Players { get; }
@@ -18,6 +18,6 @@ public interface IPlayground {
     public void TurnStart();
     public void TurnEnd();
 
-    public int CalcDamage(Character attacker, Character target);
+    public int CalcDamage(IStatus attacker, IStatus target);
     public bool IsGameEnd();
 }

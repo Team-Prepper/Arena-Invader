@@ -18,7 +18,7 @@ public class GUIPlayerAction : GUINetworkPopUp<int> {
     }
 
     public void OpenInventory() {
-        _selector.Inventory(null);
+        _selector.Inventory();
     }
 
     /*

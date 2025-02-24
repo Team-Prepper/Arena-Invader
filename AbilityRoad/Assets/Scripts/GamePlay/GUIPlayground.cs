@@ -1,7 +1,6 @@
 using EHTool;
 using EHTool.UIKit;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -44,14 +43,12 @@ public class GUIPlayground : GUIFullScreen
             if (i < _players.Count)
             {
                 _buttons[i].gameObject.SetActive(true);
-                _buttons[i].SetPlayer(_players[i].Target);
+                _buttons[i].SetPlayer(_players[i].Status);
                 continue;
             }
             _buttons[i].gameObject.SetActive(false);
 
         }
-
-        PressButton(0);
 
     }
 
@@ -60,7 +57,7 @@ public class GUIPlayground : GUIFullScreen
         if (GameManager.Instance.Playground.NowPlayer != null)
         {
             _turnInfor.text =
-                string.Format(_turnInforFormat, GameManager.Instance.Playground.NowPlayer.Target.GetName());
+                string.Format(_turnInforFormat, GameManager.Instance.Playground.NowPlayer.Status.Name);
 
         }
 
@@ -81,12 +78,6 @@ public class GUIPlayground : GUIFullScreen
             _baronInfor.SetBaronInfo(GameManager.Instance.Playground.Map.GetObject());
         }
        
-    }
-
-    public void PressButton(int idx) {
-
-        if (idx >= _buttons.Length) return;
-
     }
 
 }

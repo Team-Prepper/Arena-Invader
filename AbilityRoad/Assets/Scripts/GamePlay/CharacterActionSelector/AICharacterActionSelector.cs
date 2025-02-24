@@ -1,8 +1,7 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+using BoardGame;
 
 public class AICharacterActionSelector : MonoBehaviour, ICharacterActionSelector {
 
@@ -12,33 +11,39 @@ public class AICharacterActionSelector : MonoBehaviour, ICharacterActionSelector
     {
         _target = target;
 
-        if (_target.Target.items.Count > 0)
+        if (_target.Status.Items.Count > 0)
         {
-            StartCoroutine(InventorySequence());
+            Inventory();
             return;
         }
 
         RollDice();
     }
 
+    public void Inventory()
+    {
+        StartCoroutine(InventorySequence());
+
+    }
+
     IEnumerator InventorySequence()
     {
         GUIOpenInventory inventory = _target.OpenInventory();
-        int idx = UnityEngine.Random.Range(0, _target.Target.items.Count);
+        inventory.SetIsNotControlled();
+
+        int idx = Random.Range(0, _target.Status.Items.Count);
 
         Debug.Log(idx);
 
-        // 1. shop.EnterShop 호출 후 1초 대기
         yield return new WaitForSeconds(1f);
         inventory.SelectItem(idx);
 
-        // 1. shop.EnterShop 호출 후 1초 대기
         yield return new WaitForSeconds(1f);
         inventory.UseItem(idx);
 
         yield return new WaitForSeconds(1f);
 
-        inventory.TryClose();
+        inventory.Close();
         RollDice();
 
     }
@@ -47,26 +52,42 @@ public class AICharacterActionSelector : MonoBehaviour, ICharacterActionSelector
     {
 
         GUIDice guiDice = _target.RollDice((value) => {
-            Policy(value).Move(value);
+            StartCoroutine(PawnSelectSequence(value));
         });
-
+        guiDice.SetIsNotControlled();
         guiDice.Roll();
 
     }
 
-    private Pawn Policy(int value)
+    
+    IEnumerator PawnSelectSequence(int value)
+    {
+        int idx = Policy(value);
+
+        GUISelectMovePawn movePawn = _target.SelectMovePawn(value);
+        movePawn.SetIsNotControlled();
+
+        yield return new WaitForSeconds(1f);
+        movePawn.FocusPawn(idx);
+
+        yield return new WaitForSeconds(1f);
+        movePawn.MovePawn(idx);
+
+    }
+
+    private int Policy(int value)
     {
         Pawn mostValuablePawn = null;
         int mostValuablePawnValue = -1;
 
-        foreach (var pawn in _target.Target._pawns)
+        foreach (var pawn in _target.Target.Pawns)
         {
             if (pawn.IsPiggyBacked()) continue;
 
-            IPlate plate = pawn.MovePredict(value);
-            int currentPawnValue = plate == null ? 100 : plate.GetValue(_target.Target, SetTarget());
+            Plate plate = pawn.MovePredict(value);
+            int currentPawnValue = 100;//plate == null ? 100 : plate.GetValue(_target.Status, SetTarget());
             
-            if (pawn.isPiggied()) currentPawnValue *= 2;
+            if (pawn.IsPiggied()) currentPawnValue *= 2;
             
             if (currentPawnValue >= mostValuablePawnValue)
             {
@@ -76,61 +97,54 @@ public class AICharacterActionSelector : MonoBehaviour, ICharacterActionSelector
 
         }
 
-        return mostValuablePawn;
+        return mostValuablePawn.Id;
 
     }
 
-    private Character SetTarget()
+    private IStatus SetTarget()
     {
-        Character target = null;
+        IStatus target = null;
         int minHealth = int.MaxValue;
+
         foreach (var player in GameManager.Instance.Playground.Players)
         {
             if (player.Target == _target.Target) continue;
-            int currentHealth = player.Target.GetHealth();
+            int currentHealth = player.Status.HP;
             if (minHealth > currentHealth)
             {
                 minHealth = currentHealth;
-                target = player.Target;
+                target = player.Status;
             }
         }
-        return target;
-    }
-
-    public void Inventory(GUIOpenInventory inventory) { 
         
+        return target;
     }
 
     public void Shop(GUIShop shop)
     {
+        shop.SetIsNotControlled();
         StartCoroutine(ShopSequence(shop));
     }
 
     private IEnumerator ShopSequence(GUIShop shop)
     {
-
-        // 1. shop.EnterShop 호출 후 1초 대기
         yield return new WaitForSeconds(1f);
 
-        // 2. shop.SelectItem 호출 후 1초 대기
         int selected = SelectBuyItem(shop.GetSaleItems());
 
         if (selected == -1)
         {
-            // 4. shop.Close 호출
-            shop?.TryClose();
+            shop?.Close();
             yield break;
         }
 
         shop.SelectItem(selected);
         yield return new WaitForSeconds(1f);
 
-        // 3. BuyItem 호출 후 1초 대기
-        shop.BuyButton();
+        shop.Buy();
         yield return new WaitForSeconds(1f);
 
-        // 4. shop.Close 호출
-        shop?.TryClose();
+        shop?.Close();
 
     }
 
@@ -142,7 +156,7 @@ public class AICharacterActionSelector : MonoBehaviour, ICharacterActionSelector
         for (int i = 0; i < items.Count; i++)
         {
             int currentItemValue = items[i].ItemValue;
-            if (currentItemValue >= mostValuableItemValue && items[i].Price <= _target.Target.Money)
+            if (currentItemValue >= mostValuableItemValue && items[i].Price <= _target.Status.Money)
             {
                 mostValueableItemIdx = i;
                 mostValuableItemValue = currentItemValue;

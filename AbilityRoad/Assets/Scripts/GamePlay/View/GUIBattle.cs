@@ -1,5 +1,4 @@
 using EHTool.LangKit;
-using EHTool.UIKit;
 using System.Collections;
 using System;
 using UnityEngine;
@@ -23,21 +22,34 @@ public class GUIBattle : GUINetworkPopUp<int>
 
     Action _callback;
 
-    public void StartBattle(int attackerId, int targetId, Action callback)
+    public void BattleSet(int attackerId, int targetId)
     {
-        _callback = callback;
-
-        _attacker = GameManager.Instance.Playground.Players[attackerId].Status;
-        _target = GameManager.Instance.Playground.Players[targetId].Status;
+        _attacker = GetStatus(attackerId);
+        _target = GetStatus(targetId);
 
         _attackerImg.sprite = CharacterManager.Instance.GetCharacterSprites(_attacker.CharacterCode).CharacterStand;
         _targetImg.sprite = CharacterManager.Instance.GetCharacterSprites(_target.CharacterCode).CharacterStand;
 
-        PlaySequence(0);
-
     }
 
-    void PlaySequence(int idx)
+    private IStatus GetStatus(int idx) {
+        if (idx < 0) return GameManager.Instance.Playground.ObjectCharacter;
+        return GameManager.Instance.Playground.Players[idx].Status;
+    }
+
+    public void StartBattle(Action callback)
+    {
+        _callback = callback;
+        PlaySequence(0);
+    }
+
+    private void PlaySequence(int idx)
+    {
+        PlaySequenceAction(idx);
+        NetworkModify(idx);
+    }
+
+    private void PlaySequenceAction(int idx)
     {
 
         if (idx < 0)
@@ -53,21 +65,9 @@ public class GUIBattle : GUINetworkPopUp<int>
             return;
         }
 
-        if (idx == 1) {
-
-            AttackSequence(_attackerImg, _targetImg, _attacker, _target, 0, (damage) =>
-            {
-                _target.HP -= damage;
-
-                if (!_target.IsAlive())
-                {
-                    PlaySequence(-1);
-                    return;
-                }
-
-                PlaySequence(2);
-
-            });
+        if (idx == 1)
+        {
+            AttackerAttack();
             return;
         }
 
@@ -77,16 +77,46 @@ public class GUIBattle : GUINetworkPopUp<int>
             return;
         }
 
+        TargetAttack();
+
+    }
+
+    private void AttackerAttack()
+    {
+
+        AttackSequence(_attackerImg, _targetImg, _attacker, _target, 0, (damage) =>
+        {
+            _target.HP -= damage;
+
+            if (!_target.IsAlive())
+            {
+                PlaySequence(-1);
+                return;
+            }
+
+            PlaySequence(2);
+
+        });
+
+    }
+
+    private void TargetAttack()
+    {
+
         AttackSequence(_targetImg, _attackerImg, _target, _attacker, 1, (damage) =>
         {
             _attacker.HP -= damage;
-            WaitASeconds(() => PlaySequence(-1));
+            WaitASeconds(() => PlaySequence(-2));
         });
 
     }
 
     public override void NetworkModifiedEvent(int value)
     {
+        Debug.Log(value);
+        if (IsControlled) return;
+        if (value % 2 == 0) return;
+
         PlaySequence(value);
     }
 
@@ -113,7 +143,7 @@ public class GUIBattle : GUINetworkPopUp<int>
         StartCoroutine(WaitASecondsSequence(callback));
     }
 
-    protected IEnumerator WaitASecondsSequence(Action callback) 
+    protected IEnumerator WaitASecondsSequence(Action callback)
     {
         yield return new WaitForSeconds(1f);
 

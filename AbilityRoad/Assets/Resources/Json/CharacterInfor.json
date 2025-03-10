@@ -1,5 +1,5 @@
 {
-    "Player": "Data/Player",
-    "Player_AI": "Data/Player_AI",
-    "Baron": "Data/Baron" 
+    "Player": "Data/Character/Player",
+    "Player_AI": "Data/Character/Player_AI",
+    "Baron": "Data/Character/Baron" 
 }

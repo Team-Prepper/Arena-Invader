@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using EHTool.LangKit;
 using UnityEngine;
@@ -6,7 +5,7 @@ using UnityEngine.UI;
 
 public class GUIOpenInventory : GUINetworkPopUp<int> {
 
-    [SerializeField] List<InventoryUnit> _inventoryButtons = new List<InventoryUnit>();
+    [SerializeField] List<GUIUnitInventory> _inventoryButtons = new List<GUIUnitInventory>();
     
     [Header("select Item Info")]
     [SerializeField] private Image _selectItemIcon;
@@ -68,7 +67,7 @@ public class GUIOpenInventory : GUINetworkPopUp<int> {
         _discardButton.onClick.RemoveAllListeners();
         _discardButton.onClick.AddListener(() => {
             SFXManager.Instance.PlaySFX("ButtonSelect");
-            _cc.Status.DiscardItem(currentItem);
+            _cc.Inventory.DiscardItem(currentItem);
         });
 
         DisplaySelectItem(idx);
@@ -86,7 +85,7 @@ public class GUIOpenInventory : GUINetworkPopUp<int> {
     {
 
         ItemData currentItem = _items[idx];
-        _cc.Status.UseItem(currentItem);
+        _cc.Inventory.UseItem(currentItem);
         _inventoryButtons[idx].DisableSlot();
 
     }

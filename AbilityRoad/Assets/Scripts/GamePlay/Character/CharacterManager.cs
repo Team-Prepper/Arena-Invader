@@ -25,8 +25,14 @@ public class CharacterManager : Singleton<CharacterManager> {
         return _dic[code].CharacterSprs;
     }
 
-    public BasePlayer SpawnPlayer(string code) {
-        return Object.Instantiate(_dic[code].Prefab).GetComponent<BasePlayer>();
+    public StatusElement[] GetStatuses(string code) {
+        if (!_dic.ContainsKey(code)) code = "Player";
+        return _dic[code].Statuses;
+
+    }
+
+    public GameObject SpawnPlayer(string code) {
+        return GameObject.Instantiate(_dic[code].Prefab);
     }
     
 }

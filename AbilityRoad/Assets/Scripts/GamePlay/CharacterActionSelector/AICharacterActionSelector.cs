@@ -11,7 +11,7 @@ public class AICharacterActionSelector : MonoBehaviour, ICharacterActionSelector
     {
         _target = target;
 
-        if (_target.Status.Items.Count > 0)
+        if (_target.Inventory.Items.Count > 0)
         {
             Inventory();
             return;
@@ -31,7 +31,7 @@ public class AICharacterActionSelector : MonoBehaviour, ICharacterActionSelector
         GUIOpenInventory inventory = _target.OpenInventory();
         inventory.SetIsNotControlled();
 
-        int idx = Random.Range(0, _target.Status.Items.Count);
+        int idx = Random.Range(0, _target.Inventory.Items.Count);
 
         Debug.Log(idx);
 
@@ -51,7 +51,7 @@ public class AICharacterActionSelector : MonoBehaviour, ICharacterActionSelector
     public void RollDice()
     {
 
-        GUIDice guiDice = _target.RollDice((value) => {
+        GUIDice guiDice = _target.OpenRollDice((value) => {
             StartCoroutine(PawnSelectSequence(value));
         });
         guiDice.SetIsNotControlled();
@@ -64,15 +64,16 @@ public class AICharacterActionSelector : MonoBehaviour, ICharacterActionSelector
     {
         int idx = Policy(value);
 
-        GUISelectMovePawn movePawn = _target.SelectMovePawn(value);
+        GUISelectMovePawn movePawn = _target.OpenSelectMovePawn(value);
         movePawn.SetIsNotControlled();
 
         yield return new WaitForSeconds(1f);
         movePawn.FocusPawn(idx);
 
         yield return new WaitForSeconds(1f);
+        
         movePawn.MovePawn(idx);
-
+        movePawn.Close();
     }
 
     private int Policy(int value)

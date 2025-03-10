@@ -24,8 +24,8 @@ public class GUIMatchSetting : GUIFullScreen
 
     public override void Close()
     {
-        base.Close();
         GameManager.Instance.OnMatchInforChanged -= SetDetails;
+        base.Close();
     }
 
     public void SetUI()

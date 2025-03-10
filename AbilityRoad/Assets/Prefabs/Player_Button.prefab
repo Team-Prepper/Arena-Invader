@@ -162,12 +162,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _parent: {fileID: 3108915810678007770}
   _icon: {fileID: 1666351163798744153}
-  _name: {fileID: 3305666057675814948}
-  _nameFormat: '{0}'
-  _health: {fileID: 489146850990587504}
-  _healthFormat: '{0}'
-  _coin: {fileID: 6522199729384543828}
-  _coinFormat: '{0}'
+  _name:
+    _textUI: {fileID: 3305666057675814948}
+    _format: '{0}'
+  _health:
+    _textUI: {fileID: 489146850990587504}
+    _format: '{0}'
+  _coin:
+    _textUI: {fileID: 6522199729384543828}
+    _format: '{0}'
+  _atk:
+    _textUI: {fileID: 0}
+    _format: '{0}'
+  _dfs:
+    _textUI: {fileID: 0}
+    _format: '{0}'
 --- !u!114 &8036961212413453297
 MonoBehaviour:
   m_ObjectHideFlags: 0

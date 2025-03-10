@@ -1,10 +1,10 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Data_Unit_", menuName = "ScriptableObjects/UnitData", order = 1)]
+[CreateAssetMenu(fileName = "Data_Character_", menuName = "ScriptableObjects/CharacterData", order = 1)]
 public class CharacterMetaData : ScriptableObject {
     
     public CharacterSprites CharacterSprs;
-    public Character Prefab;
+    public GameObject Prefab;
     public StatusElement[] Statuses;
 
 }

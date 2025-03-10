@@ -20,37 +20,24 @@ public class StartBattle : IArriveEvent {
 
     public override void AddAbility(GamePawn target, Action callback)
     {
-        /*
-        ObjectCharacter _object = GameManager.Instance.Playground.Map.GetObject();
-        if (_object != null) {
-            UIManager.Instance.OpenGUI<GUIRaid>("Raid").StartBattle(target.GetOwner(), _object, callback);
-            return;
-        }
-            */
+        int attackTarget = SetTarget(target.GetCharacterController());
 
-        ICharacterController attackTarget = SetTarget(target.GetCharacterController());
-
-        if (attackTarget == null) {
-            callback?.Invoke();
-            return;
-        }
-
-        UIManager.Instance.OpenGUI<GUIBattle>("Battle").
-            StartBattle(target.GetCharacterController().PlayerId, attackTarget.PlayerId, callback);
+        target.GetCharacterController().OpenBattle(attackTarget, callback);
     }
 
-    public ICharacterController SetTarget(ICharacterController cc)
+    public int SetTarget(ICharacterController cc)
     {
+        if (GameManager.Instance.Playground.ObjectCharacter != null) return -1;
 
         foreach (var player in GameManager.Instance.Playground.Players)
         {
             if (player == cc) continue;
             if (!player.Status.IsAlive()) continue;
 
-            return player;
+            return player.PlayerId;
         }
 
-        return null;
+        return -1;
     }
 
 }

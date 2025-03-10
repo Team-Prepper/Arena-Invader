@@ -1,7 +1,11 @@
-public class ObjectCharacter : Character
+using UnityEngine;
+
+public class ObjectCharacter : MonoBehaviour
 {
-    public void RewardTo(ICharacterController target) { 
+    [SerializeField] private IStatus status;
+    
+    void Start()
+    {
         
     }
-
 }

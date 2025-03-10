@@ -57,6 +57,21 @@ public class UNetPlayground : NetworkBehaviour, IPlayground {
         return retval;
     }
 
+    public IStatus ObjectCharacter { get; set; }
+
+    public IStatus InstantiateStatus()
+    {
+        if (!IsHost) return null;
+
+        UNetObjectCharacter retval = 
+            AssetOpener.ImportComponent<UNetObjectCharacter>("UNetOC");
+        retval.GetComponent<NetworkObject>().Spawn();
+
+        retval.SetTargetCharacter("Baron");
+
+        return retval;
+    }
+
     public void StartMatch()
     {
         if (!NetworkManager.Singleton.IsHost) return;
@@ -226,5 +241,4 @@ public class UNetPlayground : NetworkBehaviour, IPlayground {
     {
         return Mathf.Max(1, attacker.Atk - target.Dfs);
     }
-
 }

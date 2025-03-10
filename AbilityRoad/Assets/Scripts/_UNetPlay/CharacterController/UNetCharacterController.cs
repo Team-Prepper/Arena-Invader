@@ -5,10 +5,14 @@ using UnityEngine;
 public class UNetCharacterController : NetworkBehaviour, ICharacterController {
     
     public int PlayerId { get; set; }
-    [SerializeField] private UNetStatus _status;
 
-    public IStatus Status => _status;
     public BasePlayer Target { get; private set; }
+    
+    [SerializeField] private UNetStatus _status;
+    public IStatus Status => _status;
+
+    [SerializeField] private UNetInventory _inventory;
+    public IInventory Inventory => _inventory;
 
     private ICharacterActionSelector _selector;
 
@@ -19,6 +23,7 @@ public class UNetCharacterController : NetworkBehaviour, ICharacterController {
     [SerializeField] private UNetSyncMovePawn _syncMovePawn;
     [SerializeField] private UNetSyncDice _syncDice;
     [SerializeField] private UNetSyncInventory _syncInventory;
+    [SerializeField] private UNetSyncBattle _syncBattle;
 
     void Start()
     {
@@ -26,6 +31,7 @@ public class UNetCharacterController : NetworkBehaviour, ICharacterController {
         _syncMovePawn.Initial(this);
         _syncDice.Initial(this);
         _syncInventory.Initial(this);
+        _syncBattle.Initial(this);
     }
 
     public void SetMatch(ICharacterActionSelector selector) {
@@ -38,7 +44,8 @@ public class UNetCharacterController : NetworkBehaviour, ICharacterController {
 
         Status.Name = name;
         Status.CharacterCode = characterCode;
-        Status.SetCC(this);
+        
+        Inventory.SetCC(this);
         
         SetTargetCharacterClientRpc(name, characterCode, idx);
     }
@@ -53,7 +60,7 @@ public class UNetCharacterController : NetworkBehaviour, ICharacterController {
         Status.Name = name;
         Status.CharacterCode = characterCode;
 
-        Target = CharacterManager.Instance.SpawnPlayer(characterCode);
+        Target = CharacterManager.Instance.SpawnPlayer(characterCode).GetComponent<BasePlayer>();
         Target.transform.SetParent(transform);
         Target.transform.localPosition = Vector3.zero;
 
@@ -69,13 +76,9 @@ public class UNetCharacterController : NetworkBehaviour, ICharacterController {
         _selector.StartTurn(this);
     }
 
-    public void AbilityChange(string abilityType, string amount)
-    {
-
-    }
-
     public void MovePawn(int pawnId, int amount)
     {
+        Target.OffPawnChoose();
         MovePawnServerRpc(pawnId, amount);
     }
 
@@ -123,7 +126,7 @@ public class UNetCharacterController : NetworkBehaviour, ICharacterController {
         
     }
 
-    public GUIDice RollDice(Action<int> callback)
+    public GUIDice OpenRollDice(Action<int> callback)
     {
         _chance--;
 
@@ -135,9 +138,14 @@ public class UNetCharacterController : NetworkBehaviour, ICharacterController {
         return dice;
     }
 
-    public GUISelectMovePawn SelectMovePawn(int value)
+    public GUISelectMovePawn OpenSelectMovePawn(int value)
     {
         return _syncMovePawn.OpenSelectMovePawn(value);
+    }
+
+    public GUIBattle OpenBattle(int targetId, Action callback) {
+        if (_selector == null) return null;
+        return _syncBattle.OpenBattle(PlayerId, targetId, callback);
     }
 
 }

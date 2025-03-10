@@ -22,6 +22,8 @@ public class LocalPlayground : IPlayground {
 
     }
 
+    public IStatus ObjectCharacter { get; set; }
+
     public LocalPlayground()
     {
         Players = new List<ICharacterController>();
@@ -36,6 +38,16 @@ public class LocalPlayground : IPlayground {
         LocalCharacterController retval =
             AssetOpener.ImportComponent<LocalCharacterController>("LocalCC");
         retval.transform.position = pos;
+
+        return retval;
+    }
+
+    public IStatus InstantiateStatus()
+    {
+        LocalObjectCharacter retval = 
+            AssetOpener.ImportComponent<LocalObjectCharacter>("LocalOC");
+
+        retval.SetTargetCharacter("Baron");
 
         return retval;
     }
@@ -148,5 +160,4 @@ public class LocalPlayground : IPlayground {
     {
         return Players.Count - _deathPlayerIdx.Count < 2;
     }
-
 }

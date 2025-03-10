@@ -16,8 +16,8 @@ public class UNetSyncInventory : NetworkBehaviour {
     {
         GUIOpenInventory inventory = _inventorySync.ControlClientOpen();
 
-        int value = ItemManager.Instance.ItemListToInt(_cc.Status.Items);
-        int size = _cc.Status.Items.Count;
+        int value = ItemManager.Instance.ItemListToInt(_cc.Inventory.Items);
+        int size = _cc.Inventory.Items.Count;
 
         inventory.SetTarget(value, size, _cc);
 

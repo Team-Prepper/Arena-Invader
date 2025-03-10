@@ -3,101 +3,115 @@ using System.Collections.Generic;
 using UnityEngine;
 using EHTool;
 
-public class LocalStatus : MonoBehaviour, IStatus {
+public class LocalStatus : MonoBehaviour, IStatus
+{
 
     public string Name { get; set; } = "Tmp";
-    public string CharacterCode { get; set; } = "Player";
+
+    private string _characterCode = "Player";
+
+    private StatusElement[] _levelStatus;
+
+    public string CharacterCode
+    {
+        get
+        {
+            return _characterCode;
+        }
+        set
+        {
+            _levelStatus = CharacterManager.Instance.GetStatuses(value);
+            _characterCode = value;
+        }
+    }
 
     [SerializeField] private int _money = 0;
     [SerializeField] private int _hp = 100;
     [SerializeField] private int _atk = 0;
     [SerializeField] private int _dfs = 0;
+    [SerializeField] private int _level = 0;
 
-    ICharacterController _cc;
-
-    public void SetCC(ICharacterController cc) {
-        _cc = cc;
-    }
-
-    public int Money {
-        get {
+    public int Money
+    {
+        get
+        {
             return _money;
         }
-        set {
+        set
+        {
             _money = value;
             Notify();
         }
     }
 
-    public int HP {
-        get {
+    public int HP
+    {
+        get
+        {
             return _hp;
         }
-        set {
+        set
+        {
             _hp = value;
             Notify();
         }
     }
 
-    public int Atk {
-        get {
-            return _atk;
-        }
-        set {
-            _atk = value;
-            Notify();
+    public int Atk
+    {
+        get
+        {
+            return _atk + _levelStatus[_level].Atk;
         }
     }
 
-    public int Dfs {
-        get {
-            return _dfs;
-        }
-        set {
-            _dfs = value;
-            Notify();
+    public int Dfs
+    {
+        get
+        {
+            return _dfs + _levelStatus[_level].Dfs;
         }
     }
 
     public bool IsAlive() => HP > 0;
 
-    private List<ItemData> _items = new List<ItemData>();
-    public List<ItemData> Items => _items;
-
     private ISet<IObserver<IStatus>> _observers
         = new HashSet<IObserver<IStatus>>();
 
-    public IDisposable Subscribe(IObserver<IStatus> observer) {
-        if (!_observers.Contains(observer)) {
+    public IDisposable Subscribe(IObserver<IStatus> observer)
+    {
+        if (!_observers.Contains(observer))
+        {
             _observers.Add(observer);
             observer.OnNext(this);
         }
         return new Unsubscriber<IStatus>(_observers, observer);
     }
 
-    public void Notify() {
-        foreach(var o in _observers) {
+    public void Notify()
+    {
+        foreach (var o in _observers)
+        {
             o.OnNext(this);
         }
 
     }
 
-    public void LevelUp(int levelUpAmount) {
-        
-        
-    }
-
-    public void UseItem(ItemData item)
+    public void LevelUp(int levelUpAmount)
     {
-        Debug.Log("USE ITEM!!");
+        _level += levelUpAmount;
 
-        item.Item.UseItem(_cc);
-        _items.Remove(item);
-        //item.Item.UseItem(_cc);
     }
-
-    public void DiscardItem(ItemData item)
+    
+    public void AddAtk(int atk)
     {
-        _items.Remove(item);
+        _atk += atk;
+
     }
+
+    public void AddDfs(int dfs)
+    {
+        _dfs = dfs;
+    }
+
 }

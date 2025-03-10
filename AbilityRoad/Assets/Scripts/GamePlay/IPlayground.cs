@@ -8,6 +8,9 @@ public interface IPlayground {
     public IList<ICharacterController> Players { get; }
     public ICharacterController NowPlayer { get; }
     public ICharacterController InstantiateCC(Vector3 position);
+    
+    public IStatus InstantiateStatus();
+    public IStatus ObjectCharacter { get; set; }
 
     void StartMatch();
 

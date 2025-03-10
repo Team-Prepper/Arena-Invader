@@ -20,8 +20,8 @@ public class GUICharacterActionSelector : ICharacterActionSelector {
 
     public void RollDice()
     {
-        GUIDice guiDice = _target.RollDice((value) => {
-            _target.SelectMovePawn(value);
+        GUIDice guiDice = _target.OpenRollDice((value) => {
+            _target.OpenSelectMovePawn(value);
         });
 
     }

@@ -8,6 +8,8 @@ public class LocalCharacterController : MonoBehaviour, ICharacterController {
 
     [SerializeField] private LocalStatus _status;
     public IStatus Status => _status;
+    [SerializeField] private LocalInventory _inventory;
+    public IInventory Inventory => _inventory;
 
     public BasePlayer Target { get; private set; }
     private ICharacterActionSelector _selector;
@@ -30,9 +32,9 @@ public class LocalCharacterController : MonoBehaviour, ICharacterController {
 
         Status.Name = name;
         Status.CharacterCode = characterCode;
-        Status.SetCC(this);
+        Inventory.SetCC(this);
 
-        Target = CharacterManager.Instance.SpawnPlayer(characterCode);
+        Target = CharacterManager.Instance.SpawnPlayer(characterCode).GetComponent<BasePlayer>();
         Target.transform.SetParent(transform);
         Target.transform.localPosition = Vector3.zero;
         Target.SetInitial(this, idx);
@@ -48,6 +50,7 @@ public class LocalCharacterController : MonoBehaviour, ICharacterController {
 
     public void MovePawn(int pawnId, int amount)
     {
+        Target.OffPawnChoose();
         Target.Pawns[pawnId].Move(amount);
     }
 
@@ -74,26 +77,21 @@ public class LocalCharacterController : MonoBehaviour, ICharacterController {
     {
         GUIOpenInventory inventory = UIManager.Instance.OpenGUI<GUIOpenInventory>("Inventory");
         inventory.SetTarget(
-            ItemManager.Instance.ItemListToInt(Status.Items),
-            Status.Items.Count, this);
+            ItemManager.Instance.ItemListToInt(Inventory.Items),
+            Inventory.Items.Count, this);
         return inventory;
     }
 
     public void OpenShop(Action callback) {
         GUIShop shop = UIManager.Instance.OpenGUI<GUIShop>("Shop");
 
-        shop.SetBuyer(this);
+        shop.SetBuyer(this, callback);
         shop.SetItems(ItemManager.Instance.RandomItemListByInt(shop.Size));
-
-        shop.SetCloseMethod(() =>
-        {
-            callback?.Invoke();
-        });
 
         _selector.Shop(shop);
     }
 
-    public GUIDice RollDice(Action<int> callback)
+    public GUIDice OpenRollDice(Action<int> callback)
     {
         _chance--;
 
@@ -109,7 +107,7 @@ public class LocalCharacterController : MonoBehaviour, ICharacterController {
         return gui;
     }
 
-    public GUISelectMovePawn SelectMovePawn(int value) {
+    public GUISelectMovePawn OpenSelectMovePawn(int value) {
 
         GUISelectMovePawn movePawn =
             UIManager.Instance.OpenGUI<GUISelectMovePawn>("SelectMovePawn");
@@ -117,12 +115,18 @@ public class LocalCharacterController : MonoBehaviour, ICharacterController {
         Target.OnPawnChoose();
 
         movePawn.SetPlayer(this, value);
-        movePawn.SetCloseMethod(() =>
-        {
-            Target.OffPawnChoose();
-        });
 
         return movePawn;
+    }
+
+    public GUIBattle OpenBattle(int targetId, Action callback) {
+        
+        GUIBattle battle = UIManager.Instance.OpenGUI<GUIBattle>("Battle");
+
+        battle.BattleSet(PlayerId, targetId);
+        battle.StartBattle(callback);
+
+        return battle;
     }
 
 }

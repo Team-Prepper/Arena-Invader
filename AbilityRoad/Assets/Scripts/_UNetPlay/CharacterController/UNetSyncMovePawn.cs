@@ -23,7 +23,6 @@ public class UNetSyncMovePawn : NetworkBehaviour {
         movePawn.SetCloseMethod(() =>
         {
             CloseSelectMovePawnServerRpc();
-            _cc.Target.OffPawnChoose();
         });
 
         movePawn.NetworkModifiedMethodSet(PawnMoveValueChangeServerRpc);

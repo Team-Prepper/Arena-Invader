@@ -48,7 +48,8 @@ public class GUIUnitPlayer : MonoBehaviour, IObserver<IStatus> {
         _cancellation?.Dispose();
         //_cancellation = target.Subscribe(this);
 
-        List<ItemData> items = target.Items;
+        /*
+        IList<ItemData> items = target.Inventory.Items;
 
         for (int i = 0; i < _shopButtons.Length; i++)
         {
@@ -59,7 +60,7 @@ public class GUIUnitPlayer : MonoBehaviour, IObserver<IStatus> {
             _shopButtons[i].gameObject.SetActive(true);
             _shopButtons[i].SetSlot(items[i]);
            
-        }
+        }*/
 
     }
 

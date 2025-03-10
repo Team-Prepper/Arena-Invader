@@ -34,7 +34,7 @@ public class UNetMatchInfor : NetworkBehaviour, IMatchInfor {
 
     }
 
-    NetworkVariable<bool> IsMatchStart = new NetworkVariable<bool>(false);
+    [SerializeField] NetworkVariable<bool> IsMatchStart = new NetworkVariable<bool>(false);
 
     NetworkVariable<UNetString> NetMatchDice =
         new NetworkVariable<UNetString>(new UNetString("DartDice"));
@@ -76,7 +76,7 @@ public class UNetMatchInfor : NetworkBehaviour, IMatchInfor {
 
     public override void OnNetworkSpawn()
     {
-        if (IsMatchStart.Value) {
+        if (IsMatchStart.Value == true) {
             Dispose();
             return;
         }

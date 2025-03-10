@@ -26,12 +26,19 @@ public class GUIShop : GUINetworkPopUp<int> {
     private IList<ItemData> _currentSaleItems = new List<ItemData>();
 
     private Action _buyEvent;
-
+    private Action _shopCloseEvent;
     private ICharacterController _cc;
 
-    public void SetBuyer(ICharacterController buyer)
+    public void SetBuyer(ICharacterController buyer, Action shopCloseEvent)
     {
         _cc = buyer;
+        _shopCloseEvent = shopCloseEvent;
+    }
+
+    public override void Close()
+    {
+        _shopCloseEvent?.Invoke();
+        base.Close();
     }
 
     public void SetItems(int seed)
@@ -130,7 +137,7 @@ public class GUIShop : GUINetworkPopUp<int> {
         if (_cc.Status.Money < item.Price) return;
 
         _cc.Status.Money -= item.Price;
-        _cc.Status.Items.Add(item);
+        _cc.Inventory.Items.Add(item);
     }
 
     public IList<ItemData> GetSaleItems()

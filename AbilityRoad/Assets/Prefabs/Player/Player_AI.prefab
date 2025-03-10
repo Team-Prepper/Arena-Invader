@@ -73,7 +73,6 @@ GameObject:
   - component: {fileID: 4886042393337310813}
   - component: {fileID: 1473987404873212187}
   - component: {fileID: -8702266323084954669}
-  - component: {fileID: 1611249439032038489}
   m_Layer: 0
   m_Name: Player_AI
   m_TagString: Untagged
@@ -138,20 +137,6 @@ MonoBehaviour:
   - {r: 0, g: 0, b: 1, a: 1}
   - {r: 0, g: 1, b: 0, a: 1}
   - {r: 1, g: 1, b: 0, a: 1}
---- !u!114 &1611249439032038489
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3628364833649253308}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e0c274852e556641a4c02f37e62f8a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _code: Player
-  _health: 0
 --- !u!1 &4958900561680636048
 GameObject:
   m_ObjectHideFlags: 0

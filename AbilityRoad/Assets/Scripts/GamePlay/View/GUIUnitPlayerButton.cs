@@ -4,14 +4,29 @@ using UnityEngine.UI;
 
 public class GUIUnitPlayerButton : MonoBehaviour, IObserver<IStatus> {
 
-    [SerializeField] GameObject _parent;
-    [SerializeField] Image _icon;
-    [SerializeField] Text _name;
-    [SerializeField] string _nameFormat = "{0}";
-    [SerializeField] Text _health;
-    [SerializeField] string _healthFormat = "{0}";
-    [SerializeField] Text _coin;
-    [SerializeField] string _coinFormat = "{0}";
+    [System.Serializable]
+    class FormattedTextUI {
+        [SerializeField] private Text _textUI;
+        [SerializeField] private string _format = "{0}";
+
+        public void SetTextUI(object str) {
+            if (_textUI == null) return;
+            _textUI.text = string.Format(_format, str);
+        }
+    }
+
+    [SerializeField] private GameObject _parent;
+    [SerializeField] private Image _icon;
+
+    [SerializeField] private FormattedTextUI _name;
+
+    [SerializeField] private FormattedTextUI _health;
+
+    [SerializeField] private FormattedTextUI _coin;
+
+    [SerializeField] private FormattedTextUI _atk;
+
+    [SerializeField] private FormattedTextUI _dfs;
 
 #nullable enable
     private IDisposable? _cancellation;
@@ -32,16 +47,21 @@ public class GUIUnitPlayerButton : MonoBehaviour, IObserver<IStatus> {
             _parent.SetActive(false);
             return;
         }
-        _health.text = string.Format(_healthFormat, value.HP);
-        _coin.text = string.Format(_coinFormat, value.Money);
+
+        _health.SetTextUI(value.HP);
+        _coin.SetTextUI(value.Money);
+        _atk.SetTextUI(value.Atk);
+        _dfs.SetTextUI(value.Dfs);
     }
 
     public void SetPlayer(IStatus target)
     {
-        _target = target;
-        _name.text = string.Format(_nameFormat, target.Name);
-        _icon.sprite = CharacterManager.Instance.GetCharacterSprites(target.CharacterCode).CharacterIcon;
         _cancellation = target.Subscribe(this);
+
+        _icon.sprite = CharacterManager.Instance.GetCharacterSprites(target.CharacterCode).CharacterIcon;
+        _target = target;
+
+        _name.SetTextUI(target.Name);
 
     }
 

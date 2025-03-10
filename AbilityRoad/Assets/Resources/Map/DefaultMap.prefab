@@ -2729,8 +2729,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _startPlate: {fileID: 5040216781645386397}
   _raidInfors:
-  - StartTurn: 10
-    SpawnCode: Baron
+  - StartTurn: 1
+    SpawnCode: ObjectCharacter/Baron
 --- !u!1 &5894198595178470569
 GameObject:
   m_ObjectHideFlags: 0

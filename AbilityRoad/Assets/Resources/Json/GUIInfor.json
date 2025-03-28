@@ -4,16 +4,18 @@
     "Result": "Prefabs/GUI/FullScreen/GUI_Result",
     "Multiplay": "Prefabs/GUI/FullScreen/GUI_Multiplay",
 
+    "Dice": "Prefabs/GUI/PopUp/Dice/GUI_D6Dice",
+    "DartDice": "Prefabs/GUI/PopUp/Dice/GUI_DartDice",
+    "RouletteDice": "Prefabs/GUI/PopUp/Dice/GUI_RouletteDice",
+
+    "Battle": "Prefabs/GUI/PopUp/Battle/GUI_Battle",
+    "Raid": "Prefabs/GUI/PopUp/GUI_Raid",
+
     "UNetMatchInforSetting": "Prefabs/GUI/PopUp/GUI_UNetMatchSetting",
     "LocalMatchInforSetting": "Prefabs/GUI/PopUp/GUI_LocalMatchSetting",
     "Setting": "Prefabs/GUI/PopUp/GUI_Setting",
     "TurnStart": "Prefabs/GUI/PopUp/GUI_TurnStart",
-    "Dice": "Prefabs/GUI/PopUp/GUI_D6Dice",
-    "DartDice": "Prefabs/GUI/PopUp/GUI_DartDice",
-    "RouletteDice": "Prefabs/GUI/PopUp/GUI_RouletteDice",
     "SelectMovePawn": "Prefabs/GUI/PopUp/GUI_SelectMovePawn",
-    "Battle": "Prefabs/GUI/PopUp/GUI_Battle",
-    "Raid": "Prefabs/GUI/PopUp/GUI_Raid",
     "Shop": "Prefabs/GUI/PopUp/GUI_Shop",
     "PlayerAction": "Prefabs/GUI/PopUp/GUI_PlayerAction",
     "PlayerInfor": "Prefabs/GUI/PopUp/GUI_PlayerInfor",

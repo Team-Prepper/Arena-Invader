@@ -39,7 +39,7 @@ public class AICharacterActionSelector : MonoBehaviour, ICharacterActionSelector
         inventory.SelectItem(idx);
 
         yield return new WaitForSeconds(1f);
-        inventory.UseItem(idx);
+        inventory.Use();
 
         yield return new WaitForSeconds(1f);
 

@@ -1,6 +1,4 @@
 using EHTool.UIKit;
-using System;
-using UnityEngine;
 
 public class GUICharacterActionSelector : ICharacterActionSelector {
 
@@ -14,8 +12,6 @@ public class GUICharacterActionSelector : ICharacterActionSelector {
             UIManager.Instance.OpenGUI<GUIPlayerAction>("PlayerAction");
         
         action.PlayerTurnStart(this);
-
-        Debug.Log("StartTurn");
     }
 
     public void RollDice()

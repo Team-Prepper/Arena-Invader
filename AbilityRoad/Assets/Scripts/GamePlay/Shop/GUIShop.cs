@@ -1,31 +1,25 @@
 using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
-using EHTool.LangKit;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GUIShop : GUINetworkPopUp<int> {
-
-    [SerializeField] private GameObject _inforGO;
 
     public int Size => _shopButtons.Length;
 
     [Header("Default Info")]
     [SerializeField] private Sprite _defaultIcon;
     [Header("Shop Info")]
-    [SerializeField] private Image _selectItemIcon;
-    [SerializeField] private Text _selectItemName;
+    [SerializeField] private GUIUnitItemDesc _itemDesc;
     [SerializeField] private Text _selectItemPrice;
-    [SerializeField] private Text _selectItemDescription;
     [SerializeField] private Button _buyButton;
 
     [Header("Shop Button")]
-    [SerializeField] ShopUnit[] _shopButtons;
+    [SerializeField] private GUIUnitItemSelect[] _shopButtons;
+    private int _idx;
 
     private IList<ItemData> _currentSaleItems = new List<ItemData>();
 
-    private Action _buyEvent;
     private Action _shopCloseEvent;
     private ICharacterController _cc;
 
@@ -43,30 +37,28 @@ public class GUIShop : GUINetworkPopUp<int> {
 
     public void SetItems(int seed)
     {
-        _inforGO.SetActive(false);
+        _itemDesc.Disable();
         _currentSaleItems = ItemManager.Instance.ItemListFromInt(seed, _shopButtons.Length);
 
         for (int i = 0; i < _shopButtons.Length; i++)
         {
-            _shopButtons[i].SetSlot(_currentSaleItems[i]);
+            _shopButtons[i].SetSlot(_currentSaleItems[i].Icon, i, SelectItemButton);
         }
     }
 
     public void SelectItemButton(int idx) {
         if (!IsControlled) return;
 
+        if (_idx >= 0) {
+            _shopButtons[_idx].DisSelect();
+        }
+
         SelectItem(idx);
     }
 
     public void SelectItem(int idx = -1)
     {
-        _buyEvent = () =>
-        {
-            SFXManager.Instance.PlaySFX("ButtonSelect");
-            PurchaseItem(idx);
-            DisableSelectItem(idx);
-            NetworkModify(-idx - 1);
-        };
+        _idx = idx;
 
         DisplaySelectItem(idx);
         NetworkModify(idx);
@@ -89,19 +81,14 @@ public class GUIShop : GUINetworkPopUp<int> {
     {
         if (idx == -1)
         {
-            _inforGO.SetActive(false);
-            /*TODO Default IMG*/
+            _itemDesc.Disable();
             return;
         }
 
-        _inforGO.SetActive(true);
-
         ItemData currentItem = _currentSaleItems[idx];
 
-        _selectItemIcon.sprite = currentItem.Icon;
-        _selectItemName.text = LangManager.Instance.GetStringByKey(currentItem.Name);
+        _itemDesc.SetItemCode(currentItem);
         _selectItemPrice.text = currentItem.Price.ToString();
-        _selectItemDescription.text = currentItem.Desc;
 
     }
 
@@ -113,10 +100,8 @@ public class GUIShop : GUINetworkPopUp<int> {
             return;
         }
 
-        _selectItemIcon.sprite = _defaultIcon;
-        _selectItemName.text = LangManager.Instance.GetStringByKey("Item_Empty"); ;
+        _itemDesc.Disable();
         _selectItemPrice.text = "0";
-        _selectItemDescription.text = "None";
 
     }
 
@@ -127,7 +112,10 @@ public class GUIShop : GUINetworkPopUp<int> {
     }
 
     public void Buy() {
-        _buyEvent?.Invoke();
+        SFXManager.Instance.PlaySFX("ButtonSelect");
+        PurchaseItem(_idx);
+        DisableSelectItem(_idx);
+        NetworkModify(-_idx - 1);
     }
 
     private void PurchaseItem(int idx)
@@ -136,6 +124,7 @@ public class GUIShop : GUINetworkPopUp<int> {
         if(item == null) return;
         if (_cc.Status.Money < item.Price) return;
 
+        _itemDesc.Disable();
         _cc.Status.Money -= item.Price;
         _cc.Inventory.Items.Add(item);
     }

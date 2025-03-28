@@ -9,15 +9,12 @@ public class GUISetting : GUIPopUp {
 
     [System.Serializable]
     struct Option {
-        public string name;
+        public string key;
         public string value;
     }
 
-    int _nowLangIdx = 0;
-
-    [SerializeField] Option[] _langOpt;
-    [SerializeField] Dropdown _langDropdown;
-
+    [SerializeField] private Option[] _langOpt;
+    [SerializeField] private EHDropdownWrapper _langDropdown;
 
     [SerializeField] private AudioMixer _audioMixer;
     [SerializeField] private Slider _musicMasterSlider;
@@ -27,20 +24,25 @@ public class GUISetting : GUIPopUp {
         Close();
     }
 
-    private void Start()
+    public override void Open()
     {
-        _DropdownSetting();
+        base.Open();
+        
+        int idx = 0;
+        string[] options = new string[_langOpt.Length];
 
         for (int i = 0; i < _langOpt.Length; i++)
         {
             if (LangManager.Instance.NowLang.CompareTo(_langOpt[i].value) == 0)
             {
-                _nowLangIdx = i;
-                break;
+                idx = i;
             }
+            options[i] = _langOpt[i].key;
         }
 
-        _langDropdown.value = _nowLangIdx;
+        _langDropdown.SetDropdownOption(options);
+
+        _langDropdown.value = idx;
         _langDropdown.onValueChanged.AddListener(LangSet);
 
         _musicMasterSlider.onValueChanged.AddListener(SetMasterVolume);
@@ -51,27 +53,7 @@ public class GUISetting : GUIPopUp {
 
     public void LangSet(int idx)
     {
-        if (_nowLangIdx == idx) return;
-
         LangManager.Instance.ChangeLang(_langOpt[_langDropdown.value].value);
-        _DropdownSetting();
-
-        _nowLangIdx = idx;
-        _langDropdown.value = idx;
-
-    }
-
-    void _DropdownSetting()
-    {
-        _langDropdown.ClearOptions();
-
-        List<Dropdown.OptionData> optionData = new List<Dropdown.OptionData>();
-
-        for (int i = 0; i < _langOpt.Length; i++)
-        {
-            optionData.Add(new Dropdown.OptionData(LangManager.Instance.GetStringByKey(_langOpt[i].name), null));
-        }
-        _langDropdown.AddOptions(optionData);
 
     }
 

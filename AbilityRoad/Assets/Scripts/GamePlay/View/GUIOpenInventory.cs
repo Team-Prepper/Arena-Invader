@@ -1,22 +1,18 @@
 using System.Collections.Generic;
-using EHTool.LangKit;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class GUIOpenInventory : GUINetworkPopUp<int> {
 
-    [SerializeField] List<GUIUnitInventory> _inventoryButtons = new List<GUIUnitInventory>();
+    [SerializeField] private List<GUIUnitItemSelect> _inventoryButtons =
+        new List<GUIUnitItemSelect>();
     
     [Header("select Item Info")]
-    [SerializeField] private Image _selectItemIcon;
-    [SerializeField] private Text _selectItemName;
-    [SerializeField] private Text _selectItemDescription;
-    [SerializeField] private Button _useButton;
-    [SerializeField] private Button _discardButton;
-    [SerializeField] private Button _rollDiceButton;
+    [SerializeField] private GUIUnitItemDesc _itemDesc;
 
-    ICharacterController _cc;
-    IList<ItemData> _items;
+    private int _idx;
+
+    private ICharacterController _cc;
+    private IList<ItemData> _items;
 
     public void SetTarget(int value, int size, ICharacterController cc = null)
     {
@@ -27,66 +23,64 @@ public class GUIOpenInventory : GUINetworkPopUp<int> {
 
     private void InitInventory()
     {
+        _itemDesc.Disable();
         for (int i = 0; i < _inventoryButtons.Count; i++)
         {
             if (i < _items.Count)
             {
-                ItemData item = _items[i];  // 로컬 변수로 캡처
-                int index = i;
-                _inventoryButtons[i].SetSlot(item.Icon, () => SelectItemButton(index));
+                _inventoryButtons[i].SetSlot(_items[i].Icon, i, SelectItemButton);
                 continue;
             }
-            _inventoryButtons[i].SetSlot(null, null);
+            _inventoryButtons[i].gameObject.SetActive(false);
         }
 
-        _rollDiceButton.onClick.RemoveAllListeners();
-        _rollDiceButton.onClick.AddListener(() =>
-        {
-            SFXManager.Instance.PlaySFX("ButtonSelect");
-            Close();
-        });
     }
 
     public void SelectItemButton(int idx) {
 
         if (!IsControlled) return;
+
+        if (_idx >= 0) {
+            _inventoryButtons[_idx].DisSelect();
+        }
+
         SelectItem(idx);
+
+    }
+
+    public void Use() {
+        if (!IsControlled) return;
+        if (_idx < 0) return;
+
+        ItemData currentItem = _items[_idx];
+        
+        _cc.Inventory.UseItem(currentItem);
+        
+        _inventoryButtons[_idx].DisableSlot();
+        _itemDesc.Disable();
+
+        _idx = -1;
+
+    }
+
+    public void Discard() {
+
+        if (_idx < 0) return;
+
+        _cc.Inventory.DiscardItem(_items[_idx]);
+
+        _itemDesc.Disable();
+        _inventoryButtons[_idx].DisableSlot();
+        _idx = -1;
 
     }
     
     public void SelectItem(int idx)
     {
-        ItemData currentItem = _items[idx];
-
-        _useButton.onClick.RemoveAllListeners();
-        _useButton.onClick.AddListener(() =>
-        {
-            UseItemButton(idx);
-        });
-        
-        _discardButton.onClick.RemoveAllListeners();
-        _discardButton.onClick.AddListener(() => {
-            SFXManager.Instance.PlaySFX("ButtonSelect");
-            _cc.Inventory.DiscardItem(currentItem);
-        });
+        _idx = idx;
 
         DisplaySelectItem(idx);
         NetworkModify(idx);
-
-    }
-
-    public void UseItemButton(int idx) {
-        if (!IsControlled) return;
-        UseItem(idx);
-
-    }
-
-    public void UseItem(int idx)
-    {
-
-        ItemData currentItem = _items[idx];
-        _cc.Inventory.UseItem(currentItem);
-        _inventoryButtons[idx].DisableSlot();
 
     }
 
@@ -98,6 +92,8 @@ public class GUIOpenInventory : GUINetworkPopUp<int> {
 
     private void DisplaySelectItem(int idx) {
 
+        if (idx < 0) return;
+
         ItemData currentItem = _items[idx];
 
         if (currentItem == null)
@@ -106,9 +102,7 @@ public class GUIOpenInventory : GUINetworkPopUp<int> {
             return;
         }
 
-        _selectItemIcon.sprite = currentItem.Icon;
-        _selectItemName.text = LangManager.Instance.GetStringByKey(currentItem.Name);
-        _selectItemDescription.text = currentItem.Desc;
+        _itemDesc.SetItemCode(currentItem);
     }
 
 }

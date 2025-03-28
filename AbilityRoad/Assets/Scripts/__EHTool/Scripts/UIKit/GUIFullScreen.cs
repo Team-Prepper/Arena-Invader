@@ -95,7 +95,6 @@ namespace EHTool.UIKit {
                 popup.Close();
             }
             _nowPopUp?.Close();
-            Debug.Log("FullScreen Close");
 
             base.Close();
         }

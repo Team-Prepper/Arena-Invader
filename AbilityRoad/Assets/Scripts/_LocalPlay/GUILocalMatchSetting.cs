@@ -1,5 +1,6 @@
 using EHTool.UIKit;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 [System.Serializable]
@@ -12,18 +13,40 @@ struct StringTransform {
 
 public class GUILocalMatchSetting : GUIPopUp {
 
-    [SerializeField] StringTransform[] _playerCntST;
-    [SerializeField] StringTransform[] _mapST;
-    [SerializeField] StringTransform[] _diceST;
+    [System.Serializable]
+    public class Options {
+        public string key;
+        public string value;
 
-    [SerializeField] RectTransform _playerCntCursor;
-    [SerializeField] RectTransform _mapCursor;
-    [SerializeField] RectTransform _diceCursor;
+    }
+
+    [SerializeField] private Text _playerCnt;
+    [SerializeField] private EHDropdownWrapper _mapDropdown;
+    [SerializeField] private EHDropdownWrapper _diceDropdown;
+
+    [SerializeField] private Options[] _mapOptions;
+    [SerializeField] private Options[] _diceOptions;
+    
+    private string[] OptionArrayToKeyArray(Options[] options) {
+        string[] retval = new string[options.Length];
+        for (int i = 0; i < options.Length; i++) {
+            retval[i] = options[i].key;
+        }
+        return retval;
+    }
 
     public override void Open()
     {
         GameManager.Instance.OnMatchInforChanged += OnMatchInforChanged;
+
+        _mapDropdown.SetDropdownOption(OptionArrayToKeyArray(_mapOptions));
+        _mapDropdown.onValueChanged.AddListener(SetMap);
+        
+        _diceDropdown.SetDropdownOption(OptionArrayToKeyArray(_diceOptions));
+        _diceDropdown.onValueChanged.AddListener(SetDice);
+
         OnMatchInforChanged();
+
         base.Open();
     }
 
@@ -34,49 +57,40 @@ public class GUILocalMatchSetting : GUIPopUp {
 
     }
 
-    public void SetPlayerCnt(int cnt)
+    public void SetPlayerCnt(int amount)
     {
+        int cnt = Mathf.Clamp(amount + GameManager.Instance.MatchInfor.PlayerInfors.Count, 2, 4);
         GameManager.Instance.MatchInfor.SetPlayerCnt(cnt);
+
     }
 
-    public void SetDice(string diceCode)
+    public void SetDice(int idx)
     {
-        GameManager.Instance.MatchInfor.SetDice(diceCode);
+        GameManager.Instance.MatchInfor.SetDice(_diceOptions[idx].value);
     }
 
-    public void SetMap(string mapName)
+    public void SetMap(int idx)
     {
-        GameManager.Instance.MatchInfor.SetMap(mapName);
+        GameManager.Instance.MatchInfor.SetMap(_mapOptions[idx].value);
     }
 
-    Transform FindIdx(StringTransform[] target, string key) {
-
-        foreach (var st in target) {
-            if (st.Key.Equals(key)) {
-                return st.transform;
-            }
+    private int FindIdxInArray(Options[] options, string value) {
+        for (int i = 0; i < options.Length; i++) {
+            if (options[i].value.Equals(value)) return i;
         }
-
-        return target[0].transform;
-    }
-
-    void CursorSet(Transform cursor, StringTransform[] target, string key) {
-
-        cursor.SetParent(FindIdx(target, key));
-        cursor.localPosition = Vector3.zero;
-
+        return -1;
     }
 
     void OnMatchInforChanged() {
 
-        CursorSet(_diceCursor, _diceST, GameManager.Instance.MatchInfor.MatchDice);
+        _diceDropdown.value =
+            FindIdxInArray(_diceOptions, GameManager.Instance.MatchInfor.MatchDice);
+        _mapDropdown.value =
+            FindIdxInArray(_mapOptions, GameManager.Instance.MatchInfor.MapName);
 
-        CursorSet(_mapCursor, _mapST, GameManager.Instance.MatchInfor.MapName);
+        if (_playerCnt == null) return;
 
-        if (_playerCntCursor == null) return;
-
-        CursorSet(_playerCntCursor, _playerCntST,
-            GameManager.Instance.MatchInfor.PlayerInfors.Count.ToString());
+        _playerCnt.text = GameManager.Instance.MatchInfor.PlayerInfors.Count.ToString();
 
     }
 

@@ -536,8 +536,9 @@ GameObject:
   - component: {fileID: 4995472392035560799}
   - component: {fileID: 4263344042511749402}
   - component: {fileID: 8770074943577738650}
+  - component: {fileID: 4756692383845168499}
   m_Layer: 5
-  m_Name: cbtn_Multiplay
+  m_Name: btn_Multiplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -658,6 +659,21 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   _soundKey: ButtonSelect
+--- !u!114 &4756692383845168499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6514649518137129129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 5, y: -5}
+  m_UseGraphicAlpha: 1
 --- !u!1 &7417160303830546251
 GameObject:
   m_ObjectHideFlags: 0
@@ -831,6 +847,7 @@ GameObject:
   - component: {fileID: 216243230401933603}
   - component: {fileID: 3306422831448445005}
   - component: {fileID: 4662916790041963653}
+  - component: {fileID: 5106823762018665555}
   m_Layer: 5
   m_Name: btn_GameStart
   m_TagString: Untagged
@@ -976,6 +993,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0f6e46c72d3d9144a287c55ff5fa94a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5106823762018665555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7903879484752085446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 5, y: -5}
+  m_UseGraphicAlpha: 1
 --- !u!1 &8022170161071219601
 GameObject:
   m_ObjectHideFlags: 0
@@ -989,6 +1021,7 @@ GameObject:
   - component: {fileID: 4012289412151887624}
   - component: {fileID: 7812007500983354513}
   - component: {fileID: 5782281821674139971}
+  - component: {fileID: 6498099312672596719}
   m_Layer: 5
   m_Name: btn_Setting
   m_TagString: Untagged
@@ -1134,3 +1167,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0f6e46c72d3d9144a287c55ff5fa94a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6498099312672596719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8022170161071219601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 5, y: -5}
+  m_UseGraphicAlpha: 1

@@ -331,7 +331,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
-  m_EffectDistance: {x: 5, y: 5}
+  m_EffectDistance: {x: 3, y: 3}
   m_UseGraphicAlpha: 1
 --- !u!1 &5532453425897698189
 GameObject:
@@ -752,7 +752,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
-  m_EffectDistance: {x: 5, y: 5}
+  m_EffectDistance: {x: 3, y: 3}
   m_UseGraphicAlpha: 1
 --- !u!1001 &88045989244161997
 PrefabInstance:
@@ -772,27 +772,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1048708226049244750, guid: 1129e0b7974dd0946b84c580fcb21f53, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1048708226049244750, guid: 1129e0b7974dd0946b84c580fcb21f53, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1048708226049244750, guid: 1129e0b7974dd0946b84c580fcb21f53, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1048708226049244750, guid: 1129e0b7974dd0946b84c580fcb21f53, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1048708226049244750, guid: 1129e0b7974dd0946b84c580fcb21f53, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 500
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1048708226049244750, guid: 1129e0b7974dd0946b84c580fcb21f53, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 500
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1048708226049244750, guid: 1129e0b7974dd0946b84c580fcb21f53, type: 3}
       propertyPath: m_LocalPosition.x
@@ -841,6 +841,14 @@ PrefabInstance:
     - target: {fileID: 1048708226049244750, guid: 1129e0b7974dd0946b84c580fcb21f53, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2065626252717825293, guid: 1129e0b7974dd0946b84c580fcb21f53, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 2065626252717825293, guid: 1129e0b7974dd0946b84c580fcb21f53, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 6494833248527910165, guid: 1129e0b7974dd0946b84c580fcb21f53, type: 3}
       propertyPath: _key

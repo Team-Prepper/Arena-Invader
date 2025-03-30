@@ -68,6 +68,8 @@ public class GUIPlayground : GUIFullScreen
         _baronInfoTextGO.gameObject.SetActive(isObject);
         _baronInfor.gameObject.SetActive(!isObject);
 
+        _baronInfoText.text = string.Format(_baronInforFormat, GameManager.Instance.Playground.Turn);
+
         if (isObject)
         { 
             _baronInfoText.text =

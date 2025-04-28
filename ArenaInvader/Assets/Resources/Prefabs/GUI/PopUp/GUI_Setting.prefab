@@ -565,9 +565,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   priority: 0
   _langOpt:
-  - key: btn_Kor
+  - key: opt_Kor
     value: Kor
-  - key: btn_Eng
+  - key: opt_Eng
     value: Eng
   _langDropdown: {fileID: 6466440214660462167}
   _audioMixer: {fileID: 24100000, guid: ac8fd1b537ba522409b07a1ccffb4270, type: 2}

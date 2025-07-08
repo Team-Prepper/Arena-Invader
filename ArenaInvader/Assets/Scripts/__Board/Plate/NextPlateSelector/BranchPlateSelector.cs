@@ -39,6 +39,11 @@ namespace BoardGame
 
         }
 
+        public override int GetValue()
+        {
+            return 5;
+        }
+
 
     }
 }

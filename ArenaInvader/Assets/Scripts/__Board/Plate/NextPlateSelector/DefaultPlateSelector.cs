@@ -12,5 +12,10 @@ namespace BoardGame
             return _nextPlate;
         }
 
+        public override int GetValue()
+        {
+            return 0;
+        }
+
     }
 }

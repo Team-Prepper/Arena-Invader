@@ -4,7 +4,7 @@ public class OpenShop : IArriveEvent
 {
     public override int GetPriority() => 2;
 
-    public override int GetValue(GamePawn attacker, GamePawn defender)
+    public override int GetValue(IStatus attacker, IStatus defender)
     {
         return 0;
     }

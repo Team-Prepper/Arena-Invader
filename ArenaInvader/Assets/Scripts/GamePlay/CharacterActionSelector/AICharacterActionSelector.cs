@@ -33,13 +33,11 @@ public class AICharacterActionSelector : MonoBehaviour, ICharacterActionSelector
 
         int idx = Random.Range(0, _target.Inventory.Items.Count);
 
-        Debug.Log(idx);
-
         yield return new WaitForSeconds(1f);
         inventory.SelectItem(idx);
 
         yield return new WaitForSeconds(1f);
-        inventory.Use();
+        inventory.UseItem();
 
         yield return new WaitForSeconds(2f);
 
@@ -85,8 +83,8 @@ public class AICharacterActionSelector : MonoBehaviour, ICharacterActionSelector
         {
             if (pawn.IsPiggyBacked()) continue;
 
-            Plate plate = pawn.MovePredict(value);
-            int currentPawnValue = 100;//plate == null ? 100 : plate.GetValue(_target.Status, SetTarget());
+            GamePlate plate = pawn.MovePredict(value) as GamePlate;
+            int currentPawnValue = plate == null ? 100 : plate.GetValue(_target.Status, SetTarget());
             
             if (pawn.IsPiggied()) currentPawnValue *= 2;
             

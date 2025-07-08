@@ -127,6 +127,11 @@ public class UNetMatchInfor : NetworkBehaviour, IMatchInfor {
 
     public void StartMatch() {
         if (!IsHost) return;
+        if (PlayerInfors.Count < 2)
+        {
+            UIManager.Instance.DisplayMessage("msg_NeedMorePlayer");
+            return;
+        }
         IsMatchStart.Value = true;
         GameManager.Instance.Playground.StartMatch();
     }

@@ -44,7 +44,7 @@ public class MultipleArriveEvent {
         });
     }
 
-    public int GetValue(Pawn nowPawn, GamePawn attacker, GamePawn defender)
+    public int GetValue(Pawn nowPawn, IStatus attacker, IStatus defender)
     {
         int plateValue = 0;
 

@@ -52,9 +52,9 @@ namespace BoardGame
             callback?.Invoke(_nextPlateSelector.NextPlate(from));
         }
 
-        public int GetValue()
+        public virtual int GetValue()
         {
-            return 0;
+            return _nextPlateSelector.GetValue();
         }
 
         public void SetPawn(Pawn target)

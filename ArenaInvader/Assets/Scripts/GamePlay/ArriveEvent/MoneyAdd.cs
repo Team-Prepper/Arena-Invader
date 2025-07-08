@@ -6,7 +6,7 @@ public class MoneyAdd : IArriveEvent {
 
     [SerializeField] int _moneyAmount = 0;
 
-    public override int GetValue(GamePawn attacker, GamePawn defender)
+    public override int GetValue(IStatus attacker, IStatus defender)
     {
         return 0;
     }

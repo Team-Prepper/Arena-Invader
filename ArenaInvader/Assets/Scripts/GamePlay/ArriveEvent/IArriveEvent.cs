@@ -13,6 +13,6 @@ public abstract class IArriveEvent : MonoBehaviour {
 
     public abstract int GetPriority();
     public abstract void AddAbility(GamePawn target, Action callback);
-    public abstract int GetValue(GamePawn attacker, GamePawn defender);
+    public abstract int GetValue(IStatus attacker, IStatus defender);
     
 }

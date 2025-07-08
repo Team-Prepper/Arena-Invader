@@ -779,8 +779,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6083483870132076867}
-        m_TargetAssemblyTypeName: GUIOpenInventory, Assembly-CSharp
-        m_MethodName: Discard
+        m_TargetAssemblyTypeName: GUIInventory, Assembly-CSharp
+        m_MethodName: DiscardButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1304,8 +1304,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6083483870132076867}
-        m_TargetAssemblyTypeName: GUIOpenInventory, Assembly-CSharp
-        m_MethodName: Use
+        m_TargetAssemblyTypeName: GUIInventory, Assembly-CSharp
+        m_MethodName: UseItemButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1565,7 +1565,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6494833248527910165, guid: 1129e0b7974dd0946b84c580fcb21f53, type: 3}
       propertyPath: m_Text
-      value: label_Inventory
+      value: "\uC778\uBCA4\uD1A0\uB9AC"
       objectReference: {fileID: 0}
     - target: {fileID: 7389111643626997151, guid: 1129e0b7974dd0946b84c580fcb21f53, type: 3}
       propertyPath: m_Name

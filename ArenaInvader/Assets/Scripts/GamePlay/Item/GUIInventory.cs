@@ -38,19 +38,40 @@ public class GUIInventory : GUINetworkPopUp<int> {
         SelectItem(idx);
 
     }
+    
+    public void SelectItem(int idx)
+    {
+        NetworkModify(idx);
+        DisplaySelectItem(idx);
 
-    public void Use() {
-        if (!IsControlled) return;
-        if (_idx < 0) return;
-        
-        _cc.ShowUseItem(_items[_idx]);
-        _cc.Inventory.UseItem(_items[_idx]);
-        
-        NetworkModify(-_idx - 1);
-        DisableSelectItem(_idx);
     }
 
-    public void Discard() {
+    public void UseItemButton()
+    {
+        if (!IsControlled) return;
+        UseItem();
+    }
+
+    public void UseItem()
+    { 
+
+        _cc.ShowUseItem(_items[_idx]);
+        _cc.Inventory.UseItem(_items[_idx]);
+
+        NetworkModify(-_idx - 1);
+        DisableSelectItem(_idx);
+        
+    }
+
+    public void DiscardButton()
+    {
+        if (!IsControlled) return;
+        Discard();
+        
+    }
+
+    public void Discard()
+    {
 
         if (_idx < 0) return;
 
@@ -58,13 +79,6 @@ public class GUIInventory : GUINetworkPopUp<int> {
 
         NetworkModify(-_idx - 1);
         DisableSelectItem(_idx);
-
-    }
-    
-    public void SelectItem(int idx)
-    {
-        NetworkModify(idx);
-        DisplaySelectItem(idx);
 
     }
 

@@ -1,7 +1,8 @@
 using UnityEngine;
 using BoardGame;
 
-public class GamePlate : Plate {
+public class GamePlate : Plate
+{
 
     [SerializeField] MultipleArriveEvent _event;
 
@@ -14,20 +15,23 @@ public class GamePlate : Plate {
     {
         GamePawn gamePawn = GetPawn() as GamePawn;
 
-        if (gamePawn == null) {
+        if (gamePawn == null)
+        {
             base.PlayEvent();
             return;
         }
 
-        _event.Event(gamePawn, () => {
+        _event.Event(gamePawn, () =>
+        {
             base.PlayEvent();
         });
 
     }
 
-    public virtual int GetValue(IStatus attacker, IStatus defender)
+    public int GetValue(IStatus attacker, IStatus defender)
     {
-        return 0;
-        //return _event.GetValue(_nowPawn, attacker, defender);
+        return _event.GetValue(GetPawn() as GamePawn, attacker, defender)
+            + base.GetValue();
     }
+    
 }

@@ -5,13 +5,13 @@ public class StartBattle : IArriveEvent {
 
     public override int GetPriority() => 2;
 
-    public override int GetValue(GamePawn attacker, GamePawn defender)
+    public override int GetValue(IStatus attacker, IStatus defender)
     {
-        /*Character _object = GameManager.Instance.Playground.Map.GetObject();
+        IStatus _object = GameManager.Instance.Playground.Map.GetObject();
         if (_object == null)
         {
             _object = defender;
-        }*/
+        }
         
         //int combatValue = GameManager.Instance.Playground.CalcDamage(attacker, defender);
         //return combatValue;

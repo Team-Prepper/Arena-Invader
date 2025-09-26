@@ -20,6 +20,15 @@ public class UNetNetwork : MonoBehaviour, INetwork {
 
     }
 
+    public static void OnNetwork()
+    {
+        if (NetManager.Instance.System != null) return;
+
+        NetManager.Instance.System =
+            NetManager.Instance.gameObject.
+                AddComponent<UNetNetwork>();
+    }
+
     void Awake() {
         _uNetManager = AssetOpener.ImportComponent<NetworkManager>("NetworkManager");
         /*
@@ -31,7 +40,7 @@ public class UNetNetwork : MonoBehaviour, INetwork {
 
     public void Disconnect() {
         _uNetManager.Shutdown();
-        GameManager.Instance.MatchInfor = new LocalMatchInfor(2, "Map/DefaultMap", "DartDice");
+        GameManager.Instance.MatchInfor = new MatchInfor();
     }
 
     public void StartHost()
@@ -39,7 +48,8 @@ public class UNetNetwork : MonoBehaviour, INetwork {
         _uNetManager.StartHost();
         GameManager.Instance.MatchInfor = null;
 
-        AssetOpener.ImportComponent<NetworkObject>("UNetPlayground").Spawn();
+        AssetOpener.ImportComponent<NetworkObject>(
+            "UNetPlayground").Spawn();
     }
 
     public void StartClient()

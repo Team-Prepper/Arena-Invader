@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2405167422246337650}
   - component: {fileID: 8147132545331307385}
   - component: {fileID: 3419142431323948522}
+  - component: {fileID: 6552213716456037161}
   m_Layer: 0
   m_Name: UNetPlayground
   m_TagString: Untagged
@@ -46,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3435017505
+  GlobalObjectIdHash: 1333731775
   InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -67,6 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58e5cb7540a08404cb3a0f2cc7a4eeb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _turnSystem: {fileID: 6552213716456037161}
 --- !u!114 &3419142431323948522
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81,3 +83,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsMatchStart:
     m_InternalValue: 0
+--- !u!114 &6552213716456037161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2876819843341686718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f2816951f094bc49a1d5984da4d766d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

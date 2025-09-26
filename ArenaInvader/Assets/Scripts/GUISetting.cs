@@ -1,14 +1,14 @@
-using EHTool.LangKit;
-using EHTool.UIKit;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
+using EHTool.LangKit;
+using EasyH.Unity.UI;
 
 public class GUISetting : GUIPopUp {
 
     [System.Serializable]
-    struct Option {
+    public struct Option {
         public string key;
         public string value;
     }

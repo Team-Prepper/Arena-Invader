@@ -18,6 +18,7 @@ MonoBehaviour:
     CharacterDamage: {fileID: 21300000, guid: 77619d16998e4d24789a8a8b6553fc4e, type: 3}
     CharacterStand: {fileID: 21300000, guid: 33e8a2d2e4192a741baf94e050138da2, type: 3}
   Prefab: {fileID: 3628364833649253308, guid: 39c75749433c044dfa957e9e33468e5e, type: 3}
+  DefaultHP: 3
   Statuses:
   - Atk: 30
     Dfs: 30

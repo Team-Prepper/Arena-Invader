@@ -11,9 +11,11 @@ GameObject:
   - component: {fileID: 3101662815762839096}
   - component: {fileID: 3698092696231186331}
   - component: {fileID: 6891127653779147005}
-  - component: {fileID: 9038997950466094188}
-  - component: {fileID: -6070704369157097612}
   - component: {fileID: 4279164854180647155}
+  - component: {fileID: 7384515043314526693}
+  - component: {fileID: 2434056967124226749}
+  - component: {fileID: 8408914290769908542}
+  - component: {fileID: 6392396641853077492}
   m_Layer: 0
   m_Name: Pawn_SpeedUp
   m_TagString: Pawn
@@ -73,47 +75,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e95d97f1218ee04ba53df4b57584421, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sprite: {fileID: 9216408042461845067}
-  _select: {fileID: 4279164854180647155}
-  _moveOnMap: {fileID: 9038997950466094188}
-  _initialMoveOnMap: {fileID: -6070704369157097612}
+  _moveOnMap: {fileID: 2434056967124226749}
+  _initialMoveOnMap: {fileID: 8408914290769908542}
   _nowPlate: {fileID: 0}
-  _attackCoefficient: 1
-  _defenseCoefficient: 1
-  _healthCoefficient: 1
-  _moneyCoefficient: 1
+  _select: {fileID: 4279164854180647155}
+  _idxSetter: {fileID: 6392396641853077492}
+  _statAdder: {fileID: 7384515043314526693}
   _moveCoefficient: 1
-  _levelCoefficient: 1
---- !u!114 &9038997950466094188
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 936136003452631792}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8469992c320b8b14c9950d2b0fe9a9e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _startStall: 0
-  _moveStall: 0.1
-  _moveTime: 0.2
-  _moveEffect: {fileID: 6414636326120616871}
---- !u!114 &-6070704369157097612
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 936136003452631792}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab0eb44bd614f834b9741b354bb81a78, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _stall: 0.3
-  _delay: 0.3
 --- !u!114 &4279164854180647155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,6 +96,85 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _model: {fileID: 3074315592377784840}
   _up: {x: 0, y: 0.2, z: 0}
+--- !u!114 &7384515043314526693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 936136003452631792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40ea814d60e9e794c952f8514ac233f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _attackCoefficient: 1
+  _defenseCoefficient: 1
+  _healthCoefficient: 1
+  _moneyCoefficient: 1
+  _levelCoefficient: 1
+--- !u!114 &2434056967124226749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 936136003452631792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14584a751459c9f4ba1e41db4511867f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _moveEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6414636326120616871}
+        m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _startStall: 0.1
+  _moveStall: 0.1
+  _moveTime: 0.2
+--- !u!114 &8408914290769908542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 936136003452631792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd489284722957f4eb3c0ff67e7f1b06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stall: 0.1
+  _delay: 0.1
+--- !u!114 &6392396641853077492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 936136003452631792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d40228973ef7b141980d87f5916c3e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sprite: {fileID: 9216408042461845067}
+  _teamColor:
+  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 0, g: 1, b: 1, a: 1}
+  - {r: 0, g: 1, b: 0, a: 1}
+  - {r: 1, g: 1, b: 0, a: 1}
 --- !u!1001 &1790634598518739871
 PrefabInstance:
   m_ObjectHideFlags: 0

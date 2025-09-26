@@ -1,13 +1,20 @@
-using EHTool.UIKit;
+using EasyH.Unity.UI;
 
 public class GUINetworkSetting : GUIFullScreen
 {
-    public void StartHost() {
-        GameManager.Instance.Network.StartHost();
+
+    public override void Open()
+    {
+        base.Open();
+        UNetNetwork.OnNetwork();
+    }
+    public void StartHost()
+    {
+        NetManager.Instance.System.StartHost();
     }
 
     public void StartClient() {
-        GameManager.Instance.Network.StartClient();
+        NetManager.Instance.System.StartClient();
     }
 
 }

@@ -18,6 +18,7 @@ MonoBehaviour:
     CharacterDamage: {fileID: 0}
     CharacterStand: {fileID: 0}
   Prefab: {fileID: 9037190202080104764, guid: bbadc199921f04ed0976d97ce1101dbf, type: 3}
+  DefaultHP: 5
   Statuses:
   - Atk: 10
     Dfs: 10

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2327606904328271336}
   - component: {fileID: 8382569738621821415}
-  - component: {fileID: 2359256825688338960}
+  - component: {fileID: 92343464843471931}
   m_Layer: 5
   m_Name: GUI_MessageBox
   m_TagString: Untagged
@@ -46,7 +46,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6986256611776702646}
   m_CullTransparentMesh: 1
---- !u!114 &2359256825688338960
+--- !u!114 &92343464843471931
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -55,7 +55,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6986256611776702646}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d914ebbb92e2c0a469af6829697eb49b, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d2f5b58f9968a04d88340577632c0bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   priority: 0
@@ -239,14 +239,14 @@ PrefabInstance:
     - target: {fileID: 5686980129117738479, guid: 1129e0b7974dd0946b84c580fcb21f53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 2359256825688338960}
+      objectReference: {fileID: 92343464843471931}
     - target: {fileID: 5686980129117738479, guid: 1129e0b7974dd0946b84c580fcb21f53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: CloseMessageBox
       objectReference: {fileID: 0}
     - target: {fileID: 5686980129117738479, guid: 1129e0b7974dd0946b84c580fcb21f53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: EHTool.UIKit.GUIMessageBox, EHTool
+      value: EasyH.Unity.UI.GUIMessageBox, EasyH.Unity
       objectReference: {fileID: 0}
     - target: {fileID: 5686980129117738479, guid: 1129e0b7974dd0946b84c580fcb21f53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -258,16 +258,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6494833248527910165, guid: 1129e0b7974dd0946b84c580fcb21f53, type: 3}
       propertyPath: m_Text
-      value: label_Alert
+      value: "\uC54C\uB9BC"
       objectReference: {fileID: 0}
     - target: {fileID: 7389111643626997151, guid: 1129e0b7974dd0946b84c580fcb21f53, type: 3}
       propertyPath: m_Name
       value: box_PopUp_Wrapper
       objectReference: {fileID: 0}
-    - target: {fileID: 8091377243325430711, guid: 1129e0b7974dd0946b84c580fcb21f53, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 2359256825688338960}
     - target: {fileID: 8091377243325430711, guid: 1129e0b7974dd0946b84c580fcb21f53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: CloseMessageBox

@@ -1,0 +1,21 @@
+{
+    "name": "ArenaInvader",
+    "rootNamespace": "",
+    "references": [
+        "GUID:ae12b510c0271ba45acb0cc2b245790c",
+        "GUID:6e5e117f7c3ad574fbeba3c06b1b91bd",
+        "GUID:74f4eae770c75f54f93382f7dcca2c64",
+        "GUID:ed2d45ced69146341b55bbb85a8c6dca",
+        "GUID:f7fe42fa0a96abd4d95741c2aec798fa",
+        "GUID:e5d7f917e0495f94d8a576c31779b6f5"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

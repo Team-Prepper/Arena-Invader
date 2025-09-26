@@ -13,6 +13,9 @@ GameObject:
   - component: {fileID: 5621369175506155979}
   - component: {fileID: 9038997950466094188}
   - component: {fileID: 5612870003875584293}
+  - component: {fileID: 7327657603953237671}
+  - component: {fileID: 4861653867539729162}
+  - component: {fileID: 1163626641757822896}
   m_Layer: 0
   m_Name: Pawn_Super
   m_TagString: Pawn
@@ -71,18 +74,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 073b7d9cda977d940b2b77a64d49c202, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _owner: {fileID: 0}
-  _model: {fileID: 2382411669543825602}
+  _sprite: {fileID: 0}
+  _select: {fileID: 0}
   _moveOnMap: {fileID: 9038997950466094188}
-  _moveTo: {fileID: 5612870003875584293}
+  _initialMoveOnMap: {fileID: 0}
   _nowPlate: {fileID: 0}
-  _beforePlate: {fileID: 0}
-  _up: {x: 0, y: 0.2, z: 0}
-  _attackCoefficient: 2
-  _defenseCoefficient: 2
-  _healCoefficient: 2
-  _moveCoefficient: 0
-  _levelCoefficient: 0
 --- !u!114 &9038997950466094188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98,6 +94,7 @@ MonoBehaviour:
   _startStall: 0
   _moveStall: 0.1
   _moveTime: 0.2
+  _moveEffect: {fileID: 0}
 --- !u!114 &5612870003875584293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,6 +109,55 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _stall: 0.3
   _delay: 0.3
+--- !u!114 &7327657603953237671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 936136003452631792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd489284722957f4eb3c0ff67e7f1b06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stall: 0.1
+  _delay: 0.1
+--- !u!114 &4861653867539729162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 936136003452631792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14584a751459c9f4ba1e41db4511867f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _moveEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _startStall: 0
+  _moveStall: 0
+  _moveTime: 0.5
+--- !u!114 &1163626641757822896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 936136003452631792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40ea814d60e9e794c952f8514ac233f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _attackCoefficient: 1
+  _defenseCoefficient: 1
+  _healthCoefficient: 1
+  _moneyCoefficient: 1
+  _levelCoefficient: 1
 --- !u!1 &3995697882601145122
 GameObject:
   m_ObjectHideFlags: 0

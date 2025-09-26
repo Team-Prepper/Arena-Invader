@@ -1,8 +1,8 @@
-using EHTool.LangKit;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System;
+using EasyH.Tool.LangKit;
 
 public class EHDropdownWrapper : MonoBehaviour, IObserver<IEHLangManager> {
 

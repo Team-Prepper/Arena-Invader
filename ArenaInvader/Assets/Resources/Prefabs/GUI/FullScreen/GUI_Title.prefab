@@ -237,7 +237,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5335563739467115847}
   - component: {fileID: 4577902227333052531}
-  - component: {fileID: 4317829674000863065}
+  - component: {fileID: 6887151739796328360}
   m_Layer: 5
   m_Name: GUI_Title
   m_TagString: Untagged
@@ -276,7 +276,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1703461340944532980}
   m_CullTransparentMesh: 1
---- !u!114 &4317829674000863065
+--- !u!114 &6887151739796328360
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -285,7 +285,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1703461340944532980}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6cc2c9814e0824d47b55b6fc6eb36ac9, type: 3}
+  m_Script: {fileID: 11500000, guid: 64d3f04445609af4c978ec0302b1f393, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   priority: 0
@@ -646,8 +646,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4317829674000863065}
-        m_TargetAssemblyTypeName: EHTool.UIKit.GUIWindow, EHTool
+      - m_Target: {fileID: 6887151739796328360}
+        m_TargetAssemblyTypeName: EasyH.Unity.UI.GUIWindow, EasyH.Unity
         m_MethodName: OpenWindow
         m_Mode: 5
         m_Arguments:
@@ -957,8 +957,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4317829674000863065}
-        m_TargetAssemblyTypeName: EHTool.UIKit.GUIWindow, Assembly-CSharp
+      - m_Target: {fileID: 6887151739796328360}
+        m_TargetAssemblyTypeName: EasyH.Unity.UI.GUIWindow, EasyH.Unity
         m_MethodName: OpenWindow
         m_Mode: 5
         m_Arguments:
@@ -1131,8 +1131,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4317829674000863065}
-        m_TargetAssemblyTypeName: EHTool.UIKit.GUIWindow, Assembly-CSharp
+      - m_Target: {fileID: 6887151739796328360}
+        m_TargetAssemblyTypeName: EasyH.Unity.UI.GUIWindow, EasyH.Unity
         m_MethodName: OpenWindow
         m_Mode: 5
         m_Arguments:

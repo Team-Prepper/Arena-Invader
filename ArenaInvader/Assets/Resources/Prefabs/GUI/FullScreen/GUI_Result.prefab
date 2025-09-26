@@ -836,27 +836,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1048708226049244750, guid: 1129e0b7974dd0946b84c580fcb21f53, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1048708226049244750, guid: 1129e0b7974dd0946b84c580fcb21f53, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1048708226049244750, guid: 1129e0b7974dd0946b84c580fcb21f53, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1048708226049244750, guid: 1129e0b7974dd0946b84c580fcb21f53, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1048708226049244750, guid: 1129e0b7974dd0946b84c580fcb21f53, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1000
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1048708226049244750, guid: 1129e0b7974dd0946b84c580fcb21f53, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 600
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1048708226049244750, guid: 1129e0b7974dd0946b84c580fcb21f53, type: 3}
       propertyPath: m_LocalPosition.x
@@ -905,6 +905,22 @@ PrefabInstance:
     - target: {fileID: 1048708226049244750, guid: 1129e0b7974dd0946b84c580fcb21f53, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686980129117738479, guid: 1129e0b7974dd0946b84c580fcb21f53, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 7390721537465998719}
+    - target: {fileID: 5686980129117738479, guid: 1129e0b7974dd0946b84c580fcb21f53, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Close
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686980129117738479, guid: 1129e0b7974dd0946b84c580fcb21f53, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GUIResult, ArenaInvader
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686980129117738479, guid: 1129e0b7974dd0946b84c580fcb21f53, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6494833248527910165, guid: 1129e0b7974dd0946b84c580fcb21f53, type: 3}
       propertyPath: _key

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using EasyH.Unity.SoundKit;
 
 public class CustomButton : Button
 {
@@ -9,7 +10,7 @@ public class CustomButton : Button
     public override void OnPointerClick(PointerEventData eventData)
     {
         base.OnPointerClick(eventData);
-        SFXManager.Instance.PlaySFX(_soundKey);
+        SoundManager.Instance.PlaySFX(_soundKey);
     }
 
 }

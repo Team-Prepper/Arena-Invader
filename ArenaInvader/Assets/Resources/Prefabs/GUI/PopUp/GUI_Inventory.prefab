@@ -1549,7 +1549,7 @@ PrefabInstance:
       objectReference: {fileID: 6083483870132076867}
     - target: {fileID: 5686980129117738479, guid: 1129e0b7974dd0946b84c580fcb21f53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Close
+      value: TryClose
       objectReference: {fileID: 0}
     - target: {fileID: 5686980129117738479, guid: 1129e0b7974dd0946b84c580fcb21f53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName

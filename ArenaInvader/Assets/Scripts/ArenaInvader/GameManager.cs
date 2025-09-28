@@ -13,7 +13,7 @@ public class GameManager : MonoSingleton<GameManager> {
         base.OnCreate();
 
         Playground = new Playground();
-        MatchInfor = new MatchInfor();
+        MatchInfor = new MatchInfor(2, "Map/DefaultMap", "DartDice");
 
     }
 

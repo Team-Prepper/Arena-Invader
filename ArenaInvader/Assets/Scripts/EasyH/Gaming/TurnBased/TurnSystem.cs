@@ -69,7 +69,7 @@ namespace EasyH.Gaming.TurnBased
         
         public void TurnEnd()
         {
-            if (!_condition()) return;
+            if (_condition != null && !_condition()) return;
 
             UnityEngine.Debug.Log("NewTurn");
 

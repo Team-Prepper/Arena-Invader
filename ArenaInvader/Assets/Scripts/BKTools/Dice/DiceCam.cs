@@ -9,6 +9,6 @@ public class DiceCam : MonoBehaviour
     {
         Vector3 dicePos = new Vector3(dice.transform.localPosition.x,15, dice.transform.localPosition.z);
         
-        this.transform.localPosition = dicePos;
+        transform.localPosition = dicePos;
     }
 }

@@ -14,7 +14,7 @@ public struct MatchInfor : IMatchInfor {
     public IList<int> EditableIdx {
         get { 
             IList<int> retval = new List<int>();
-            for (int i = 0; i < _playerInfors.Length; i++) {
+            for (int i = 0; i < PlayerInfors.Count; i++) {
                 retval.Add(i);
             }
             return retval;

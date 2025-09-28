@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using EasyH.Unity.SoundKit;
-//using BKTools;
+using BKTools.Gaming.Dice;
 
 public class GUIDice : GUINetworkPopUp<float>
 {

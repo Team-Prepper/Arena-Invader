@@ -71,6 +71,7 @@ public class PlayableCharacter : MonoBehaviour, IPlayableCharacter
     public void SetController(ICharacterController selector)
     {
         _selector = selector;
+        Debug.Log(_selector);
     }
 
     public void StartTurn(bool tmp)

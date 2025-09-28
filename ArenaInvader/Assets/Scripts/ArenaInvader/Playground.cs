@@ -71,6 +71,7 @@ public class Playground : IPlayground
 
     public void MatchLoadComplete()
     {
+        
         UIManager.Instance.OpenGUI<GUIPlayground>(
             "Playground").Generate();
 

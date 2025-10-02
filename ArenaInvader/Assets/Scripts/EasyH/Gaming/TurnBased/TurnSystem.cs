@@ -71,8 +71,6 @@ namespace EasyH.Gaming.TurnBased
         {
             if (_condition != null && !_condition()) return;
 
-            UnityEngine.Debug.Log("NewTurn");
-
             _turn++;
             
             while (_teams[ActiveTeamIdx].GetLeftMemberCount() < 1)

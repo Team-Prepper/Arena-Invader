@@ -22,7 +22,6 @@ namespace EasyH.Gaming.TurnBased
             }
 
             TeamIdx = idx;
-            OnTeamIdxChanged?.Invoke();
 
             TurnManager.Instance.System.AddTeamMember(this);
         }

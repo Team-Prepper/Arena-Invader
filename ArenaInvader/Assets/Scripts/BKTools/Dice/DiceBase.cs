@@ -11,6 +11,7 @@ namespace BKTools.Gaming.Dice
         public abstract void Initial(int seed);
         public abstract void Roll(Action<int> callback);
         public abstract void Shot(float value, Action<int> callback = null);
+        
 
     }
 

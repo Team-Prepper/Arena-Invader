@@ -73,7 +73,7 @@ namespace BKTools.Gaming.Dice
             rb.useGravity = false;
             rb.isKinematic = false;
             rb.angularVelocity = Vector3.zero;
-            rb.velocity = Vector3.zero;
+            rb.linearVelocity = Vector3.zero;
             transform.localPosition = originPos;
         }
 
@@ -109,7 +109,7 @@ namespace BKTools.Gaming.Dice
             transform.localPosition = originPos;
 
             rb.useGravity = true;
-            rb.velocity = Vector3.up * throwStrength;
+            rb.linearVelocity = Vector3.up * throwStrength;
 
             rb.AddForce(InsideUnitSphere * _rand.Next(5, 10),
                 ForceMode.Impulse);

@@ -1,6 +1,7 @@
-using EasyH;
 using System.Collections.Generic;
 using UnityEngine;
+using EasyH;
+using EasyH.Unity;
 
 public class CharacterManager : Singleton<CharacterManager> {
 
@@ -16,7 +17,8 @@ public class CharacterManager : Singleton<CharacterManager> {
         foreach (var value in connector.ReadData("CharacterInfor"))
         {
             _dic.Add(value.Key,
-                AssetOpener.Import<CharacterMetaData>(value.Value));
+                ResourceManager.Instance.ResourceConnector.
+                    Import<CharacterMetaData>(value.Value));
         }
     }
 

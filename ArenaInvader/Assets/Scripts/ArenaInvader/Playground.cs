@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using EasyH;
+using EasyH.Unity;
 using EasyH.Unity.UI;
 using EasyH.Gaming.TurnBased;
 
@@ -39,7 +39,8 @@ public class Playground : IPlayground
     public IPlayableCharacter InstantiateCC(Vector3 pos)
     {
         PlayableCharacter retval =
-            AssetOpener.ImportComponent<PlayableCharacter>("LocalCC");
+            ResourceManager.Instance.ResourceConnector.
+                ImportComponent<PlayableCharacter>("LocalCC");
         retval.transform.position = pos;
 
         return retval;
@@ -48,7 +49,8 @@ public class Playground : IPlayground
     public IStatus InstantiateStatus()
     {
         LocalObjectCharacter retval =
-            AssetOpener.ImportComponent<LocalObjectCharacter>("LocalOC");
+            ResourceManager.Instance.ResourceConnector.
+                ImportComponent<LocalObjectCharacter>("LocalOC");
 
         retval.SetTargetCharacter("Baron");
 
@@ -60,12 +62,14 @@ public class Playground : IPlayground
 
         MatchGenerator generator = GameObject.FindWithTag
             ("MatchGenerator").GetComponent<MatchGenerator>();
+
         generator.SetMatchInfor(GameManager.Instance.MatchInfor);
         generator.Generate();
 
         BoardManager.Instance.Map =
-            AssetOpener.ImportComponent<GameMap>
-                (GameManager.Instance.MatchInfor.MapName);
+            ResourceManager.Instance.ResourceConnector.
+                ImportComponent<GameMap>(
+                    GameManager.Instance.MatchInfor.MapName);
 
     }
 

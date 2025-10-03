@@ -1,5 +1,5 @@
 using UnityEngine;
-using EasyH;
+using EasyH.Unity;
 using EasyH.Unity.SoundKit;
 
 public class MatchGenerator : MonoBehaviour
@@ -22,8 +22,9 @@ public class MatchGenerator : MonoBehaviour
         {
             _matchInfor = _defaultMatchiInfor;
         }
-        AssetOpener.ImportComponent<GameMap>(
-            GameManager.Instance.MatchInfor.MapName);
+        ResourceManager.Instance.
+            ResourceConnector.ImportComponent<GameMap>(
+                GameManager.Instance.MatchInfor.MapName);
     }
 
     public void Generate()

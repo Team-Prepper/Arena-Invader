@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using EasyH;
+using EasyH.Unity;
 using EasyH.Unity.UI;
 using EasyH.Gaming.TurnBased;
 
@@ -44,7 +45,7 @@ public class UNetPlayground : NetworkBehaviour, IPlayground
 
     public IPlayableCharacter InstantiateCC(Vector3 pos)
     {
-        GameObject retval = AssetOpener.ImportGameObject("UNetCC");
+        GameObject retval = ResourceManager.Instance.ResourceConnector.ImportGameObject("UNetCC");
         retval.GetComponent<NetworkObject>().Spawn();
         retval.transform.position = pos;
 
@@ -56,7 +57,9 @@ public class UNetPlayground : NetworkBehaviour, IPlayground
     public IStatus InstantiateStatus()
     {
         if (!IsHost) return null;
-        GameObject go = AssetOpener.ImportGameObject("UNetOC");
+        
+        GameObject go = ResourceManager.Instance.
+            ResourceConnector.ImportGameObject("UNetOC");
         
         UNetObjectCharacter retval = go.GetComponent<UNetObjectCharacter>();
         retval.GetComponent<NetworkObject>().Spawn();

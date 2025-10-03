@@ -3,7 +3,7 @@
 - [세부 기획](https://easy-h.notion.site/2024-1355e129e5ff8050afa4e1b23c7b184e?pvs=74)
 
 ## 개발도구
-- Unity 6000.0.58f1
+- Unity 6000.0.58f2
 	- https://docs.unity3d.com/Manual/PostProcessingOverview.html
 - Unity Network GameObject: 멀티 플레이 구현에 사용되었습니다.
 - NewtonJson: Json Parsing에 사용되었습니다.

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using EasyH;
+using EasyH.Unity;
 
 public class ItemManager : Singleton<ItemManager> {
 
@@ -11,8 +12,8 @@ public class ItemManager : Singleton<ItemManager> {
     {
         base.OnCreate();
 
-        IDictionaryConnector<int, string>
-            itemDictConnector = new JsonDictionaryConnector<int, string>();
+        IDictionaryConnector<int, string> itemDictConnector
+            = new JsonDictionaryConnector<int, string>();
 
         IDictionary<int, string> dict = itemDictConnector.ReadData("ItemInfor");
 
@@ -22,7 +23,8 @@ public class ItemManager : Singleton<ItemManager> {
         _itemToIntDict = new Dictionary<string, int>();
 
         foreach (var data in dict) {
-            ItemData d = AssetOpener.Import<ItemData>(data.Value);
+            ItemData d = ResourceManager.Instance.
+                ResourceConnector.Import<ItemData>(data.Value);
             _itemDict.Add(d.Code, d);
             _intToItemDict.Add(data.Key, d.Code);
         }

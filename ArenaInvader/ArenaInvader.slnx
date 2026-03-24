@@ -1,0 +1,20 @@
+﻿<Solution>
+  <Project Path="EasyH.Gaming.csproj" />
+  <Project Path="ArenaInvader.csproj" />
+  <Project Path="EasyH.Unity.csproj" />
+  <Project Path="Assembly-CSharp.csproj" />
+  <Project Path="EHTool.csproj" />
+  <Project Path="UI.Editor.csproj" />
+  <Project Path="CFXRRuntime.csproj" />
+  <Project Path="CFXRDemo.csproj" />
+  <Project Path="CFXREditor.csproj" />
+  <Project Path="BKTools.csproj" />
+  <Project Path="EasyH.Tool.LangKit.Editor.csproj" />
+  <Project Path="EasyH.csproj" />
+  <Project Path="UI.csproj" />
+  <Project Path="Assembly-CSharp-Editor.csproj" />
+  <Project Path="KinoBloom.Runtime.csproj" />
+  <Project Path="ToonyColorsPro.Demo.Editor.csproj" />
+  <Project Path="EasyH.Tool.csproj" />
+  <Project Path="EHToolEditor.csproj" />
+</Solution>

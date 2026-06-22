@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using EasyH;
+using EasyH.Unity.Core;
 
 namespace EasyH.Unity.UI
 {
@@ -18,6 +19,8 @@ namespace EasyH.Unity.UI
 
         public void OpenFullScreen(IGUIFullScreen newData)
         {
+            if (newData == null) return;
+
             if (NowDisplay != null)
             {
                 uiStack.Enqueue(NowDisplay);
@@ -41,6 +44,8 @@ namespace EasyH.Unity.UI
 
         public void CloseFullScreen(IGUIFullScreen closeFullScreen)
         {
+            if (closeFullScreen == null) return;
+
             if (NowDisplay != closeFullScreen)
             {
                 uiStack.Remove(closeFullScreen);
@@ -83,14 +88,49 @@ namespace EasyH.Unity.UI
 
         public T OpenGUI<T>(string guiName, Action callback = null) where T : Component, IGUI
         {
-            string path = Instance._dic[guiName];
+            if (_dic == null)
+            {
+                throw new InvalidOperationException(
+                    "UIManager is not initialized. Dictionary data is missing.");
+            }
 
-            GameObject retGO = ResourceManager.Instance.
-                ResourceConnector.ImportGameObject(path);
-                
-            retGO.GetComponent<IGUI>().Open(callback);
+            if (!_dic.TryGetValue(guiName, out string path) || string.IsNullOrWhiteSpace(path))
+            {
+                throw new KeyNotFoundException(
+                    $"GUI key '{guiName}' was not found in UI dictionary.");
+            }
 
-            return retGO.GetComponent<T>();
+            IResourceConnector resourceConnector = ResourceManager.Instance?.ResourceConnector;
+            if (resourceConnector == null)
+            {
+                throw new InvalidOperationException(
+                    "ResourceConnector is not available.");
+            }
+
+            GameObject retGO = resourceConnector.ImportGameObject(path);
+            if (retGO == null)
+            {
+                throw new InvalidOperationException(
+                    $"Failed to load GUI prefab at path '{path}'.");
+            }
+
+            IGUI gui = retGO.GetComponent<IGUI>();
+            if (gui == null)
+            {
+                throw new InvalidOperationException(
+                    $"Loaded GUI prefab '{path}' does not implement IGUI.");
+            }
+
+            gui.Open(callback);
+
+            T result = retGO.GetComponent<T>();
+            if (result == null)
+            {
+                throw new InvalidOperationException(
+                    $"Loaded GUI prefab '{path}' does not have component {typeof(T).Name}.");
+            }
+
+            return result;
         }
 
         public void DisplayMessage(string messageContent)

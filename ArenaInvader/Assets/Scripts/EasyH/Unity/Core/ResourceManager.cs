@@ -10,8 +10,20 @@ namespace EasyH.Unity
 
         protected override void OnCreate()
         {
-            ResourceConnector = gameObject.
-                AddComponent<ResourcesResourceConnector>();
+            if (ResourceConnector != null)
+            {
+                return;
+            }
+
+            ResourcesResourceConnector connector =
+                gameObject.GetComponent<ResourcesResourceConnector>();
+
+            if (connector == null)
+            {
+                connector = gameObject.AddComponent<ResourcesResourceConnector>();
+            }
+
+            ResourceConnector = connector;
         }
     }
 

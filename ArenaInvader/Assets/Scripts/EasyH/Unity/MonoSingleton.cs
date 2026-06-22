@@ -10,18 +10,25 @@ namespace EasyH.Unity {
         public static T Instance {
             get {
 
-                if (_instance == null && !(_instance = FindAnyObjectByType<T>()))
+                if (_instance == null)
                 {
-                    GameObject newInstance = new GameObject();
-                    newInstance.name = "(MonoSingleton)" + typeof(T).Name;
-
-                    if (Application.isPlaying)
-                    {
-                        DontDestroyOnLoad(newInstance);
-                    }
-
-                    _instance = newInstance.AddComponent<T>();
+                    _instance = FindAnyObjectByType<T>();
                 }
+
+                if (_instance != null)
+                {
+                    return _instance;
+                }
+
+                GameObject newInstance = new GameObject();
+                newInstance.name = "(MonoSingleton)" + typeof(T).Name;
+
+                if (Application.isPlaying)
+                {
+                    DontDestroyOnLoad(newInstance);
+                }
+
+                _instance = newInstance.AddComponent<T>();
 
                 return _instance;
             }
@@ -29,6 +36,13 @@ namespace EasyH.Unity {
 
         private void Awake()
         {
+            if (_instance != null && _instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            _instance = this as T;
             OnCreate();
         }
         protected virtual void OnCreate()

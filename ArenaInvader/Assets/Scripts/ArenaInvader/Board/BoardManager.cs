@@ -26,7 +26,9 @@ public class BoardManager : Singleton<BoardManager>
     public void AddEvent(Plate gamePlate,
         MultipleArriveEvent arriveEvent)
     {
-        _eventDict.Add(gamePlate, arriveEvent);
+        if (gamePlate == null || arriveEvent == null) return;
+
+        _eventDict[gamePlate] = arriveEvent;
     }
 
     public void ResetPawnAt(Plate nowPlate)
@@ -43,7 +45,7 @@ public class BoardManager : Singleton<BoardManager>
 
     public void OverlapProcess(Plate plate, GamePawn pawn)
     {
-        if (plate == null) return;
+        if (plate == null || pawn == null) return;
 
         GamePawn defaultPawn = GetPawnAt(plate);
 
@@ -65,12 +67,8 @@ public class BoardManager : Singleton<BoardManager>
 
     public void SetPawnAt(Plate plate, GamePawn pawn)
     { 
+        if (plate == null) return;
 
-        if (!_pawnDict.ContainsKey(plate))
-        {
-            _pawnDict.Add(plate, pawn);
-            return;
-        }
         _pawnDict[plate] = pawn;
         
     }
@@ -78,9 +76,9 @@ public class BoardManager : Singleton<BoardManager>
     public void AbilityEvent(
         Plate plate, GamePawn pawn, Action callback)
     {
-        if (_eventDict.ContainsKey(plate))
+        if (plate != null && _eventDict.TryGetValue(plate, out MultipleArriveEvent arriveEvent))
         {
-            _eventDict[plate].Event(pawn, callback);
+            arriveEvent.Event(pawn, callback);
             return;
         }
 
@@ -90,7 +88,8 @@ public class BoardManager : Singleton<BoardManager>
 
     public GamePawn GetPawnAt(Plate plate)
     {
-        if (!_pawnDict.ContainsKey(plate)) return null;
-        return _pawnDict[plate];
+        if (plate == null) return null;
+        _pawnDict.TryGetValue(plate, out GamePawn pawn);
+        return pawn;
     }
 }

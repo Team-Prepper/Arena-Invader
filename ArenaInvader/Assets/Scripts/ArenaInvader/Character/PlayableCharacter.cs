@@ -26,11 +26,11 @@ public class PlayableCharacter : MonoBehaviour, IPlayableCharacter
 
     private void Awake()
     {
-        _syncShop = gameObject.GetComponent<IOpenShop>();
-        _syncMovePawn = gameObject.GetComponent<IOpenSelectPawn>();
-        _syncDice = gameObject.GetComponent<IOpenDice>();
-        _syncInventory = gameObject.GetComponent<IOpenInventory>();
-        _syncBattle = gameObject.GetComponent<IOpenBattle>();
+        _syncShop = RequireComponent<IOpenShop>();
+        _syncMovePawn = RequireComponent<IOpenSelectPawn>();
+        _syncDice = RequireComponent<IOpenDice>();
+        _syncInventory = RequireComponent<IOpenInventory>();
+        _syncBattle = RequireComponent<IOpenBattle>();
 
         _syncShop.Initial(this);
         _syncMovePawn.Initial(this);
@@ -38,21 +38,33 @@ public class PlayableCharacter : MonoBehaviour, IPlayableCharacter
         _syncInventory.Initial(this);
         _syncBattle.Initial(this);
 
-        Status = gameObject.GetComponent<IStatus>();
+        Status = RequireComponent<IStatus>();
         Status.OnDeathEvent += OnDeath;
 
-        Inventory = gameObject.GetComponent<IInventory>();
+        Inventory = RequireComponent<IInventory>();
         Inventory.SetCC(this);
 
-        TurnState = gameObject.GetComponent<IMemberState>();
+        TurnState = RequireComponent<IMemberState>();
         TurnState.OnTurnEndStateChanged += StartTurn;
         TurnState.OnTeamIdxChanged = () =>
         {
             GameManager.Instance.Playground.AddPlayer(this);
         };
 
-        PawnOwner = gameObject.GetComponent<IPawnOwner>();
+        PawnOwner = RequireComponent<IPawnOwner>();
         PawnOwner.SetCC(this);
+    }
+
+    private T RequireComponent<T>() where T : class
+    {
+        T component = GetComponent(typeof(T)) as T;
+        if (component == null)
+        {
+            throw new MissingComponentException(
+                $"{name} requires component {typeof(T).Name}.");
+        }
+
+        return component;
     }
 
     private void OnDeath()
@@ -99,6 +111,12 @@ public class PlayableCharacter : MonoBehaviour, IPlayableCharacter
 
     public void EndTurn()
     {
+        if (_selector == null)
+        {
+            TurnState.EndTurn();
+            return;
+        }
+
         if (_chance == 0)
         {
             TurnState.EndTurn();
@@ -120,7 +138,10 @@ public class PlayableCharacter : MonoBehaviour, IPlayableCharacter
     public GUIInventory OpenInventory()
     {
         GUIInventory inventory = _syncInventory.OpenInventory();
-        inventory.AddCloseMethod(_selector.RollDice);
+        if (_selector != null)
+        {
+            inventory.AddCloseMethod(_selector.RollDice);
+        }
 
         return inventory;
     }

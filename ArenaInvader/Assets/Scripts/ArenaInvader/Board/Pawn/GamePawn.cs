@@ -192,6 +192,7 @@ public class GamePawn : PathEntity
         while (target != null)
         {
             ret++;
+            target = target._piggyBacking;
         }
 
         return ret;

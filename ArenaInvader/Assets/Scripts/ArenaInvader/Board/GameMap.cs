@@ -25,9 +25,15 @@ public class GameMap : PathMap {
         
         _raidDict = new Dictionary<int, string>();
 
+        if (_raidInfors == null)
+        {
+            return;
+        }
+
         for (int i = 0; i < _raidInfors.Length; i++)
         {
-            _raidDict.Add(_raidInfors[i].StartTurn, _raidInfors[i].SpawnCode);
+            if (_raidInfors[i] == null) continue;
+            _raidDict[_raidInfors[i].StartTurn] = _raidInfors[i].SpawnCode;
         }
 
     }
@@ -43,7 +49,7 @@ public class GameMap : PathMap {
     public void StartNewTurn(int turn) {
         currentTurn = turn;
 
-        if (!_raidDict.ContainsKey(turn)) return;
+        if (_raidDict == null || !_raidDict.ContainsKey(turn)) return;
         
         GameManager.Instance.Playground.InstantiateStatus();
 
@@ -53,6 +59,11 @@ public class GameMap : PathMap {
 
     public int GetLeftBaronTurn()
     {
+        if (_raidDict == null || _raidDict.Count == 0)
+        {
+            return -1;
+        }
+
         List<int> keys = new List<int>(_raidDict.Keys);
         keys.Sort();
         return keys[0] - currentTurn;

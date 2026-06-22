@@ -16,25 +16,52 @@ public class MatchGenerator : MonoBehaviour
         _matchInfor = matchInfor;
     }
 
+    private IMatchInfor ResolveMatchInfor()
+    {
+        if (_matchInfor != null)
+        {
+            return _matchInfor;
+        }
+
+        return _defaultMatchiInfor;
+    }
+
+    private bool HasEnoughPlayerSlots(IMatchInfor matchInfor)
+    {
+        return _playerPosition != null && matchInfor != null
+            && _playerPosition.Length >= matchInfor.PlayerInfors.Count;
+    }
+
     public void GenerateMap()
     {
-        if (_matchInfor == null)
+        IMatchInfor matchInfor = ResolveMatchInfor();
+        if (matchInfor == null)
         {
-            _matchInfor = _defaultMatchiInfor;
+            throw new MissingReferenceException(
+                $"{name} does not have match information to generate a map.");
         }
+
         ResourceManager.Instance.
             ResourceConnector.ImportComponent<GameMap>(
-                GameManager.Instance.MatchInfor.MapName);
+                matchInfor.MapName);
     }
 
     public void Generate()
     {
-        if (_matchInfor == null)
+        IMatchInfor matchInfor = ResolveMatchInfor();
+        if (matchInfor == null)
         {
-            _matchInfor = _defaultMatchiInfor;
+            throw new MissingReferenceException(
+                $"{name} does not have match information to generate players.");
         }
 
-        for (int i = 0; i < _matchInfor.PlayerInfors.Count; i++)
+        if (!HasEnoughPlayerSlots(matchInfor))
+        {
+            throw new System.IndexOutOfRangeException(
+                $"Player position count is smaller than player count ({matchInfor.PlayerInfors.Count}).");
+        }
+
+        for (int i = 0; i < matchInfor.PlayerInfors.Count; i++)
         {
             IPlayableCharacter character = GameManager.Instance.
                 Playground.InstantiateCC(
@@ -43,11 +70,11 @@ public class MatchGenerator : MonoBehaviour
             character.TurnState.SetTeamIdx(i);
 
             character.Status.SetName(
-                _matchInfor.PlayerInfors[i].Name);
+                matchInfor.PlayerInfors[i].Name);
             character.Status.SetCharacter(
-                _matchInfor.PlayerInfors[i].CharacterCode);
+                matchInfor.PlayerInfors[i].CharacterCode);
             character.PawnOwner.SetInitial(
-                _matchInfor.PlayerInfors[i].CharacterCode);
+                matchInfor.PlayerInfors[i].CharacterCode);
 
         }
 

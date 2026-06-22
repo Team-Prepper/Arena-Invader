@@ -20,16 +20,28 @@ public class PawnOwner : MonoBehaviour, IPawnOwner
 
     public void SetInitial(string characterCode)
     {
-        BasePlayer Target = CharacterManager.Instance.
-            SpawnPlayer(characterCode).GetComponent<BasePlayer>();
+        GameObject spawnedPlayer = CharacterManager.Instance.SpawnPlayer(characterCode);
+        BasePlayer target = spawnedPlayer.GetComponent<BasePlayer>();
+        if (target == null)
+        {
+            throw new MissingComponentException(
+                $"Spawned character '{characterCode}' does not have BasePlayer.");
+        }
 
-        Target.transform.SetParent(transform);
-        Target.transform.localPosition = Vector3.zero;
+        target.transform.SetParent(transform);
+        target.transform.localPosition = Vector3.zero;
 
-        _pawns = Target.Pawns;
+        _pawns = target.Pawns;
+        _emptyPlace = new List<Vector3>(_pawns.Count);
 
         for (int i = 0; i < _pawns.Count; i++)
         {
+            if (i >= _pawnPosition.Length)
+            {
+                throw new System.IndexOutOfRangeException(
+                    $"{name} has fewer pawn positions than spawned pawns.");
+            }
+
             _pawns[i].SetTargetCC(_cc);
             _pawns[i].SetOwner(this);
             _pawns[i].Id = i;
@@ -37,12 +49,11 @@ public class PawnOwner : MonoBehaviour, IPawnOwner
             _pawns[i].transform.position = _pawnPosition[i].position;
         }
 
-        _emptyPlace = new List<Vector3>();
-
     }
 
     public void ResetPawn()
     {
+        if (_pawns == null) return;
         foreach (var p in _pawns)
         {
             p.BackHome();
@@ -51,24 +62,36 @@ public class PawnOwner : MonoBehaviour, IPawnOwner
 
     public void MovePawn(int pawnId, int amount)
     {
+        if (_pawns == null) return;
+        if (pawnId < 0 || pawnId >= _pawns.Count) return;
+
         OffPawnChoose();
         _pawns[pawnId].Move(amount);
     }
 
     public void LeavePawn(int id)
     {
+        if (_pawns == null) return;
+        if (id < 0 || id >= _pawns.Count) return;
+
         _emptyPlace.Add(_pawns[id].transform.position);
     }
 
     public void BackHomePawn(int id)
     {
-        _pawns[id].Dispose(_emptyPlace[0]);
+        if (_pawns == null) return;
+        if (id < 0 || id >= _pawns.Count) return;
+        if (_emptyPlace == null || _emptyPlace.Count == 0) return;
+
+        Vector3 targetPosition = _emptyPlace[0];
         _emptyPlace.RemoveAt(0);
+        _pawns[id].Dispose(targetPosition);
 
     }
 
     public void OnPawnChoose()
     {
+        if (_pawns == null) return;
         foreach (GamePawn pawn in _pawns)
         {
             pawn.EnterTurn();
@@ -78,6 +101,7 @@ public class PawnOwner : MonoBehaviour, IPawnOwner
 
     public void OffPawnChoose()
     {
+        if (_pawns == null) return;
         foreach (GamePawn pawn in _pawns)
         {
             pawn.ExitTurn();

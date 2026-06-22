@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using EasyH;
-using EasyH.Unity.Core;
 
 namespace EasyH.Unity.UI
 {

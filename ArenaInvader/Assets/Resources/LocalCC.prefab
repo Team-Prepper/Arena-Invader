@@ -81,6 +81,7 @@ GameObject:
   - component: {fileID: 4860462186737374882}
   - component: {fileID: 3361493508940273097}
   - component: {fileID: 7812041639201985231}
+  - component: {fileID: 8088885687837104854}
   m_Layer: 0
   m_Name: LocalCC
   m_TagString: Untagged
@@ -128,8 +129,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d373aa7d3cc29524eb392dcc4b95e589, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _money: 0
-  _hp: 100
   _atk: 0
   _dfs: 0
   _level: 0
@@ -233,6 +232,18 @@ MonoBehaviour:
   - {fileID: 7587245593877158111}
   - {fileID: 7352983907014382361}
   - {fileID: 6807811350207086039}
+--- !u!114 &8088885687837104854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2235420251673539107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b17ea1d34bec41b297d4a596afc7222, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: ArenaInvader::PlayableCharacterTurnState
 --- !u!1 &4953166367094235020
 GameObject:
   m_ObjectHideFlags: 0

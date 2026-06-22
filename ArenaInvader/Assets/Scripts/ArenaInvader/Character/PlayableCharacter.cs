@@ -19,10 +19,7 @@ public class PlayableCharacter : MonoBehaviour, IPlayableCharacter
     public IMemberState TurnState { get; private set; }
     public IPawnOwner PawnOwner { get; private set; }
 
-    private ICharacterController _selector;
-
-    private int _chance = 0;
-    private int _extraDicePoint = 0;
+    private PlayableCharacterTurnState _turnState;
 
     private void Awake()
     {
@@ -53,6 +50,13 @@ public class PlayableCharacter : MonoBehaviour, IPlayableCharacter
 
         PawnOwner = RequireComponent<IPawnOwner>();
         PawnOwner.SetCC(this);
+
+        _turnState = RequireComponent<PlayableCharacterTurnState>();
+    }
+
+    private void OnDestroy()
+    {
+        UnsubscribeEvents();
     }
 
     private T RequireComponent<T>() where T : class
@@ -67,11 +71,23 @@ public class PlayableCharacter : MonoBehaviour, IPlayableCharacter
         return component;
     }
 
+    private void UnsubscribeEvents()
+    {
+        if (Status != null)
+        {
+            Status.OnDeathEvent -= OnDeath;
+        }
+
+        if (TurnState != null)
+        {
+            TurnState.OnTurnEndStateChanged -= StartTurn;
+        }
+    }
+
     private void OnDeath()
     {
         Status.OnDeathEvent -= OnDeath;
-        
-        GameManager.Instance.Playground.PlayerDeath(this);
+        GameManager.Instance?.Playground?.PlayerDeath(this);
         TurnState.Remove();
     }
 
@@ -82,12 +98,16 @@ public class PlayableCharacter : MonoBehaviour, IPlayableCharacter
 
     public void SetController(ICharacterController selector)
     {
-        _selector = selector;
-        Debug.Log(_selector);
+        _turnState.SetController(selector);
     }
 
     public void StartTurn(bool tmp)
     {
+        if (!tmp)
+        {
+            return;
+        }
+
         GUITurnStart turnStartCall = UIManager.
             Instance.OpenGUI<GUITurnStart>("TurnStart");
 
@@ -95,52 +115,37 @@ public class PlayableCharacter : MonoBehaviour, IPlayableCharacter
 
         turnStartCall.SetMessage(string.Format(
             LangManager.Instance.GetStringByKey("msg_XTurn"),
-                Status.Name));
+            Status.Name));
 
         turnStartCall.SetWaitForCallback(
             () =>
             {
-                if (_selector != null)
-                {
-                    _chance++;
-                    _selector.StartTurn(this);
-                }
+                _turnState.BeginTurn(this);
                 turnStartCall.Close();
             });
     }
 
     public void EndTurn()
     {
-        if (_selector == null)
-        {
-            TurnState.EndTurn();
-            return;
-        }
-
-        if (_chance == 0)
-        {
-            TurnState.EndTurn();
-            return;
-        }
-        _selector.StartTurn(this);
+        _turnState.EndTurn(TurnState, this);
     }
 
     public void AddChance()
     {
-        _chance++;
+        _turnState.AddChance();
     }
 
     public void GetExtraDicePoint(int point)
     {
-        _extraDicePoint += point;
+        _turnState.AddExtraDicePoint(point);
     }
 
     public GUIInventory OpenInventory()
     {
         GUIInventory inventory = _syncInventory.OpenInventory();
-        if (_selector != null)
+        if (_turnState.HasController())
         {
-            inventory.AddCloseMethod(_selector.RollDice);
+            inventory.AddCloseMethod(_turnState.StartRollDice);
         }
 
         return inventory;
@@ -148,18 +153,17 @@ public class PlayableCharacter : MonoBehaviour, IPlayableCharacter
 
     public void OpenShop(Action callback)
     {
-        if (_selector == null) return;
+        if (!_turnState.HasController()) return;
         _syncShop.OpenShop(callback);
     }
 
     public GUIDice OpenRollDice(Action<int> callback)
     {
-        _chance--;
+        _turnState.SpendChance();
 
         GUIDice dice = _syncDice.OpenDice((value) =>
         {
-            callback?.Invoke(value + _extraDicePoint);
-            _extraDicePoint = 0;
+            callback?.Invoke(value + _turnState.ConsumeExtraDicePoint());
         });
 
         return dice;
@@ -167,22 +171,18 @@ public class PlayableCharacter : MonoBehaviour, IPlayableCharacter
 
     public GUISelectMovePawn OpenSelectMovePawn(int value)
     {
-
         return _syncMovePawn.OpenSelectMovePawn(
-            value, _extraDicePoint);
+            value, _turnState.GetExtraDicePoint());
     }
 
     public GUIBattle OpenBattle(int targetId, Action callback)
     {
-
-        if (_selector == null) return null;
+        if (!_turnState.HasController()) return null;
         return _syncBattle.OpenBattle(TurnState.TeamIdx, targetId, callback);
-
     }
 
     public void ShowUseItem(string itemCode)
     {
         _syncInventory.ShowUseItem(itemCode);
     }
-
 }

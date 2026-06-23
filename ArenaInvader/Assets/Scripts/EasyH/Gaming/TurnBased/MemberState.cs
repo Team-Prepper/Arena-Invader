@@ -24,6 +24,7 @@ namespace EasyH.Gaming.TurnBased
             TeamIdx = idx;
 
             TurnManager.Instance.System.AddTeamMember(this);
+            OnTeamIdxChanged?.Invoke();
         }
 
         public void Remove()

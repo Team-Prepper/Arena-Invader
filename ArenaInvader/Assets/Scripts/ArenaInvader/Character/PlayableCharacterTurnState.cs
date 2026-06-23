@@ -28,6 +28,11 @@ public class PlayableCharacterTurnState : MonoBehaviour
         _selector?.RollDice();
     }
 
+    public void OpenShop(GUIShop shop)
+    {
+        _selector?.Shop(shop);
+    }
+
     public void BeginTurn(IPlayableCharacter character)
     {
         if (_selector == null)

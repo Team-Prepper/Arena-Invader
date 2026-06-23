@@ -25,16 +25,17 @@ public class UNetStatus : NetworkBehaviour, IStatus
         = new NetworkVariable<int>(0);
 
     [SerializeField] private StatusElement[] _levelStatus;
+    private bool _deathNotified;
 
     public int Money => _netMoney.Value;
 
     public int HP => _netHP.Value;
 
     public int Atk =>
-        _netAtk.Value + _levelStatus[_netLevel.Value].Atk;
+        _netAtk.Value + _levelStatus[GetSafeLevel()].Atk;
 
     public int Dfs =>
-         _netDfs.Value + _levelStatus[_netLevel.Value].Dfs;
+         _netDfs.Value + _levelStatus[GetSafeLevel()].Dfs;
 
     public bool IsAlive() => HP > 0;
 
@@ -76,40 +77,42 @@ public class UNetStatus : NetworkBehaviour, IStatus
     {
         CharacterCode = value;
         _levelStatus = CharacterManager.Instance.GetStatuses(value);
+        _netLevel.Value = Mathf.Clamp(_netLevel.Value, 0, GetMaxLevel());
+        _deathNotified = false;
     }
 
     public void LevelUp(int levelUpAmount)
     {
         if (!IsOwner) return;
-        _netLevel.Value = levelUpAmount + _netLevel.Value;
+        _netLevel.Value = Mathf.Clamp(_netLevel.Value + levelUpAmount, 0, GetMaxLevel());
         Notify();
     }
 
     public void AddMoney(int money)
     {
         if (!IsOwner) return;
-        _netMoney.Value += money;
+        _netMoney.Value = Mathf.Max(0, _netMoney.Value + money);
         Notify();
     }
 
     public void UseMoney(int money)
     {
         if (!IsOwner) return;
-        _netMoney.Value -= money;
+        _netMoney.Value = Mathf.Max(0, _netMoney.Value - Mathf.Max(0, money));
         Notify();
     }
 
     public void AddHP(int hp)
     {
         if (!IsOwner) return;
-        _netHP.Value += hp;
+        _netHP.Value = Mathf.Max(0, _netHP.Value + hp);
         Notify();
     }
 
     public void TakeDamage(int damage)
     {
         if (!IsOwner) return;
-        _netHP.Value -= damage;
+        _netHP.Value = Mathf.Max(0, _netHP.Value - Mathf.Max(0, damage));
         Notify();
     }
 
@@ -123,8 +126,26 @@ public class UNetStatus : NetworkBehaviour, IStatus
     public void AddDfs(int dfs)
     {
         if (!IsOwner) return;
-        _netDfs.Value += + dfs;
+        _netDfs.Value += dfs;
         Notify();
+    }
+
+    private int GetSafeLevel()
+    {
+        if (_levelStatus == null || _levelStatus.Length == 0)
+        {
+            throw new InvalidOperationException(
+                $"{nameof(UNetStatus)} on '{name}' does not have character status data.");
+        }
+
+        return Mathf.Clamp(_netLevel.Value, 0, _levelStatus.Length - 1);
+    }
+
+    private int GetMaxLevel()
+    {
+        return _levelStatus == null || _levelStatus.Length == 0
+            ? 0
+            : _levelStatus.Length - 1;
     }
 
     private ISet<IObserver<IStatus>> _observers
@@ -142,8 +163,9 @@ public class UNetStatus : NetworkBehaviour, IStatus
 
     public void Notify()
     {
-        if (!IsAlive())
+        if (!IsAlive() && !_deathNotified)
         {
+            _deathNotified = true;
             OnDeathEvent?.Invoke();
         }
 
@@ -169,6 +191,10 @@ public class UNetStatus : NetworkBehaviour, IStatus
             Notify();
         };
         _netDfs.OnValueChanged += (beforeValue, value) =>
+        {
+            Notify();
+        };
+        _netLevel.OnValueChanged += (beforeValue, value) =>
         {
             Notify();
         };

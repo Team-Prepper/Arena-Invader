@@ -16,7 +16,7 @@ public struct PlayerInfor {
 
 }
 
-public interface IMatchInfor
+public interface IMatchInfo
 {
 
     public IList<int> EditableIdx { get; }
@@ -33,6 +33,7 @@ public interface IMatchInfor
     public void SetDice(string diceCode);
     public void SetPlayerName(int idx, string name);
     public void SetPlayerCharacter(int idx, string name);
+    public void SetPlayerIsAI(int idx, bool isAI);
     public void SetMap(string mapName);
     void OpenSettingUI();
 }

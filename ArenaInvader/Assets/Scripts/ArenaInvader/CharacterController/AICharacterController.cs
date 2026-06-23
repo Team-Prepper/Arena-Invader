@@ -1,19 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using EasyH.Unity.UI;
 
 public class AICharacterController : MonoBehaviour, ICharacterController {
+    private const float ActionDelaySeconds = 1f;
+    private const float DiceFollowUpDelaySeconds = 1f;
 
     private IPlayableCharacter _target;
+    private GUIPlayerAction _actionUI;
 
     public void StartTurn(IPlayableCharacter target)
     {
         _target = target;
+        StopAllCoroutines();
+        OpenActionUI();
+        StartCoroutine(StartTurnSequence());
+    }
+
+    private IEnumerator StartTurnSequence()
+    {
+        yield return new WaitForSeconds(ActionDelaySeconds);
 
         if (_target.Inventory.Items.Count > 0)
         {
             Inventory();
-            return;
+            yield break;
         }
 
         RollDice();
@@ -21,6 +33,7 @@ public class AICharacterController : MonoBehaviour, ICharacterController {
 
     public void Inventory()
     {
+        CloseActionUI();
         StartCoroutine(InventorySequence());
 
     }
@@ -32,30 +45,36 @@ public class AICharacterController : MonoBehaviour, ICharacterController {
 
         int idx = Random.Range(0, _target.Inventory.Items.Count);
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(ActionDelaySeconds);
         inventory.SelectItem(idx);
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(ActionDelaySeconds);
         inventory.UseItem();
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(ActionDelaySeconds);
 
         inventory.Close();
+        yield return new WaitForSeconds(ActionDelaySeconds);
         RollDice();
 
     }
 
     public void RollDice()
     {
+        CloseActionUI();
+        StartCoroutine(RollDiceSequence());
+    }
 
+    private IEnumerator RollDiceSequence()
+    {
         GUIDice guiDice = _target.OpenRollDice((value) => {
             StartCoroutine(PawnSelectSequence(value));
         });
         guiDice.SetIsNotControlled();
+
+        yield return new WaitForSeconds(ActionDelaySeconds);
         guiDice.Roll();
-
     }
-
     
     IEnumerator PawnSelectSequence(int value)
     {
@@ -64,10 +83,10 @@ public class AICharacterController : MonoBehaviour, ICharacterController {
         GUISelectMovePawn movePawn = _target.OpenSelectMovePawn(value);
         movePawn.SetIsNotControlled();
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(DiceFollowUpDelaySeconds);
         movePawn.FocusPawn(idx);
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(ActionDelaySeconds);
         
         movePawn.MovePawn(idx);
         movePawn.Close();
@@ -128,7 +147,7 @@ public class AICharacterController : MonoBehaviour, ICharacterController {
 
     private IEnumerator ShopSequence(GUIShop shop)
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(ActionDelaySeconds);
 
         int selected = SelectBuyItem(shop.GetSaleItems());
 
@@ -139,10 +158,10 @@ public class AICharacterController : MonoBehaviour, ICharacterController {
         }
 
         shop.SelectItem(selected);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(ActionDelaySeconds);
 
         shop.Buy();
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(ActionDelaySeconds);
 
         shop?.Close();
 
@@ -166,6 +185,26 @@ public class AICharacterController : MonoBehaviour, ICharacterController {
         }
 
         return mostValueableItemIdx;
+    }
+
+    private void OpenActionUI()
+    {
+        CloseActionUI();
+
+        _actionUI = UIManager.Instance.OpenGUI<GUIPlayerAction>("PlayerAction");
+        _actionUI.PlayerTurnStart(this);
+        _actionUI.SetIsNotControlled();
+    }
+
+    private void CloseActionUI()
+    {
+        if (_actionUI == null)
+        {
+            return;
+        }
+
+        _actionUI.Close();
+        _actionUI = null;
     }
 
 }

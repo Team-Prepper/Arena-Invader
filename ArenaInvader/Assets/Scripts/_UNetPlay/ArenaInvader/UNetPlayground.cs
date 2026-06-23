@@ -82,7 +82,7 @@ public class UNetPlayground : NetworkBehaviour, IPlayground
         MatchGenerator generator = GameObject.FindWithTag
             ("MatchGenerator").GetComponent<MatchGenerator>();
 
-        generator.SetMatchInfor(GameManager.Instance.MatchInfor);
+        generator.SetMatchInfo(GameManager.Instance.MatchInfo);
         generator.GenerateMap();
 
         if (!NetworkManager.Singleton.IsHost)
@@ -142,7 +142,7 @@ public class UNetPlayground : NetworkBehaviour, IPlayground
 
         _readyPlayerCnt++;
 
-        if (_readyPlayerCnt >= GameManager.Instance.MatchInfor.PlayerInfors.Count)
+        if (_readyPlayerCnt >= GameManager.Instance.MatchInfo.PlayerInfors.Count)
         {
             GameStartClientRpc();
             TurnManager.Instance.System.SetGameProceedCondition(GameProceed);

@@ -11,16 +11,21 @@ public class OpenDiceUI : MonoBehaviour, IOpenDice
 
     public GUIDice OpenDice(Action<int> callback)
     {
+        if (GameManager.Instance?.MatchInfo == null)
+        {
+            throw new MissingReferenceException(
+                $"{name} cannot open dice UI without match information.");
+        }
 
         GUIDice gui = UIManager.Instance.OpenGUI<GUIDice>
-            (GameManager.Instance.MatchInfor.MatchDice);
+            (GameManager.Instance.MatchInfo.MatchDice);
 
-        int seed = UnityEngine.Random.Range(0, 100);
-        gui.SetSeed(DateTime.Now.Millisecond);
+        int seed = UnityEngine.Random.Range(int.MinValue, int.MaxValue);
+        gui.SetSeed(seed);
 
         gui.SetCallback(callback);
 
         return gui;
-        
+
     }
 }

@@ -5,12 +5,12 @@ using EasyH.Gaming.PathBased;
 public class GameMap : PathMap {
 
     [System.Serializable]
-    public class RaidInfor {
+    public class RaidInfo {
         public int StartTurn;
         public string SpawnCode;
     }
 
-    [SerializeField] RaidInfor[] _raidInfors;
+    [SerializeField] RaidInfo[] _raidInfors;
 
     private IStatus _object;
 

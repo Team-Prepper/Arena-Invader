@@ -8,6 +8,9 @@ public class Playground : IPlayground
 {
 
     private ISet<int> _deathPlayerIdx;
+    private GUICharacterController _guiController;
+    private GameObject _aiControllerHost;
+    private AICharacterController _aiController;
 
     public IList<IPlayableCharacter> Players { get; private set; }
 
@@ -63,35 +66,25 @@ public class Playground : IPlayground
         MatchGenerator generator = GameObject.FindWithTag
             ("MatchGenerator").GetComponent<MatchGenerator>();
 
-        generator.SetMatchInfor(GameManager.Instance.MatchInfor);
+        generator.EnsureDefaultMatchInfo();
+
+        generator.SetMatchInfo(GameManager.Instance.MatchInfo);
         generator.Generate();
 
         BoardManager.Instance.Map =
             ResourceManager.Instance.ResourceConnector.
                 ImportComponent<GameMap>(
-                    GameManager.Instance.MatchInfor.MapName);
+                    GameManager.Instance.MatchInfo.MapName);
 
     }
 
     public void MatchLoadComplete()
     {
-        
+        EnsureControllers();
+
         UIManager.Instance.OpenGUI<GUIPlayground>(
             "Playground").Generate();
-
-        GUICharacterController _guiActionSelector =
-            new GUICharacterController();
-        AICharacterController _aiActionSelector =
-            new GameObject().AddComponent<AICharacterController>();
-
-        for (int i = 0; i < Players.Count; i++)
-        {
-            Players[i].SetController(
-                GameManager.Instance.MatchInfor.PlayerInfors[i].
-                CharacterCode.Equals("Player_AI") ?
-                _aiActionSelector : _guiActionSelector);
-
-        }
+        RefreshPlayerControllers();
         
         TurnManager.Instance.System.
             SetGameProceedCondition(GameProceed);
@@ -123,6 +116,7 @@ public class Playground : IPlayground
 
     void GameEnd()
     {
+        DisposeControllers();
         Object.Destroy(BoardManager.Instance.Map.gameObject);
 
         BoardManager.Instance.Map = null;
@@ -144,5 +138,78 @@ public class Playground : IPlayground
     public int CalcDamage(IStatus attacker, IStatus target)
     {
         return Mathf.Max(1, attacker.Atk - target.Dfs);
+    }
+
+    public void RefreshPlayerControllers()
+    {
+        EnsureControllers();
+
+        for (int i = 0; i < Players.Count; i++)
+        {
+            ApplyController(i);
+        }
+    }
+
+    public void SetPlayerControlMode(int playerIdx, bool isAI)
+    {
+        if (GameManager.Instance?.MatchInfo == null)
+        {
+            return;
+        }
+
+        if (playerIdx < 0 || playerIdx >= GameManager.Instance.MatchInfo.PlayerInfors.Count)
+        {
+            return;
+        }
+
+        GameManager.Instance.MatchInfo.SetPlayerIsAI(playerIdx, isAI);
+
+        if (playerIdx >= Players.Count)
+        {
+            return;
+        }
+
+        ApplyController(playerIdx);
+    }
+
+    private void ApplyController(int playerIdx)
+    {
+        if (playerIdx < 0 || playerIdx >= Players.Count)
+        {
+            return;
+        }
+
+        PlayerInfor playerInfo = GameManager.Instance.MatchInfo.PlayerInfors[playerIdx];
+        Players[playerIdx].SetController(playerInfo.IsAI ? _aiController : _guiController);
+    }
+
+    private void EnsureControllers()
+    {
+        if (_guiController == null)
+        {
+            _guiController = new GUICharacterController();
+        }
+
+        if (_aiController != null)
+        {
+            return;
+        }
+
+        _aiControllerHost = new GameObject("AICharacterController");
+        _aiController = _aiControllerHost.AddComponent<AICharacterController>();
+    }
+
+    private void DisposeControllers()
+    {
+        _guiController = null;
+        _aiController = null;
+
+        if (_aiControllerHost == null)
+        {
+            return;
+        }
+
+        Object.Destroy(_aiControllerHost);
+        _aiControllerHost = null;
     }
 }

@@ -13,8 +13,13 @@ public class MoneyAdd : ArriveEventBase {
 
     public override void AddAbility(GamePawn target, Action callback)
     {
+        if (target == null)
+        {
+            callback?.Invoke();
+            return;
+        }
+
         target.AddMoney(_moneyAmount);
         callback?.Invoke();
     }
 }
-

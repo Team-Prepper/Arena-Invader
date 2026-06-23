@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using EasyH.Unity.UI;
 
 [System.Serializable]
-public struct MatchInfor : IMatchInfor {
+public struct MatchInfo : IMatchInfo {
 
     public IList<PlayerInfor> PlayerInfors
         => _playerInfors;
@@ -35,7 +35,7 @@ public struct MatchInfor : IMatchInfor {
         _gui = gui;
     }
 
-    public MatchInfor(int cnt = 2, string mapName = "Map/DefaultMap", string matchDice = "DartDice")
+    public MatchInfo(int cnt = 2, string mapName = "Map/DefaultMap", string matchDice = "DartDice")
     {
         _playerInfors = new PlayerInfor[cnt];
 
@@ -47,7 +47,7 @@ public struct MatchInfor : IMatchInfor {
         _mapName = mapName;
         _matchDice = matchDice;
 
-        GameManager.Instance.OnMatchInforChanged?.Invoke();
+        GameManager.Instance.OnMatchInfoChanged?.Invoke();
         _gui = null;
     }
 
@@ -79,30 +79,37 @@ public struct MatchInfor : IMatchInfor {
         }
 
         _playerInfors = newInfor;
-        GameManager.Instance.OnMatchInforChanged?.Invoke();
+        GameManager.Instance.OnMatchInfoChanged?.Invoke();
     }
 
     public void SetDice(string diceCode) {
         _matchDice = diceCode;
-        GameManager.Instance.OnMatchInforChanged?.Invoke();
+        GameManager.Instance.OnMatchInfoChanged?.Invoke();
     }
 
     public void SetPlayerName(int idx, string name)
     {
         if (idx >= _playerInfors.Length) return;
         _playerInfors[idx].Name = name;
-        GameManager.Instance.OnMatchInforChanged?.Invoke();
+        GameManager.Instance.OnMatchInfoChanged?.Invoke();
     }
 
     public void SetPlayerCharacter(int idx, string name)
     {
         if (idx >= _playerInfors.Length) return;
         _playerInfors[idx].CharacterCode = name;
-        GameManager.Instance.OnMatchInforChanged?.Invoke();
+        GameManager.Instance.OnMatchInfoChanged?.Invoke();
+    }
+
+    public void SetPlayerIsAI(int idx, bool isAI)
+    {
+        if (idx >= _playerInfors.Length) return;
+        _playerInfors[idx].IsAI = isAI;
+        GameManager.Instance.OnMatchInfoChanged?.Invoke();
     }
 
     public void SetMap(string mapName) {
         _mapName = mapName;
-        GameManager.Instance.OnMatchInforChanged?.Invoke();
+        GameManager.Instance.OnMatchInfoChanged?.Invoke();
     }
 }

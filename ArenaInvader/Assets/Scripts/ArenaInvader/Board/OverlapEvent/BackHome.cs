@@ -6,7 +6,7 @@ public class BackHome : IOverlapEvent
         GamePawn defaultPawn, GamePawn newPawn)
     {
         defaultPawn.Killed();
-        BoardManager.Instance.SetPawnAt(plate, newPawn);
+        BoardManager.Instance.OccupyPawnAt(plate, newPawn);
 
     }
 }

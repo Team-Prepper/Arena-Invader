@@ -13,9 +13,17 @@ public class GUIResult : GUIFullScreen
     [SerializeField] Image _winnerTargetImage;
 
     public void SetWinner(IStatus winner) {
+        if (winner == null)
+        {
+            return;
+        }
+
+        CharacterSprites sprites =
+            CharacterManager.Instance.GetCharacterSprites(winner.CharacterCode);
+
         _winnerName.text = winner.Name;
-        _winnerAttackImage.sprite = CharacterManager.Instance.GetCharacterSprites(winner.CharacterCode).CharacterAttack;
-        _winnerTargetImage.sprite = CharacterManager.Instance.GetCharacterSprites(winner.CharacterCode).CharacterDamage;
+        _winnerAttackImage.sprite = sprites.CharacterAttack;
+        _winnerTargetImage.sprite = sprites.CharacterDamage;
     }
 
     public override void Close()

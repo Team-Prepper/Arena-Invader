@@ -7,7 +7,7 @@ public class OneMoreAndBackHome : IOverlapEvent
     {
         defaultPawn.Killed();
         newPawn.GetCC().AddChance();
-        BoardManager.Instance.SetPawnAt(plate, newPawn);
+        BoardManager.Instance.OccupyPawnAt(plate, newPawn);
     }
 
 }

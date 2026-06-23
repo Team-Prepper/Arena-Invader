@@ -4,38 +4,59 @@ using EasyH.Unity.SoundKit;
 
 public class MatchGenerator : MonoBehaviour
 {
-    [SerializeField] private MatchInfor _defaultMatchiInfor;
-    private IMatchInfor _matchInfor;
+    [SerializeField] private MatchInfo _defaultMatchInfo;
+    private IMatchInfo _matchInfo;
 
     [SerializeField] private PlayableCharacter _localCharacterController;
 
     [SerializeField] private Transform[] _playerPosition;
 
-    public void SetMatchInfor(IMatchInfor matchInfor)
+    private void Awake()
     {
-        _matchInfor = matchInfor;
+        EnsureDefaultMatchInfo();
     }
 
-    private IMatchInfor ResolveMatchInfor()
+    public void EnsureDefaultMatchInfo()
     {
-        if (_matchInfor != null)
+        if (GameManager.Instance == null || GameManager.Instance.MatchInfo != null)
         {
-            return _matchInfor;
+            return;
         }
 
-        return _defaultMatchiInfor;
+        GameManager.Instance.MatchInfo = _defaultMatchInfo;
+        GameManager.Instance.OnMatchInfoChanged?.Invoke();
     }
 
-    private bool HasEnoughPlayerSlots(IMatchInfor matchInfor)
+    public void SetMatchInfo(IMatchInfo matchInfo)
     {
-        return _playerPosition != null && matchInfor != null
-            && _playerPosition.Length >= matchInfor.PlayerInfors.Count;
+        _matchInfo = matchInfo;
+    }
+
+    public MatchInfo GetDefaultMatchInfo()
+    {
+        return _defaultMatchInfo;
+    }
+
+    private IMatchInfo ResolveMatchInfo()
+    {
+        if (_matchInfo != null)
+        {
+            return _matchInfo;
+        }
+
+        return _defaultMatchInfo;
+    }
+
+    private bool HasEnoughPlayerSlots(IMatchInfo matchInfo)
+    {
+        return _playerPosition != null && matchInfo != null
+            && _playerPosition.Length >= matchInfo.PlayerInfors.Count;
     }
 
     public void GenerateMap()
     {
-        IMatchInfor matchInfor = ResolveMatchInfor();
-        if (matchInfor == null)
+        IMatchInfo matchInfo = ResolveMatchInfo();
+        if (matchInfo == null)
         {
             throw new MissingReferenceException(
                 $"{name} does not have match information to generate a map.");
@@ -43,25 +64,25 @@ public class MatchGenerator : MonoBehaviour
 
         ResourceManager.Instance.
             ResourceConnector.ImportComponent<GameMap>(
-                matchInfor.MapName);
+                matchInfo.MapName);
     }
 
     public void Generate()
     {
-        IMatchInfor matchInfor = ResolveMatchInfor();
-        if (matchInfor == null)
+        IMatchInfo matchInfo = ResolveMatchInfo();
+        if (matchInfo == null)
         {
             throw new MissingReferenceException(
                 $"{name} does not have match information to generate players.");
         }
 
-        if (!HasEnoughPlayerSlots(matchInfor))
+        if (!HasEnoughPlayerSlots(matchInfo))
         {
             throw new System.IndexOutOfRangeException(
-                $"Player position count is smaller than player count ({matchInfor.PlayerInfors.Count}).");
+                $"Player position count is smaller than player count ({matchInfo.PlayerInfors.Count}).");
         }
 
-        for (int i = 0; i < matchInfor.PlayerInfors.Count; i++)
+        for (int i = 0; i < matchInfo.PlayerInfors.Count; i++)
         {
             IPlayableCharacter character = GameManager.Instance.
                 Playground.InstantiateCC(
@@ -70,11 +91,11 @@ public class MatchGenerator : MonoBehaviour
             character.TurnState.SetTeamIdx(i);
 
             character.Status.SetName(
-                matchInfor.PlayerInfors[i].Name);
+                matchInfo.PlayerInfors[i].Name);
             character.Status.SetCharacter(
-                matchInfor.PlayerInfors[i].CharacterCode);
+                matchInfo.PlayerInfors[i].CharacterCode);
             character.PawnOwner.SetInitial(
-                matchInfor.PlayerInfors[i].CharacterCode);
+                matchInfo.PlayerInfors[i].CharacterCode);
 
         }
 

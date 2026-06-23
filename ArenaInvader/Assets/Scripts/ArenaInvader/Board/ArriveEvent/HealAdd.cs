@@ -14,6 +14,12 @@ public class HealAdd : ArriveEventBase {
 
     public override void AddAbility(GamePawn target, Action callback)
     {
+        if (target == null)
+        {
+            callback?.Invoke();
+            return;
+        }
+
         target.AddHealth(_healAmount);
         callback?.Invoke();
     }

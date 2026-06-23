@@ -16,11 +16,11 @@ public class GUIMatchCharacterSetting : GUIFullScreen
     {
         base.Open();
 
-        if (GameManager.Instance.MatchInfor == null)
+        if (GameManager.Instance.MatchInfo == null)
         {
             _onLoading.SetActive(true);
             _onLoadingEnd.SetActive(false);
-            GameManager.Instance.OnMatchInforChanged += SetUI;
+            GameManager.Instance.OnMatchInfoChanged += SetUI;
         }
         else
         {
@@ -28,19 +28,19 @@ public class GUIMatchCharacterSetting : GUIFullScreen
             SetDetails();
         }
 
-        GameManager.Instance.OnMatchInforChanged += SetDetails;
+        GameManager.Instance.OnMatchInfoChanged += SetDetails;
     }
 
     public override void Close()
     {
-        GameManager.Instance.OnMatchInforChanged -= SetDetails;
+        GameManager.Instance.OnMatchInfoChanged -= SetDetails;
         base.Close();
     }
 
 
     void SetDetails()
     {
-        IMatchInfor infor = GameManager.Instance.MatchInfor;
+        IMatchInfo infor = GameManager.Instance.MatchInfo;
 
         bool isMaster = infor.EditableIdx.Contains(0);
 
@@ -56,46 +56,55 @@ public class GUIMatchCharacterSetting : GUIFullScreen
 
     public void SetPlayerName(int idx, string name)
     {
-        if (!GameManager.Instance.MatchInfor.
+        if (!GameManager.Instance.MatchInfo.
             EditableIdx.Contains(idx)) return;
 
-        GameManager.Instance.MatchInfor.
+        GameManager.Instance.MatchInfo.
             SetPlayerName(idx, name);
     }
 
     public void SetPlayerCharacter(int idx, string name)
     {
-        if (!GameManager.Instance.MatchInfor.
+        if (!GameManager.Instance.MatchInfo.
             EditableIdx.Contains(idx)) return;
 
-        GameManager.Instance.MatchInfor.
+        GameManager.Instance.MatchInfo.
             SetPlayerCharacter(idx, name);
     }
 
+    public void SetPlayerIsAI(int idx, bool isAI)
+    {
+        if (!GameManager.Instance.MatchInfo.
+            EditableIdx.Contains(idx)) return;
+
+        GameManager.Instance.MatchInfo.
+            SetPlayerIsAI(idx, isAI);
+    }
+
     public void OpenMatchSetting() {
-        if (GameManager.Instance.MatchInfor == null) return;
-        GameManager.Instance.MatchInfor.OpenSettingUI();
+        if (GameManager.Instance.MatchInfo == null) return;
+        GameManager.Instance.MatchInfo.OpenSettingUI();
     }
 
     public void SetUI()
     {
-        GameManager.Instance.OnMatchInforChanged -= SetUI;
+        GameManager.Instance.OnMatchInfoChanged -= SetUI;
 
         _onLoading.SetActive(false);
         _onLoadingEnd.SetActive(true);
-        GameManager.Instance.MatchInfor.SetMatchSettingUI(this);
+        GameManager.Instance.MatchInfo.SetMatchSettingUI(this);
 
     }
 
     public void Dispose()
     {
-        GameManager.Instance.MatchInfor.Dispose();
+        GameManager.Instance.MatchInfo.Dispose();
 
     }
 
     public void GenerateMatch()
     {
-        GameManager.Instance.MatchInfor.StartMatch();
+        GameManager.Instance.MatchInfo.StartMatch();
     }
 
 }

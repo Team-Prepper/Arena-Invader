@@ -11,6 +11,12 @@ public class OpenShop : ArriveEventBase
 
     public override void AddAbility(GamePawn target, Action callback)
     {
+        if (target == null || target.GetCC() == null)
+        {
+            callback?.Invoke();
+            return;
+        }
+
         target.GetCC().OpenShop(callback);
     }
     

@@ -40,13 +40,13 @@ public class UNetNetwork : MonoBehaviour, INetwork {
 
     public void Disconnect() {
         _uNetManager.Shutdown();
-        GameManager.Instance.MatchInfor = new MatchInfor();
+        GameManager.Instance.MatchInfo = null;
     }
 
     public void StartHost()
     {
         _uNetManager.StartHost();
-        GameManager.Instance.MatchInfor = null;
+        GameManager.Instance.MatchInfo = null;
 
         AssetOpener.ImportComponent<NetworkObject>(
             "UNetPlayground").Spawn();
@@ -55,7 +55,7 @@ public class UNetNetwork : MonoBehaviour, INetwork {
     public void StartClient()
     {
         _uNetManager.StartClient();
-        GameManager.Instance.MatchInfor = null;
+        GameManager.Instance.MatchInfo = null;
     }
 
 }

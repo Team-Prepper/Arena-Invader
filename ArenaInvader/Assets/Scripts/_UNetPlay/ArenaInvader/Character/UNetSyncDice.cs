@@ -8,7 +8,7 @@ public class UNetSyncDice : NetworkBehaviour, IOpenDice {
     public void Initial(IPlayableCharacter cc)
     {
         _diceSync = new NetworkSyncUIConnector<GUIDice, float>(
-            GameManager.Instance.MatchInfor.MatchDice);
+            GameManager.Instance.MatchInfo.MatchDice);
         
     }
 

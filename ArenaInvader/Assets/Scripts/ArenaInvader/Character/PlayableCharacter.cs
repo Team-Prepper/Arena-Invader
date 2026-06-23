@@ -103,11 +103,6 @@ public class PlayableCharacter : MonoBehaviour, IPlayableCharacter
 
     public void StartTurn(bool tmp)
     {
-        if (!tmp)
-        {
-            return;
-        }
-
         GUITurnStart turnStartCall = UIManager.
             Instance.OpenGUI<GUITurnStart>("TurnStart");
 
@@ -154,7 +149,8 @@ public class PlayableCharacter : MonoBehaviour, IPlayableCharacter
     public void OpenShop(Action callback)
     {
         if (!_turnState.HasController()) return;
-        _syncShop.OpenShop(callback);
+        GUIShop shop = _syncShop.OpenShop(callback);
+        _turnState.OpenShop(shop);
     }
 
     public GUIDice OpenRollDice(Action<int> callback)

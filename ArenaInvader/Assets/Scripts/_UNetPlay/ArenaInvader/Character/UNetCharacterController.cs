@@ -60,7 +60,6 @@ public class UNetCharacterController : NetworkBehaviour, IPlayableCharacter {
 
     public void StartTurn(bool tmp)
     {
-        if (!tmp) return;
         if (_selector == null) return;
 
         _chance++;

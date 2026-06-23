@@ -41,7 +41,7 @@ public class GUIMatchSetting : GUIPopUp
 
     public override void Open()
     {
-        GameManager.Instance.OnMatchInforChanged += OnMatchInforChanged;
+        GameManager.Instance.OnMatchInfoChanged += OnMatchInfoChanged;
 
         _mapDropdown.SetDropdownOption(OptionArrayToKeyArray(_mapOptions));
         _mapDropdown.onValueChanged.AddListener(SetMap);
@@ -49,33 +49,33 @@ public class GUIMatchSetting : GUIPopUp
         _diceDropdown.SetDropdownOption(OptionArrayToKeyArray(_diceOptions));
         _diceDropdown.onValueChanged.AddListener(SetDice);
 
-        OnMatchInforChanged();
+        OnMatchInfoChanged();
 
         base.Open();
     }
 
     public override void Close()
     {
-        GameManager.Instance.OnMatchInforChanged -= OnMatchInforChanged;
+        GameManager.Instance.OnMatchInfoChanged -= OnMatchInfoChanged;
         base.Close();
 
     }
 
     public void SetPlayerCnt(int amount)
     {
-        int cnt = Mathf.Clamp(amount + GameManager.Instance.MatchInfor.PlayerInfors.Count, 2, 4);
-        GameManager.Instance.MatchInfor.SetPlayerCnt(cnt);
+        int cnt = Mathf.Clamp(amount + GameManager.Instance.MatchInfo.PlayerInfors.Count, 2, 4);
+        GameManager.Instance.MatchInfo.SetPlayerCnt(cnt);
 
     }
 
     public void SetDice(int idx)
     {
-        GameManager.Instance.MatchInfor.SetDice(_diceOptions[idx].value);
+        GameManager.Instance.MatchInfo.SetDice(_diceOptions[idx].value);
     }
 
     public void SetMap(int idx)
     {
-        GameManager.Instance.MatchInfor.SetMap(_mapOptions[idx].value);
+        GameManager.Instance.MatchInfo.SetMap(_mapOptions[idx].value);
     }
 
     private int FindIdxInArray(Options[] options, string value)
@@ -87,17 +87,17 @@ public class GUIMatchSetting : GUIPopUp
         return -1;
     }
 
-    void OnMatchInforChanged()
+    void OnMatchInfoChanged()
     {
 
         _diceDropdown.value =
-            FindIdxInArray(_diceOptions, GameManager.Instance.MatchInfor.MatchDice);
+            FindIdxInArray(_diceOptions, GameManager.Instance.MatchInfo.MatchDice);
         _mapDropdown.value =
-            FindIdxInArray(_mapOptions, GameManager.Instance.MatchInfor.MapName);
+            FindIdxInArray(_mapOptions, GameManager.Instance.MatchInfo.MapName);
 
         if (_playerCnt == null) return;
 
-        _playerCnt.text = GameManager.Instance.MatchInfor.PlayerInfors.Count.ToString();
+        _playerCnt.text = GameManager.Instance.MatchInfo.PlayerInfors.Count.ToString();
 
     }
 

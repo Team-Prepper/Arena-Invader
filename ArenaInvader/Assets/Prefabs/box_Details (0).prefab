@@ -123,15 +123,15 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2742909848838569210}
         m_TargetAssemblyTypeName: MatchCharacterDetail, Assembly-CSharp
-        m_MethodName: SetCharacter
-        m_Mode: 5
+        m_MethodName: SetAI
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Player_AI
-          m_BoolArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!1 &572130601864762057
 GameObject:
@@ -390,14 +390,14 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2742909848838569210}
         m_TargetAssemblyTypeName: MatchCharacterDetail, Assembly-CSharp
-        m_MethodName: SetCharacter
-        m_Mode: 5
+        m_MethodName: SetAI
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Player
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &4381544911340732486
@@ -1030,6 +1030,12 @@ MonoBehaviour:
   _mother: {fileID: 0}
   _playerInforUnit: {fileID: 6995356706348790825}
   _nameSet: {fileID: 3380970832652201605}
+  _humanButton: {fileID: 1936514027269280537}
+  _aiButton: {fileID: 6655991858451437889}
+  _humanButtonGraphic: {fileID: 7145769903080241167}
+  _aiButtonGraphic: {fileID: 8922492441735839122}
+  _selectedColor: {r: 1, g: 1, b: 1, a: 1}
+  _unselectedColor: {r: 0.7, g: 0.7, b: 0.7, a: 1}
 --- !u!1 &9028181040418581553
 GameObject:
   m_ObjectHideFlags: 0

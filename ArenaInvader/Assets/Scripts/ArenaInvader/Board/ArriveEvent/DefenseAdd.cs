@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class DefenceAdd : ArriveEventBase {
+public class DefenseAdd : ArriveEventBase {
 
     [SerializeField] int _defenceAmount = 0;
 
@@ -13,6 +13,12 @@ public class DefenceAdd : ArriveEventBase {
 
     public override void AddAbility(GamePawn target, Action callback)
     {
+        if (target == null)
+        {
+            callback?.Invoke();
+            return;
+        }
+
         target.AddDefence(_defenceAmount);
         callback?.Invoke();
     }

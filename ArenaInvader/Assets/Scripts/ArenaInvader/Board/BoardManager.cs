@@ -31,49 +31,42 @@ public class BoardManager : Singleton<BoardManager>
         _eventDict[gamePlate] = arriveEvent;
     }
 
-    public void ResetPawnAt(Plate nowPlate)
-    { 
-        if (nowPlate == null) return;
-
-        if (!_pawnDict.ContainsKey(nowPlate))
-        {
-            _pawnDict.Add(nowPlate, null);
-            return;
-        }
-        _pawnDict[nowPlate] = null;
+    public void ClearPawnAt(Plate plate)
+    {
+        if (plate == null) return;
+        _pawnDict[plate] = null;
     }
 
-    public void OverlapProcess(Plate plate, GamePawn pawn)
+    // Applies board occupancy rules when a pawn finishes moving onto a plate.
+    public void ResolvePawnArrival(Plate plate, GamePawn pawn)
     {
         if (plate == null || pawn == null) return;
 
-        GamePawn defaultPawn = GetPawnAt(plate);
+        GamePawn currentPawn = GetPawnAt(plate);
 
-        if (defaultPawn == null)
+        if (currentPawn == null)
         {
-            SetPawnAt(plate, pawn);
+            OccupyPawnAt(plate, pawn);
             return;
         }
 
-        if (defaultPawn.GetCC() == pawn.GetCC())
+        if (currentPawn.GetCC() == pawn.GetCC())
         {
-            _sameTeamOverlapEvent.Event(plate, defaultPawn, pawn);
+            _sameTeamOverlapEvent.Event(plate, currentPawn, pawn);
             return;
         }
 
-        _otherTeamOverlapEvent.Event(plate, defaultPawn, pawn);
-
+        _otherTeamOverlapEvent.Event(plate, currentPawn, pawn);
     }
 
-    public void SetPawnAt(Plate plate, GamePawn pawn)
-    { 
+    public void OccupyPawnAt(Plate plate, GamePawn pawn)
+    {
         if (plate == null) return;
-
         _pawnDict[plate] = pawn;
-        
     }
 
-    public void AbilityEvent(
+    // Runs arrive-event abilities in order, then hands control back to the caller.
+    public void RunArriveEvents(
         Plate plate, GamePawn pawn, Action callback)
     {
         if (plate != null && _eventDict.TryGetValue(plate, out MultipleArriveEvent arriveEvent))
@@ -83,7 +76,6 @@ public class BoardManager : Singleton<BoardManager>
         }
 
         callback?.Invoke();
-
     }
 
     public GamePawn GetPawnAt(Plate plate)
@@ -91,5 +83,26 @@ public class BoardManager : Singleton<BoardManager>
         if (plate == null) return null;
         _pawnDict.TryGetValue(plate, out GamePawn pawn);
         return pawn;
+    }
+
+    public void ResetPawnAt(Plate nowPlate)
+    {
+        ClearPawnAt(nowPlate);
+    }
+
+    public void OverlapProcess(Plate plate, GamePawn pawn)
+    {
+        ResolvePawnArrival(plate, pawn);
+    }
+
+    public void SetPawnAt(Plate plate, GamePawn pawn)
+    {
+        OccupyPawnAt(plate, pawn);
+    }
+
+    public void AbilityEvent(
+        Plate plate, GamePawn pawn, Action callback)
+    {
+        RunArriveEvents(plate, pawn, callback);
     }
 }

@@ -23,13 +23,24 @@ public class GamePawn : PathEntity
 
     private void Start()
     {
-        _statAdder = GetComponent<StatAdderBase>();
+        if (_statAdder == null)
+        {
+            _statAdder = GetComponent<StatAdderBase>();
+        }
     }
 
     public void SetTargetCC(IPlayableCharacter target)
     {
+        if (target == null)
+        {
+            return;
+        }
+
         _targetCC = target;
-        _idxSetter.SetTeamIdx(target.TurnState.TeamIdx);
+        if (_idxSetter != null)
+        {
+            _idxSetter.SetTeamIdx(target.TurnState.TeamIdx);
+        }
     }
 
     public void SetOwner(IPawnOwner pawnOwner)
@@ -65,13 +76,24 @@ public class GamePawn : PathEntity
 
     public override void Move(int amount)
     {
+        if (_isPiggyBacked)
+        {
+            return;
+        }
+
         OffFocus();
-        BoardManager.Instance.ResetPawnAt(_nowPlate);
+        BoardManager.Instance.ClearPawnAt(_nowPlate);
         base.Move(amount + _moveCoefficient);
     }
 
     protected override void GoStartPlate(Action callback)
     {
+        if (_owner == null)
+        {
+            base.GoStartPlate(callback);
+            return;
+        }
+
         _owner.LeavePawn(Id);
         base.GoStartPlate(callback);
     }
@@ -79,10 +101,10 @@ public class GamePawn : PathEntity
     public override void ArrivePlate(Plate value)
     {
         base.ArrivePlate(value);
-        BoardManager.Instance.OverlapProcess(value, this);
-        BoardManager.Instance.AbilityEvent(value, this, () =>
+        BoardManager.Instance.ResolvePawnArrival(value, this);
+        BoardManager.Instance.RunArriveEvents(value, this, () =>
             {
-                GetCC().EndTurn();
+                _targetCC?.EndTurn();
             });
     }
 
@@ -101,11 +123,14 @@ public class GamePawn : PathEntity
 
     public void AddMoney(int amount)
     {
+        if (_targetCC == null) return;
         _statAdder.AddMoney(_targetCC, amount);
     }
 
     public void AddAttack(int attackAmount)
     {
+        if (_targetCC == null) return;
+
         if (_piggyBacking != null)
             _piggyBacking.AddAttack(attackAmount);
 
@@ -114,6 +139,8 @@ public class GamePawn : PathEntity
 
     public void AddDefence(int defenceAmount)
     {
+        if (_targetCC == null) return;
+
         if (_piggyBacking != null)
             _piggyBacking.AddDefence(defenceAmount);
 
@@ -122,6 +149,8 @@ public class GamePawn : PathEntity
 
     public void AddHealth(int healAmount)
     {
+        if (_targetCC == null) return;
+
         if (_piggyBacking != null)
             _piggyBacking.AddHealth(healAmount);
 
@@ -130,6 +159,11 @@ public class GamePawn : PathEntity
 
     public void PiggyBack(GamePawn target)
     {
+        if (target == null || target == this)
+        {
+            return;
+        }
+
         if (_piggyBacking)
         {
             _piggyBacking.PiggyBack(target);
@@ -177,6 +211,11 @@ public class GamePawn : PathEntity
 
     public virtual void BackHome()
     {
+        if (_statAdder == null || _owner == null)
+        {
+            return;
+        }
+
         _statAdder.Reset();
         _owner.BackHomePawn(Id);
     }
@@ -196,5 +235,12 @@ public class GamePawn : PathEntity
         }
 
         return ret;
+    }
+
+    private void OnDestroy()
+    {
+        _piggyBacking = null;
+        _owner = null;
+        _targetCC = null;
     }
 }

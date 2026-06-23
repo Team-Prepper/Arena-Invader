@@ -130,7 +130,7 @@ public class GUIShop : GUINetworkPopUp<int> {
 
         _itemDesc.Disable();
         _cc.Status.UseMoney(item.Price);
-        _cc.Inventory.Items.Add(_currentSaleItems[idx]);
+        _cc.Inventory.AddItem(_currentSaleItems[idx]);
 
         return true;
     }

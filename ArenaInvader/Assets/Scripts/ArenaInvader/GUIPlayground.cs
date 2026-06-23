@@ -21,6 +21,11 @@ public class GUIPlayground : GUIFullScreen
     [Header("generator")]
     [SerializeField] MatchGenerator _generator;
 
+    private string _lastTurnText;
+    private bool? _lastIsObject;
+    private int _lastBaronTurn = int.MinValue;
+    private IStatus _lastBaronStatus;
+
     public override void Open()
     {
         base.Open();
@@ -44,7 +49,8 @@ public class GUIPlayground : GUIFullScreen
             if (i < players.Count)
             {
                 _buttons[i].gameObject.SetActive(true);
-                _buttons[i].SetPlayer(players[i].Status);
+                _buttons[i].SetPlayerInfoPanel(_playerInfor);
+                _buttons[i].SetPlayer(players[i]);
                 continue;
             }
             _buttons[i].gameObject.SetActive(false);
@@ -55,36 +61,63 @@ public class GUIPlayground : GUIFullScreen
 
     private void Update()
     {
-        if (GameManager.Instance.Playground.NowPlayer != null)
-        {
-            _turnInfor.text =
-                string.Format(_turnInforFormat,
-                    GameManager.Instance.Playground.NowPlayer.Status.Name);
+        UpdateTurnInfo();
+        UpdateBaronInfo();
+    }
 
+    private void UpdateTurnInfo()
+    {
+        IPlayableCharacter nowPlayer = GameManager.Instance.Playground.NowPlayer;
+        if (nowPlayer == null || nowPlayer.Status == null)
+        {
+            return;
         }
 
+        string turnText = string.Format(_turnInforFormat, nowPlayer.Status.Name);
+        if (_lastTurnText == turnText)
+        {
+            return;
+        }
+
+        _lastTurnText = turnText;
+        _turnInfor.text = turnText;
+    }
+
+    private void UpdateBaronInfo()
+    {
         if (BoardManager.Instance.Map == null) return;
 
-        bool isObject = BoardManager.Instance.Map.GetObject() == null;
+        IStatus baronStatus = BoardManager.Instance.Map.GetObject();
+        bool isObject = baronStatus == null;
 
-        _baronInfoTextGO.gameObject.SetActive(isObject);
-        _baronInfor.gameObject.SetActive(!isObject);
-
-        _baronInfoText.text = string.Format(_baronInforFormat,
-            TurnManager.Instance.System.TurnSpend);
+        if (_lastIsObject != isObject)
+        {
+            _baronInfoTextGO.gameObject.SetActive(isObject);
+            _baronInfor.gameObject.SetActive(!isObject);
+            _lastIsObject = isObject;
+        }
 
         if (isObject)
-        { 
-            _baronInfoText.text =
-                string.Format(_baronInforFormat,
-                    BoardManager.Instance.Map.GetLeftBaronTurn());
+        {
+            int leftTurn = BoardManager.Instance.Map.GetLeftBaronTurn();
+            if (_lastBaronTurn == leftTurn)
+            {
+                return;
+            }
+
+            _lastBaronTurn = leftTurn;
+            _baronInfoText.text = string.Format(_baronInforFormat, leftTurn);
         }
         else
         {
-            _baronInfor.SetBaronInfo(
-                BoardManager.Instance.Map.GetObject());
+            if (_lastBaronStatus == baronStatus)
+            {
+                return;
+            }
+
+            _lastBaronStatus = baronStatus;
+            _baronInfor.SetBaronInfo(baronStatus);
         }
-       
     }
 
 }

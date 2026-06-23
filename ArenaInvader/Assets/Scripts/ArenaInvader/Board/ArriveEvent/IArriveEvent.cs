@@ -2,9 +2,12 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 
-public class IArriveEventComparer : IComparer<ArriveEventBase> {
+public class ArriveEventComparer : IComparer<ArriveEventBase> {
     public int Compare(ArriveEventBase x, ArriveEventBase y)
     {
+        if (x == null && y == null) return 0;
+        if (x == null) return 1;
+        if (y == null) return -1;
         return x.GetPriority().CompareTo(y.GetPriority());
     }
 }

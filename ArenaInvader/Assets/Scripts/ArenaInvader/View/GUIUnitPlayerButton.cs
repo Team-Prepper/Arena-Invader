@@ -31,6 +31,8 @@ public class GUIUnitPlayerButton : MonoBehaviour, IObserver<IStatus> {
 #nullable enable
     private IDisposable? _cancellation;
     private IStatus? _target;
+    private IPlayableCharacter? _character;
+    private GUIUnitPlayer? _playerInfoPanel;
 
     public void OnCompleted()
     {
@@ -54,8 +56,15 @@ public class GUIUnitPlayerButton : MonoBehaviour, IObserver<IStatus> {
         _dfs.SetTextUI(value.Dfs);
     }
 
+    public void SetPlayer(IPlayableCharacter target)
+    {
+        _character = target;
+        SetPlayer(target.Status);
+    }
+
     public void SetPlayer(IStatus target)
     {
+        _cancellation?.Dispose();
         _cancellation = target.Subscribe(this);
 
         _icon.sprite = CharacterManager.Instance.GetCharacterSprites(target.CharacterCode).CharacterIcon;
@@ -65,10 +74,31 @@ public class GUIUnitPlayerButton : MonoBehaviour, IObserver<IStatus> {
 
     }
 
-    public void OpenPlayerInfor() {
-        if (_target == null) return;
+    public void SetPlayerInfoPanel(GUIUnitPlayer playerInfoPanel)
+    {
+        _playerInfoPanel = playerInfoPanel;
+    }
 
-        //GameObject.FindWithTag("PlayerInfor").GetComponent<GUIUnitPlayer>().SetPlayer(_target);
+    public void OpenPlayerInfor() {
+        if (_character == null && _target == null) return;
+        if (_playerInfoPanel == null) return;
+
+        if (_character != null)
+        {
+            _playerInfoPanel.SetPlayer(_character);
+            return;
+        }
+
+        _playerInfoPanel.SetPlayer(_target);
+    }
+
+    private void OnDestroy()
+    {
+        _cancellation?.Dispose();
+        _cancellation = null;
+        _target = null;
+        _character = null;
+        _playerInfoPanel = null;
     }
 
 }

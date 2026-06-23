@@ -13,6 +13,12 @@ public class AttackAdd : ArriveEventBase {
 
     public override void AddAbility(GamePawn target, Action callback)
     {
+        if (target == null)
+        {
+            callback?.Invoke();
+            return;
+        }
+
         target.AddAttack(_attackAmount);
         callback?.Invoke();
     }

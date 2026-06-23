@@ -5,23 +5,26 @@ using Unity.Netcode;
 using UnityEngine;
 using EasyH.Unity.UI;
 
-public class UNetMatchInfor : NetworkBehaviour, IMatchInfor {
+public class UNetMatchInfo : NetworkBehaviour, IMatchInfo {
 
     public struct SimplePlayerInfor : INetworkSerializable, IEquatable<SimplePlayerInfor> {
 
         public FixedString32Bytes Name;
         public FixedString32Bytes CharacterCode;
+        public bool IsAI;
 
-        public SimplePlayerInfor(string name, string cc)
+        public SimplePlayerInfor(string name, string cc, bool isAI = false)
         {
             Name = name;
             CharacterCode = cc;
+            IsAI = isAI;
         }
 
         public bool Equals(SimplePlayerInfor other)
         {
             if (!other.Name.Equals(Name)) return false;
             if (!other.CharacterCode.Equals(CharacterCode)) return false;
+            if (other.IsAI != IsAI) return false;
             return true;
         }
 
@@ -29,6 +32,7 @@ public class UNetMatchInfor : NetworkBehaviour, IMatchInfor {
         {
             serializer.SerializeValue(ref Name);
             serializer.SerializeValue(ref CharacterCode);
+            serializer.SerializeValue(ref IsAI);
         }
 
     }
@@ -84,17 +88,17 @@ public class UNetMatchInfor : NetworkBehaviour, IMatchInfor {
             return;
         }
 
-        GameManager.Instance.MatchInfor = this;
-        GameManager.Instance.OnMatchInforChanged?.Invoke();
+        GameManager.Instance.MatchInfo = this;
+        GameManager.Instance.OnMatchInfoChanged?.Invoke();
 
         NetMapName.OnValueChanged += (beforeValue, value) =>
         {
-            GameManager.Instance.OnMatchInforChanged?.Invoke();
+            GameManager.Instance.OnMatchInfoChanged?.Invoke();
         };
 
         NetMatchDice.OnValueChanged += (befeoreValue, value) =>
         {
-            GameManager.Instance.OnMatchInforChanged?.Invoke();
+            GameManager.Instance.OnMatchInfoChanged?.Invoke();
         };
 
         NetworkPlayerInfor.OnListChanged += (eve) =>
@@ -149,10 +153,10 @@ public class UNetMatchInfor : NetworkBehaviour, IMatchInfor {
         for (int i = 0; i < PlayerInfors.Count; i++)
         {
             PlayerInfors[i] = new PlayerInfor(NetworkPlayerInfor[i].Name.ToString(),
-                NetworkPlayerInfor[i].CharacterCode.ToString(), false);
+                NetworkPlayerInfor[i].CharacterCode.ToString(), NetworkPlayerInfor[i].IsAI);
         }
 
-        GameManager.Instance.OnMatchInforChanged?.Invoke();
+        GameManager.Instance.OnMatchInfoChanged?.Invoke();
     }
 
 
@@ -171,7 +175,7 @@ public class UNetMatchInfor : NetworkBehaviour, IMatchInfor {
     {
         NetMatchDice.Value = new UNetString(diceCode);
 
-        GameManager.Instance.OnMatchInforChanged?.Invoke();
+        GameManager.Instance.OnMatchInfoChanged?.Invoke();
     }
 
     public void SetPlayerName(int idx, string name)
@@ -193,18 +197,31 @@ public class UNetMatchInfor : NetworkBehaviour, IMatchInfor {
         SetPlayerCharacterServerRpc(idx, name);
     }
 
+    public void SetPlayerIsAI(int idx, bool isAI)
+    {
+        SetPlayerIsAIServerRpc(idx, isAI);
+    }
+
     [ServerRpc(RequireOwnership = false)]
     public void SetPlayerCharacterServerRpc(int idx, string name)
     {
         if (idx >= PlayerInfors.Count) return;
         SimplePlayerInfor def = NetworkPlayerInfor[idx];
-        NetworkPlayerInfor[idx] = new SimplePlayerInfor(def.Name.ToString(), name);
+        NetworkPlayerInfor[idx] = new SimplePlayerInfor(def.Name.ToString(), name, def.IsAI);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void SetPlayerIsAIServerRpc(int idx, bool isAI)
+    {
+        if (idx >= PlayerInfors.Count) return;
+        SimplePlayerInfor def = NetworkPlayerInfor[idx];
+        NetworkPlayerInfor[idx] = new SimplePlayerInfor(def.Name.ToString(), def.CharacterCode.ToString(), isAI);
     }
 
     public void SetMap(string mapName)
     {
-        NetMatchDice.Value = new UNetString(mapName);
-        GameManager.Instance.OnMatchInforChanged?.Invoke();
+        NetMapName.Value = new UNetString(mapName);
+        GameManager.Instance.OnMatchInfoChanged?.Invoke();
     }
 
 }

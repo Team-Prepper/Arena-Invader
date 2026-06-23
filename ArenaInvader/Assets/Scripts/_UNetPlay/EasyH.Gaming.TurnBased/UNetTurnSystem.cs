@@ -12,8 +12,8 @@ public class UNetTurnSystem : NetworkBehaviour, ITurnSystem
     private IList<Team> _teams;
     private ISet<IObserver<int>> _observers;
 
-    public int TurnSpend => _turn / _teams.Count;
-    public int ActiveTeamIdx => _turn % _teams.Count;
+    public int TurnSpend => _teams.Count > 0 ? _turn / _teams.Count : 0;
+    public int ActiveTeamIdx => _teams.Count > 0 ? _turn % _teams.Count : 0;
 
     private void Awake()
     {
@@ -33,9 +33,14 @@ public class UNetTurnSystem : NetworkBehaviour, ITurnSystem
 
     public void RemoveTeamMember(IMemberState m)
     {
+        if (m.TeamIdx < 0 || m.TeamIdx >= _teams.Count)
+        {
+            return;
+        }
+
         _teams[m.TeamIdx].RemoveMember(m);
 
-        if (!IsOwner) return;
+        if (!IsServer) return;
         if (_teams[m.TeamIdx].GetLeftMemberCount() > 0) return;
 
         TeamRetire(m.TeamIdx);
@@ -49,21 +54,30 @@ public class UNetTurnSystem : NetworkBehaviour, ITurnSystem
 
     public void StartGame()
     {
-        if (!IsOwner) return;
+        if (!IsServer) return;
+        if (_teams.Count == 0) return;
         _turn = 0;
         StartTurnClientRpc(_turn);
     }
 
     public void TurnEnd()
     {
-        if (!IsOwner) return;
-        if (!_condition()) return;
+        if (!IsServer) return;
+        if (_teams.Count == 0) return;
+        if (_condition != null && !_condition()) return;
 
         _turn++;
 
-        while (_teams[ActiveTeamIdx].GetLeftMemberCount() < 1)
+        int remainingChecks = _teams.Count;
+        while (remainingChecks > 0 && _teams[ActiveTeamIdx].GetLeftMemberCount() < 1)
         {
             _turn++;
+            remainingChecks--;
+        }
+
+        if (remainingChecks == 0 && _teams[ActiveTeamIdx].GetLeftMemberCount() < 1)
+        {
+            return;
         }
 
         StartTurnClientRpc(_turn);
@@ -73,6 +87,11 @@ public class UNetTurnSystem : NetworkBehaviour, ITurnSystem
     private void StartTurnClientRpc(int turn)
     {
         _turn = turn;
+        if (_teams.Count == 0)
+        {
+            return;
+        }
+
         _teams[ActiveTeamIdx].StartTurn();
     }
 

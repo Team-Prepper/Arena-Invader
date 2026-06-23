@@ -5,16 +5,18 @@ using Unity.Netcode;
 using UnityEngine;
 using EasyH.Unity.UI;
 
-public class UNetMatchInfo : NetworkBehaviour, IMatchInfo {
+public class UNetMatchInfo : NetworkBehaviour, IMatchInfo, INetworkMatchInfo {
 
     public struct SimplePlayerInfor : INetworkSerializable, IEquatable<SimplePlayerInfor> {
 
+        public ulong ClientId;
         public FixedString32Bytes Name;
         public FixedString32Bytes CharacterCode;
         public bool IsAI;
 
-        public SimplePlayerInfor(string name, string cc, bool isAI = false)
+        public SimplePlayerInfor(ulong clientId, string name, string cc, bool isAI = false)
         {
+            ClientId = clientId;
             Name = name;
             CharacterCode = cc;
             IsAI = isAI;
@@ -22,6 +24,7 @@ public class UNetMatchInfo : NetworkBehaviour, IMatchInfo {
 
         public bool Equals(SimplePlayerInfor other)
         {
+            if (other.ClientId != ClientId) return false;
             if (!other.Name.Equals(Name)) return false;
             if (!other.CharacterCode.Equals(CharacterCode)) return false;
             if (other.IsAI != IsAI) return false;
@@ -30,6 +33,7 @@ public class UNetMatchInfo : NetworkBehaviour, IMatchInfo {
 
         public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
         {
+            serializer.SerializeValue(ref ClientId);
             serializer.SerializeValue(ref Name);
             serializer.SerializeValue(ref CharacterCode);
             serializer.SerializeValue(ref IsAI);
@@ -56,15 +60,17 @@ public class UNetMatchInfo : NetworkBehaviour, IMatchInfo {
 
     public IList<int> EditableIdx {
         get {
+            int editableIdx = GetPlayerIdx(NetworkManager.Singleton.LocalClientId);
             IList<int> retval = new List<int>
             {
-                NetManager.Instance.System.Id
+                editableIdx
             };
             return retval;
         }
     }
 
     private IGUI _gui;
+    private bool _subscribedToDisconnect;
 
     public void SetMatchSettingUI(IGUI gui) {
         _gui = gui;
@@ -91,40 +97,56 @@ public class UNetMatchInfo : NetworkBehaviour, IMatchInfo {
         GameManager.Instance.MatchInfo = this;
         GameManager.Instance.OnMatchInfoChanged?.Invoke();
 
-        NetMapName.OnValueChanged += (beforeValue, value) =>
-        {
-            GameManager.Instance.OnMatchInfoChanged?.Invoke();
-        };
-
-        NetMatchDice.OnValueChanged += (befeoreValue, value) =>
-        {
-            GameManager.Instance.OnMatchInfoChanged?.Invoke();
-        };
-
-        NetworkPlayerInfor.OnListChanged += (eve) =>
-        {
-            NetPlayerInforToPlayerInfor();
-        };
+        NetMapName.OnValueChanged += OnMapNameChanged;
+        NetMatchDice.OnValueChanged += OnMatchDiceChanged;
+        NetworkPlayerInfor.OnListChanged += OnNetworkPlayerInforChanged;
 
         AddNewPlayerServerRpc(string.Format("Player {0}", NetworkManager.Singleton.LocalClientId), "Player");
 
         if (!IsHost) return;
 
         NetworkManager.Singleton.OnClientDisconnectCallback += ServerClientQuit;
+        _subscribedToDisconnect = true;
 
+    }
+
+    private void OnMapNameChanged(UNetString beforeValue, UNetString value)
+    {
+        GameManager.Instance.OnMatchInfoChanged?.Invoke();
+    }
+
+    private void OnMatchDiceChanged(UNetString beforeValue, UNetString value)
+    {
+        GameManager.Instance.OnMatchInfoChanged?.Invoke();
+    }
+
+    private void OnNetworkPlayerInforChanged(NetworkListEvent<SimplePlayerInfor> eve)
+    {
+        NetPlayerInforToPlayerInfor();
     }
 
     private void ServerClientQuit(ulong clientId)
     {
-        Debug.Log(clientId);
-        NetworkPlayerInfor.RemoveAt(NetManager.Instance.System.GetIdx(clientId));
+        int playerIdx = GetPlayerIdx(clientId);
+        if (playerIdx < 0 || playerIdx >= NetworkPlayerInfor.Count)
+        {
+            return;
+        }
+
+        NetworkPlayerInfor.RemoveAt(playerIdx);
 
     }
 
     [ServerRpc(RequireOwnership = false)]
-    private void AddNewPlayerServerRpc(string name, string cc)
+    private void AddNewPlayerServerRpc(
+        string name,
+        string cc,
+        ServerRpcParams serverRpcParams = default)
     {
-        NetworkPlayerInfor.Add(new SimplePlayerInfor(name, cc));
+        NetworkPlayerInfor.Add(new SimplePlayerInfor(
+            serverRpcParams.Receive.SenderClientId,
+            name,
+            cc));
 
     }
 
@@ -141,9 +163,27 @@ public class UNetMatchInfo : NetworkBehaviour, IMatchInfo {
 
     public void Dispose() {
         _gui?.Close();
-        if (IsHost)
+        UnsubscribeEvents();
+        if (NetManager.Instance?.System != null)
+        {
+            NetManager.Instance.System.Disconnect();
+        }
+    }
+
+    private void UnsubscribeEvents()
+    {
+        NetMapName.OnValueChanged -= OnMapNameChanged;
+        NetMatchDice.OnValueChanged -= OnMatchDiceChanged;
+        if (NetworkPlayerInfor != null)
+        {
+            NetworkPlayerInfor.OnListChanged -= OnNetworkPlayerInforChanged;
+        }
+
+        if (IsHost && _subscribedToDisconnect)
+        {
             NetworkManager.Singleton.OnClientDisconnectCallback -= ServerClientQuit;
-        NetManager.Instance.System.Disconnect();
+            _subscribedToDisconnect = false;
+        }
     }
 
     private void NetPlayerInforToPlayerInfor()
@@ -162,13 +202,15 @@ public class UNetMatchInfo : NetworkBehaviour, IMatchInfo {
 
     public override void OnNetworkDespawn()
     {
-        base.OnNetworkSpawn();
-        NetMapName.OnValueChanged = null;
+        UnsubscribeEvents();
+        base.OnNetworkDespawn();
     }
 
     public void SetPlayerCnt(int cnt)
     {
-        
+        Debug.LogWarning(
+            $"{nameof(UNetMatchInfo)} does not support runtime player count changes. " +
+            "Player slots follow connected network clients.");
     }
 
     public void SetDice(string diceCode)
@@ -188,7 +230,11 @@ public class UNetMatchInfo : NetworkBehaviour, IMatchInfo {
     {
         if (idx >= PlayerInfors.Count) return;
         SimplePlayerInfor def = NetworkPlayerInfor[idx];
-        NetworkPlayerInfor[idx] = new SimplePlayerInfor(name, def.CharacterCode.ToString());
+        NetworkPlayerInfor[idx] = new SimplePlayerInfor(
+            def.ClientId,
+            name,
+            def.CharacterCode.ToString(),
+            def.IsAI);
 
     }
 
@@ -207,7 +253,11 @@ public class UNetMatchInfo : NetworkBehaviour, IMatchInfo {
     {
         if (idx >= PlayerInfors.Count) return;
         SimplePlayerInfor def = NetworkPlayerInfor[idx];
-        NetworkPlayerInfor[idx] = new SimplePlayerInfor(def.Name.ToString(), name, def.IsAI);
+        NetworkPlayerInfor[idx] = new SimplePlayerInfor(
+            def.ClientId,
+            def.Name.ToString(),
+            name,
+            def.IsAI);
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -215,13 +265,40 @@ public class UNetMatchInfo : NetworkBehaviour, IMatchInfo {
     {
         if (idx >= PlayerInfors.Count) return;
         SimplePlayerInfor def = NetworkPlayerInfor[idx];
-        NetworkPlayerInfor[idx] = new SimplePlayerInfor(def.Name.ToString(), def.CharacterCode.ToString(), isAI);
+        NetworkPlayerInfor[idx] = new SimplePlayerInfor(
+            def.ClientId,
+            def.Name.ToString(),
+            def.CharacterCode.ToString(),
+            isAI);
     }
 
     public void SetMap(string mapName)
     {
         NetMapName.Value = new UNetString(mapName);
         GameManager.Instance.OnMatchInfoChanged?.Invoke();
+    }
+
+    public int GetPlayerIdx(ulong clientId)
+    {
+        for (int i = 0; i < NetworkPlayerInfor.Count; i++)
+        {
+            if (NetworkPlayerInfor[i].ClientId == clientId)
+            {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    public ulong GetClientId(int playerIdx)
+    {
+        if (playerIdx < 0 || playerIdx >= NetworkPlayerInfor.Count)
+        {
+            return NetworkManager.ServerClientId;
+        }
+
+        return NetworkPlayerInfor[playerIdx].ClientId;
     }
 
 }

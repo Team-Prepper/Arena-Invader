@@ -1,23 +1,37 @@
 using Unity.Netcode;
+using System;
 
 public class UNetSyncInventory : NetworkBehaviour, IOpenInventory {
 
     private NetworkSyncUIConnector<GUIInventory, int> _inventorySync;
     private IPlayableCharacter _cc;
+    private IInventory _inventory;
+    private Action _inventoryChangedHandler;
 
     public void Initial(IPlayableCharacter cc)
     {
         _cc = cc;
+        _inventory = cc.Inventory;
         _inventorySync =
             new NetworkSyncUIConnector<GUIInventory, int>("Inventory");
+        _inventoryChangedHandler = RefreshOpenInventory;
+        _inventory.OnItemsChanged += _inventoryChangedHandler;
+    }
+
+    private void OnDestroy()
+    {
+        if (_inventory != null && _inventoryChangedHandler != null)
+        {
+            _inventory.OnItemsChanged -= _inventoryChangedHandler;
+        }
     }
 
     public GUIInventory OpenInventory()
     {
         GUIInventory inventory = _inventorySync.ControlClientOpen();
 
-        int value = ItemManager.Instance.ItemListToInt(_cc.Inventory.Items);
-        int size = _cc.Inventory.Items.Count;
+        int value = ItemManager.Instance.ItemListToInt(_inventory.Items);
+        int size = _inventory.Items.Count;
 
         inventory.SetTarget(value, size, _cc);
 
@@ -31,6 +45,17 @@ public class UNetSyncInventory : NetworkBehaviour, IOpenInventory {
         InventoryMovePawnServerRpc(value, size);
 
         return inventory;
+    }
+
+    private void RefreshOpenInventory()
+    {
+        int value = ItemManager.Instance.ItemListToInt(_inventory.Items);
+        int size = _inventory.Items.Count;
+
+        if (_inventorySync.IsOpen && _inventorySync.CurrentGUI != null)
+        {
+            _inventorySync.CurrentGUI.SetTarget(value, size, _cc);
+        }
     }
 
     [ServerRpc(RequireOwnership = false)]

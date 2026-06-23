@@ -17,22 +17,25 @@ public class UNetCharacterController : NetworkBehaviour, IPlayableCharacter {
 
     public IInventory Inventory { get; private set; }
 
-    public IMemberState TurnState { get; }
+    public IMemberState TurnState { get; private set; }
 
     public IPawnOwner PawnOwner { get; private set; }
 
-    private ICharacterController _selector;
+    private UNetCharacterTurnState _turnState;
 
-    private int _chance = 0;
-    private int extraDicePoint = 0;
-
-    void Start()
+    private void Awake()
     {
-        _syncShop = gameObject.GetComponent<IOpenShop>();
-        _syncMovePawn = gameObject.GetComponent<IOpenSelectPawn>();
-        _syncDice = gameObject.GetComponent<IOpenDice>();
-        _syncInventory = gameObject.GetComponent<IOpenInventory>();
-        _syncBattle = gameObject.GetComponent<IOpenBattle>();
+        _syncShop = RequireComponent<IOpenShop>();
+        _syncMovePawn = RequireComponent<IOpenSelectPawn>();
+        _syncDice = RequireComponent<IOpenDice>();
+        _syncInventory = RequireComponent<IOpenInventory>();
+        _syncBattle = RequireComponent<IOpenBattle>();
+
+        Status = RequireComponent<IStatus>();
+        Status.OnDeathEvent += OnDeath;
+
+        Inventory = RequireComponent<IInventory>();
+        Inventory.SetCC(this);
 
         _syncShop.Initial(this);
         _syncMovePawn.Initial(this);
@@ -40,17 +43,70 @@ public class UNetCharacterController : NetworkBehaviour, IPlayableCharacter {
         _syncInventory.Initial(this);
         _syncBattle.Initial(this);
 
-        Status = gameObject.GetComponent<IStatus>();
-
-        Inventory = gameObject.GetComponent<IInventory>();
-        Inventory.SetCC(this);
-
+        TurnState = RequireComponent<IMemberState>();
         TurnState.OnTurnEndStateChanged += StartTurn;
-        GameManager.Instance.Playground.AddPlayer(this);
+        TurnState.OnTeamIdxChanged = () =>
+        {
+            GameManager.Instance.Playground.AddPlayer(this);
+        };
+
+        PawnOwner = RequireComponent<IPawnOwner>();
+        PawnOwner.SetCC(this);
+
+        _turnState = GetComponent<UNetCharacterTurnState>();
+        if (_turnState == null)
+        {
+            _turnState = gameObject.AddComponent<UNetCharacterTurnState>();
+        }
+    }
+
+    private void Start()
+    {
+        if (TurnState.TeamIdx >= 0)
+        {
+            GameManager.Instance.Playground.AddPlayer(this);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        UnsubscribeEvents();
+    }
+
+    private T RequireComponent<T>() where T : class
+    {
+        T component = GetComponent(typeof(T)) as T;
+        if (component == null)
+        {
+            throw new MissingComponentException(
+                $"{name} requires component {typeof(T).Name}.");
+        }
+
+        return component;
+    }
+
+    private void UnsubscribeEvents()
+    {
+        if (Status != null)
+        {
+            Status.OnDeathEvent -= OnDeath;
+        }
+
+        if (TurnState != null)
+        {
+            TurnState.OnTurnEndStateChanged -= StartTurn;
+        }
+    }
+
+    private void OnDeath()
+    {
+        Status.OnDeathEvent -= OnDeath;
+        GameManager.Instance?.Playground?.PlayerDeath(this);
+        TurnState.Remove();
     }
 
     public void SetController(ICharacterController selector) {
-        _selector = selector;
+        _turnState.SetController(selector);
     }
 
     public void Dispose()
@@ -60,54 +116,48 @@ public class UNetCharacterController : NetworkBehaviour, IPlayableCharacter {
 
     public void StartTurn(bool tmp)
     {
-        if (_selector == null) return;
-
-        _chance++;
-        _selector.StartTurn(this);
+        _turnState.BeginTurn(this);
     }
 
     public void EndTurn()
     {
-        if (_selector == null) return;
-        if (_chance == 0)
-        {
-            TurnState.EndTurn();
-            return;
-        }
-        _selector.StartTurn(this);
+        _turnState.EndTurn(TurnState, this);
     }
 
     public void AddChance()
     {
-        _chance++;
+        _turnState.AddChance();
     }
 
     public void GetExtraDicePoint(int point)
     {
-        extraDicePoint += point;
+        _turnState.AddExtraDicePoint(point);
     }
 
     public GUIInventory OpenInventory()
     {
         GUIInventory inventory = _syncInventory.OpenInventory();
-        inventory.AddCloseMethod(_selector.RollDice);
+        if (_turnState.HasController())
+        {
+            inventory.AddCloseMethod(_turnState.StartRollDice);
+        }
+
         return inventory;
     }
 
     public void OpenShop(Action callback)
     {
-        if (_selector == null) return;
-        _syncShop.OpenShop(callback);
-        
+        if (!_turnState.HasController()) return;
+        GUIShop shop = _syncShop.OpenShop(callback);
+        _turnState.OpenShop(shop);
     }
 
     public GUIDice OpenRollDice(Action<int> callback)
     {
-        _chance--;
+        _turnState.SpendChance();
 
         GUIDice dice = _syncDice.OpenDice((value) => {
-            callback?.Invoke(value + extraDicePoint);
-            extraDicePoint = 0;
+            callback?.Invoke(value + _turnState.ConsumeExtraDicePoint());
         });
 
         return dice;
@@ -115,11 +165,12 @@ public class UNetCharacterController : NetworkBehaviour, IPlayableCharacter {
 
     public GUISelectMovePawn OpenSelectMovePawn(int value)
     {
-        return _syncMovePawn.OpenSelectMovePawn(value, extraDicePoint);
+        return _syncMovePawn.OpenSelectMovePawn(
+            value, _turnState.GetExtraDicePoint());
     }
 
     public GUIBattle OpenBattle(int targetId, Action callback) {
-        if (_selector == null) return null;
+        if (!_turnState.HasController()) return null;
         return _syncBattle.OpenBattle(
             TurnState.TeamIdx, targetId, callback);
     }

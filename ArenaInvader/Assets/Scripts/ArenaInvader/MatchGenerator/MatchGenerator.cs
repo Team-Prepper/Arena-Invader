@@ -84,9 +84,15 @@ public class MatchGenerator : MonoBehaviour
 
         for (int i = 0; i < matchInfo.PlayerInfors.Count; i++)
         {
-            IPlayableCharacter character = GameManager.Instance.
-                Playground.InstantiateCC(
-                    _playerPosition[i].position);
+            ulong ownerClientId = 0;
+            if (matchInfo is INetworkMatchInfo networkMatchInfo)
+            {
+                ownerClientId = networkMatchInfo.GetClientId(i);
+            }
+
+            IPlayableCharacter character = GameManager.Instance.Playground.InstantiateCC(
+                _playerPosition[i].position,
+                ownerClientId);
 
             character.TurnState.SetTeamIdx(i);
 

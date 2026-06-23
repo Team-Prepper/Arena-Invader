@@ -41,6 +41,11 @@ public class Playground : IPlayground
 
     public IPlayableCharacter InstantiateCC(Vector3 pos)
     {
+        return InstantiateCC(pos, 0);
+    }
+
+    public IPlayableCharacter InstantiateCC(Vector3 pos, ulong ownerClientId)
+    {
         PlayableCharacter retval =
             ResourceManager.Instance.ResourceConnector.
                 ImportComponent<PlayableCharacter>("LocalCC");

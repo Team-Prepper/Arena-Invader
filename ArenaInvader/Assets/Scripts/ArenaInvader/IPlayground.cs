@@ -8,6 +8,7 @@ public interface IPlayground
     public IStatus ObjectCharacter { get; set; }
 
     public IPlayableCharacter InstantiateCC(Vector3 position);
+    public IPlayableCharacter InstantiateCC(Vector3 position, ulong ownerClientId);
 
     public IStatus InstantiateStatus();
 

@@ -7,7 +7,7 @@ using EasyH.Gaming.TurnBased;
 
 public class UNetMemberState : NetworkBehaviour, IMemberState
 {
-    public bool TurnEnd { get; private set; }
+    public bool TurnEnd { get; private set; } = true;
 
     public int TeamIdx { get; private set; } = -1;
 
@@ -30,7 +30,7 @@ public class UNetMemberState : NetworkBehaviour, IMemberState
     {
         if (idx == TeamIdx) return;
 
-        if (TeamIdx > 0)
+        if (TeamIdx >= 0)
         {
             TurnManager.Instance.System.RemoveTeamMember(this);
         }
@@ -49,16 +49,8 @@ public class UNetMemberState : NetworkBehaviour, IMemberState
 
     public void StartTurn()
     {
-        if (!IsOwner) return;
-        StartTurnClientRpc();
-    }
-
-    [ClientRpc]
-    private void StartTurnClientRpc()
-    {
         TurnEnd = false;
         OnTurnEndStateChanged?.Invoke(false);
-
     }
 
     public void EndTurn()
@@ -77,7 +69,6 @@ public class UNetMemberState : NetworkBehaviour, IMemberState
     {
         TurnEnd = true;
         TurnManager.Instance.System.TurnEnd();
-
     }
 
     public override void OnNetworkSpawn()

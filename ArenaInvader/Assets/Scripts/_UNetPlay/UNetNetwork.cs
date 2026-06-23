@@ -9,15 +9,13 @@ public class UNetNetwork : MonoBehaviour, INetwork {
     public int Id => GetIdx(_uNetManager.LocalClientId);
     
     public int GetIdx(ulong clientId) {
-        
-        for (int i = 0; i < _uNetManager.ConnectedClientsIds.Count; i++)
+        UNetMatchInfo matchInfo = GameManager.Instance?.MatchInfo as UNetMatchInfo;
+        if (matchInfo != null)
         {
-            if (_uNetManager.ConnectedClientsIds[i] != clientId)
-                continue;
-            return i;
+            return matchInfo.GetPlayerIdx(clientId);
         }
-        return _uNetManager.ConnectedClientsIds.Count;
 
+        return -1;
     }
 
     public static void OnNetwork()
@@ -49,7 +47,7 @@ public class UNetNetwork : MonoBehaviour, INetwork {
         GameManager.Instance.MatchInfo = null;
 
         AssetOpener.ImportComponent<NetworkObject>(
-            "UNetPlayground").Spawn();
+            "UNetPlayground").SpawnWithOwnership(NetworkManager.ServerClientId);
     }
 
     public void StartClient()

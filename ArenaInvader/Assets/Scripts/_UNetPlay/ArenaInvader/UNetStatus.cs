@@ -47,7 +47,7 @@ public class UNetStatus : NetworkBehaviour, IStatus
         SetNameServerRpc(name);
     }
 
-    [ServerRpc]
+    [ServerRpc(RequireOwnership = false)]
     private void SetNameServerRpc(string name)
     {
         SetNameClientRpc(name);
@@ -64,7 +64,7 @@ public class UNetStatus : NetworkBehaviour, IStatus
         SetCharacterServerRpc(value);
     }
 
-    [ServerRpc]
+    [ServerRpc(RequireOwnership = false)]
     private void SetCharacterServerRpc(string value)
     {
         SetCharacterClientRpc(value);
@@ -83,51 +83,82 @@ public class UNetStatus : NetworkBehaviour, IStatus
 
     public void LevelUp(int levelUpAmount)
     {
-        if (!IsOwner) return;
-        _netLevel.Value = Mathf.Clamp(_netLevel.Value + levelUpAmount, 0, GetMaxLevel());
-        Notify();
+        LevelUpServerRpc(levelUpAmount);
     }
 
     public void AddMoney(int money)
     {
-        if (!IsOwner) return;
-        _netMoney.Value = Mathf.Max(0, _netMoney.Value + money);
-        Notify();
+        AddMoneyServerRpc(money);
     }
 
     public void UseMoney(int money)
     {
-        if (!IsOwner) return;
-        _netMoney.Value = Mathf.Max(0, _netMoney.Value - Mathf.Max(0, money));
-        Notify();
+        UseMoneyServerRpc(money);
     }
 
     public void AddHP(int hp)
     {
-        if (!IsOwner) return;
-        _netHP.Value = Mathf.Max(0, _netHP.Value + hp);
-        Notify();
+        AddHPServerRpc(hp);
     }
 
     public void TakeDamage(int damage)
     {
-        if (!IsOwner) return;
-        _netHP.Value = Mathf.Max(0, _netHP.Value - Mathf.Max(0, damage));
-        Notify();
+        TakeDamageServerRpc(damage);
     }
 
     public void AddAtk(int atk)
     {
-        if (!IsOwner) return;
-        _netAtk.Value += atk;
-        Notify();
+        AddAtkServerRpc(atk);
     }
 
     public void AddDfs(int dfs)
     {
-        if (!IsOwner) return;
+        AddDfsServerRpc(dfs);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void LevelUpServerRpc(int levelUpAmount)
+    {
+        _netLevel.Value = Mathf.Clamp(
+            _netLevel.Value + levelUpAmount,
+            0,
+            GetMaxLevel());
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void AddMoneyServerRpc(int money)
+    {
+        _netMoney.Value = Mathf.Max(0, _netMoney.Value + money);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void UseMoneyServerRpc(int money)
+    {
+        _netMoney.Value = Mathf.Max(0, _netMoney.Value - Mathf.Max(0, money));
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void AddHPServerRpc(int hp)
+    {
+        _netHP.Value = Mathf.Max(0, _netHP.Value + hp);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void TakeDamageServerRpc(int damage)
+    {
+        _netHP.Value = Mathf.Max(0, _netHP.Value - Mathf.Max(0, damage));
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void AddAtkServerRpc(int atk)
+    {
+        _netAtk.Value += atk;
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void AddDfsServerRpc(int dfs)
+    {
         _netDfs.Value += dfs;
-        Notify();
     }
 
     private int GetSafeLevel()

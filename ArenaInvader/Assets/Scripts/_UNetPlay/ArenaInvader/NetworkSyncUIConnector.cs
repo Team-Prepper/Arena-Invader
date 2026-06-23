@@ -23,6 +23,10 @@ public class NetworkSyncUIConnector<T, K>
         _key = defaultKey;
     }
 
+    public bool IsOpen => _gui != null;
+
+    public T CurrentGUI => _gui;
+
     public T ControlClientOpen() {
         _gui = UIManager.Instance.OpenGUI<T>(_key);
         return _gui;
